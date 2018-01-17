@@ -1,0 +1,29 @@
+﻿
+@{
+    ViewBag.Title = "Dominant";
+    Layout = "../study/layout.cshtml";
+}
+
+<table id="grid" style="width: 1024px" title="用户操作" iconcls="icon-view"></table>
+
+<script type="text/javascript">
+
+
+    $(function () {
+
+        var columns = [{ field: 'DominantID', checkbox: true, isTableBody: 1, isFormBody: 1, type: "hidden" },   //选择
+         { title: '国家', field: 'CountryID', width: 100, isTableBody: 2, formatter: function (val) { return this.data[val]; }, isFormBody: 2, type: "select", url: "/Admin/study/allshow", valueField: "CountryID", textField: "CountryName" },
+
+        { title: '国家优势', field: 'DominantName', width: 400, isTableBody: 3, isFormBody: 3, type: "textarea", validType: ["required", "length[2,10]"] },
+        //{ title: '通过率', field: 'Chance', width: 100, isTableBody: 3, isFormBody: 3, type: "text" },
+        ];
+        $("#grid").InitGrid("/Admin/StudyNew/Dominant", "优势管理", columns);
+    })
+
+    function ShowAddDialog() {
+        alert();
+    }
+</script>
+
+
+

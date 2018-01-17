@@ -1,0 +1,627 @@
+﻿
+
+@{
+    ViewBag.Title = "LanBgImm";
+}
+@{
+    List<JiaJiNewWebModel.projectItem> IndexImgList = ViewData["indeximagelist"] as List<JiaJiNewWebModel.projectItem>;
+
+}
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+
+<style>
+    .yylx_ul {
+        margin: 0px;
+        padding: 0px;
+        border: 0px;
+        margin-top: 10px;
+    }
+
+        .yylx_ul li {
+            list-style-type: none;
+            display: block;
+            width: 220px;
+            height: 45px;
+            float: left;
+            line-height: 45px;
+            text-align: center;
+        }
+
+
+    .PStyle {
+        text-align: center;
+        color: #000000;
+        font-size: 20px;
+    }
+
+    .PStyle1 {
+        text-align: center;
+        background-color: #3398FF;
+        color: #FFFFFF;
+        font-size: 20px;
+    }
+
+    .TdStyle {
+        background-color: #3297FF;
+        color: #FFF;
+    }
+
+    .TdYStyle {
+        background-color: #FFF;
+        color: #000;
+    }
+
+    #kaoshijieshao{
+        width:100%;height:35px;border:1px solid #3298FD;
+        border-radius:6px;
+    }
+
+    #kaoshijieshao:hover {
+        background-color: #3298FD;
+    }
+    #kaoshijieshao a
+    {
+        display:block;width:100%;height:35px;text-align:center;line-height:34px;text-decoration:none;color:#4587e0;
+    }
+    #kaoshijieshao a:hover{
+        color:white;
+    }
+
+    #more {
+        float: right;
+        border-radius: 35px;
+        width: 60px;
+        height: 20px;
+        border: 1px solid gray;
+        margin: 8px 0px;
+    }
+
+        #more a {
+            padding: 5px 10px;
+            text-decoration: none;
+            font-size: 14px;
+            color: gray;
+        }
+
+        #more:hover {
+            border: 1px solid #3398FF;
+        }
+
+            #more:hover a {
+                color: #3398FF;
+            }
+    #LanguageShow li {
+        cursor:pointer;
+    }
+            #LanguageShow li:hover{
+                background-color:#3298FD;
+                color:white;
+            }
+            #CountryTabTd td:hover{
+background-color:#3298FD;
+                color:white;
+            }
+
+            .chakanxiangqing{
+                font-size:14px;text-decoration:none;color:gray;
+            }
+    .chakanxiangqing:hover {
+        color:#3398FF;
+    }
+    .liaojiexiangmu{
+        width:100%;height:30px;text-decoration:none;color:#3298FD;padding:3px 60px;text-align:center;border:#3398FF 1px solid;border-radius:5px;margin:0 32%;
+    }
+    .liaojiexiangmu:hover{
+        background-color:#3398FF;
+        color:white;
+    }
+    .LearnerName{
+        text-decoration:none;
+        color:black;
+    }
+    .LearnerName:hover{
+        color:#3398FF;
+        cursor:pointer;
+    }
+    #course a{
+        text-decoration:none;
+        color:#3398FF;
+        cursor:pointer;
+        font-size:12px;
+    }
+    #course a:hover{
+        font-size:14px;
+    }
+</style>
+
+<style>
+    /*遮罩层效果*/
+    .zhezhao {
+        float: left;
+        position: relative;
+        overflow: hidden;
+        cursor: pointer;
+    }
+
+        .zhezhao .txt {
+            width: inherit;
+            height: 45px;
+            background: url(../../image/1px.png) repeat;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            color: #fff;
+            font-family: "微软雅黑";
+        }
+
+            .zhezhao .txt h3 {
+                font-size: 20px;
+                font-weight: 100;
+                height: 45px;
+                text-align: center;
+                line-height: 45px;
+            }
+
+            .zhezhao .txt p {
+                font-size: 14px;
+                text-align: center;
+            }
+</style>
+
+<div style="width:1100px;height:auto;margin:0 auto;">
+    <div style="width:100%;height:350px;margin:10px auto;">
+        @foreach (var item in ViewBag.countryyoushilist as List<JiaJiNewWebModel.Country>)
+        {
+        <div style="width:750px;height:100%;background:url(@item.CountryImg2) center no-repeat;float:left;background-size:cover;"></div>
+        }
+
+        <div style="width:320px;height:100%;float:right;border:1px solid #f8f8f8;">
+            @foreach (var item in ViewBag.countryyoushilist as List<JiaJiNewWebModel.Country>)
+            {
+            
+            <div style="width:100%;height:60px;text-align:center;line-height:60px;background-color:#3298FD;font-size:20px;color:#FFFFFF;">嘉际 @item.CountryName 优势</div>
+            <div style="width:300px;height:85px;text-align:center;line-height:25px;margin-top:0px;padding:10px;">@Html.Raw(item.CountryYouShi)</div>
+            }
+            @foreach (var item in ViewBag.youshi as List<JiaJiNewWebModel.CountryDominant>)
+            {
+            <div style="width:100%;height:60px;text-align:center;line-height:60px;margin-top:3px;background-color:#ebf4fc;">@Html.Raw(item.DominantName)</div>
+
+            }
+        </div>
+    </div>
+
+    <div style="width:100%;height:900px;margin:10px auto;">
+        <div style="width:100%; height:45px;" id="CoursePart">
+            <span style="display:block;margin:0px;width:400px; height:30px; border-left:#3398FF 3px solid; padding-left:15px; margin-top:10px; line-height:30px; font-size:22px; float:left;">标准化语言考试</span>
+        </div>
+
+        <div style="width:100%;height:50px;">
+            <ul id="LanguageShow" class="yylx_ul" style="border:1px solid lightgray;width:100%;height:45px;"></ul>
+        </div>
+        <div style="width:100%;height:170px;">
+            <div style="width:100%;height:50px;line-height:50px;font-size:20px;"><p id="h4"></p></div>
+            <div style="width:100%;height:120px;">
+                <div style="width:900px;height:120px;line-height:25px;float:left;">
+                    <p id="Content" style="text-indent:2em;line-height:30px;font-size:16px;"></p>
+                </div>
+                <div style="width:150px;height:80px;float:right;">
+                    <div id="kaoshijieshao"><a href="http://www17.53kf.com/webCompany.php?arg=10117268&style=1&language=cn&charset=gbk&kflist=off&kf=leyu@jiajiedu.cn,37369991@qq.com&zdkf_type=1&referer=http%3A%2F%2Fwww.jiajiedu.cn%2F&keyword=https%3A%2F%2Fwww.sogou.com%2Flink%3Furl%3DDSOYnZeCC_rUQfLnmBwrcz4IRDdG1RpI&tfrom=1&tpl=crystal_blue&uid=f9e56b536d422fabc50d292f73790623&timeStamp=1512366256219&ucust_id=">在线选课</a></div>
+                    <div style="margin-top:10px;" id="kaoshijieshao"><a href="http://www17.53kf.com/webCompany.php?arg=10117268&style=1&language=cn&charset=gbk&kflist=off&kf=leyu@jiajiedu.cn,37369991@qq.com&zdkf_type=1&referer=http%3A%2F%2Fwww.jiajiedu.cn%2F&keyword=https%3A%2F%2Fwww.sogou.com%2Flink%3Furl%3DDSOYnZeCC_rUQfLnmBwrcz4IRDdG1RpI&tfrom=1&tpl=crystal_blue&uid=f9e56b536d422fabc50d292f73790623&timeStamp=1512366256219&ucust_id=">在线测试</a></div>
+                </div>
+            </div>
+        </div>
+        <div style="height:360px;background-color:#f8f8f8;position:absolute;left:0px;right:0px;width:auto;" id="absolute">
+            <table style="width:1100px;margin:0 auto;" >
+                <tr>
+                    <td>
+                        <div style="height:30px;line-height:16px;font-size:20px;"><p id="coursename"></p></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @*课程*@
+                        <div style="height:290px;" id="course">
+                            <div style="width:350px;">
+                                <div style="width:310px;height:100%;">
+
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+         
+
+        </div>
+
+        <div id="placeholder" style="height:360px;margin-top:20px;margin:0 auto;">
+        </div>
+
+
+        <div style="width:100%;height:250px;">
+            <table style="width:100%;">
+                <tr>
+                    <td align="left"><p id="score"></p></td>
+                    <td align="right"><div id="more"><a href="\ShareList\MaxScoreStuList">更多></a></div></td>
+                </tr>
+            </table>
+            @*高分学员*@
+            <div style="width:100%;height:180px;" id="learnshow">
+
+            </div>
+        </div>
+    </div>
+ 
+    @*背景提升项目*@
+    <div style="height:420px;">
+        <div style="height:50px;border-bottom:1px solid gray;">
+            <div style="width:400px; height:50px;float:left;">
+                <span style="display:block;margin:0px;width:400px; height:30px; border-left:#3398FF 3px solid; padding-left:15px; margin-top:10px; line-height:30px; font-size:22px; float:left;">背景提升项目</span>
+
+            </div>
+            <div style="width:580px;height:46px;float:right;">
+                <table style="text-align:center;font-size:20px;width:575px;height:52px;" class="hwlxTab">
+                    <tr id="CountryTabTd"></tr>
+                </table>
+            </div>
+        </div>
+        <div>
+            <div>
+                    <div style="width:260px;height:370px;float:left;" class='zhezhao'>
+
+                        <img style="width:100%;height:auto;margin-top:8px;" src="/image/嘉际首页_12.png" id="proimg" />
+                    </div>
+                    <div style="float:left;width:465px;height:345px;">
+                        <div style="height:345px;width:100%;margin-left:10px;">
+
+                            <div style="width:100%; height:30px;margin-top:5px;">
+                                <div style="float:left;"><span style="margin:0px;width:300px; height:30px;padding-left:15px; line-height:30px; font-size:18px; float:left;">学员分享</span></div>
+                                <div id="more"><a href="\ShareList\ShareListIndex">更多></a></div>
+                            </div>
+
+
+                            <div id="hwlxlb" style="height:315px;width:100%;" class="hwlxlb">
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <div style="float:left;width:350px;height:345px;margin-top:10px;margin-left:2%;">
+
+                        <div style="width:350px;height:160px;"><img style="width:350px;height:160px;" src="" id="proactiveimg1" /></div>
+
+                        <div style="width:350px;height:160px;margin-top:10px;"><img style="width:350px;height:160px;" src="" id="proactiveimg2" /></div>
+                    </div>
+                </div>
+        </div>
+    </div>
+
+    @*移民项目*@
+    <div style="height:470px;margin:10px auto;background-color:#f8f8f8;position:absolute;left:0px;right:0px;" id="absolute">
+
+        <table style="width:1100px;margin:0 auto;">
+            <tr>
+                <td colspan="2">
+                    <div style="height:40px;">
+                        <span style="display:block;margin:0px;width:400px; height:30px; border-left:#3398FF 3px solid; padding-left:15px; margin-top:10px; line-height:30px; font-size:22px; ">移民项目</span>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                        @{
+                       
+                        foreach (var item in ViewBag.Project as List<JiaJiNewWebModel.Project>)
+                        {
+                                <td style="width:100%;height:auto;">
+                                    <div style="width:530px;height:300px;"><img style="width:530px;height:300px;" src="@item.Image" /></div>
+                                    <div style="width:530px;height:130px;">
+                                        <div style="width:530px;height:30px;line-height:30px;text-align:center;margin-top:6px;">@item.EnglistName</div>
+                                        <div style="width:530px;height:30px;line-height:30px;text-align:center;">@item.ProjectTitle</div>
+                                        <a class="liaojiexiangmu"  href="/Content/ProjectShow/@item.ProjectID">了解项目</a>
+                                        @*<div style="width:230px;height:30px;line-height:30px;text-align:center;margin:0 auto;border:#3398FF 1px solid;margin-top:6px;border-radius:5px;"></div>*@
+                                    </div>
+                                </td>
+                          
+                        }
+
+                        }
+            </tr>
+        </table>
+    </div>
+
+    <div id="placeholder" style="height:470px;margin-top:20px;">
+        
+    </div>
+
+    @*媒体*@
+    <div style="height:180px;width:1100px;margin:0 auto;">
+        <div>
+            <div style="width:100%; height:45px;">
+                <span style="display:block;margin:0px;width:400px; height:30px; border-left:#3398FF 3px solid; padding-left:15px; margin-top:10px; line-height:30px;font-size:22px;">媒体合作</span>
+            </div>
+        </div>
+        <table style="width:100%;" align="center">
+            <tr>
+                @{
+                    List<JiaJiNewWebModel.Medium> medium = JiaJiNewWeb.Controllers.HomeController.Mediu();
+
+                    <td style="height:120px;width:380px;float:left;padding:0 0.2%;" align="left">
+
+                        <div style="width:120px;height:100px;float:left;margin-top:10px;"><a href="@{ @medium[0].MediumUrl}"><img src='@{@medium[0].MediumImg} ' /></a></div>
+                        <a style="display:block;float:left;width:180px;height:120px;color:black;" href="@{ @medium[0].MediumUrl}">
+                            <div style="width:180px;height:120px;float:right;font-size:16px;margin-top:25px;">
+                                <div style="line-height:35px;">@{ @medium[0].MediumName}</div>
+                                <div style="line-height:35px;">@{ @medium[0].MediumTitle}</div>
+                            </div>
+                        </a>
+                    </td>
+
+                        <td style="height:120px;width:420px;float:left;padding:0 0.2%;" align="left">
+
+                            <div style="width:120px;height:100px;float:left;margin-top:10px;"><a href="@{ @medium[1].MediumUrl}"><img src='@{@medium[1].MediumImg} ' /></a></div>
+                            <a style="display:block;float:left;width:180px;height:120px;color:black;" href="@{ @medium[1].MediumUrl}">
+                                <div style="width:180px;height:120px;float:left;font-size:16px;margin-top:25px;">
+                                    <div style="height:35px;line-height:35px;">@{ @medium[1].MediumName}</div>
+                                    <div style="height:35px;line-height:35px;">@{ @medium[1].MediumTitle}</div>
+                                </div>
+                            </a>
+                        </td>
+
+                            <td style="height:120px;width:280px;float:left;padding:0 0.2%;" align="center">
+                                <div style="width:110px;height:100px;float:left;margin-top:10px;"><a href="@{ @medium[2].MediumUrl}"><img src='@{@medium[2].MediumImg} ' /></a></div>
+                                <a style="display:block;float:left;width:150px;height:120px;color:black;" href="@{ @medium[2].MediumUrl}">
+                                    <div style="width:160px;height:120px;float:left;font-size:16px;margin-top:25px;">
+                                        <div style="height:35px;line-height:35px;">@{ @medium[2].MediumName}</div>
+                                        <div style="height:35px;line-height:35px;">@{ @medium[2].MediumTitle}</div>
+                                    </div>
+                                </a>
+                            </td>
+                }
+            </tr>
+        </table>
+
+
+
+    </div>
+
+
+</div>
+
+<script>
+
+    jQuery(function () {
+        var Id = 1;
+        LanguageShow1();
+        Show1(Id);
+        LoadCountry();
+       Load_CountryInfo(1);
+        //LoadFud(proid)
+       
+    })
+
+
+    function LanguageShow1() {
+        jQuery.ajax({
+            type: "post",
+            url: "/LanBgImm/Language",
+            async: false,
+            dataType: "json",
+            success: function (data) {
+                $("#LanguageShow").empty();
+                for (var i = 0; i < data.length; i++) {
+
+                    //$("#LanguageShow").append("<tr>");
+                    $("#LanguageShow").append("<li id='p" + data[i].LanguageID + "' onclick='Show1(" + data[i].LanguageID + ")'>" + data[i].LanguageName + "</li>");
+                    //$("#LanguageShow").append("<tr");
+                }
+            }
+        })
+    }
+    function Show1(Id) {
+        $("#LanguageShow li").removeClass();
+        $("#LanguageShow li").addClass("PStyle");
+        $("#p" + Id + "").removeClass("PStyle");
+        $("#p" + Id + "").addClass("PStyle1");
+
+
+        $.ajax({
+            type: "post",
+            url: "/LanBgImm/LanguageShow",
+            data: { Id:Id },
+            async: false,
+            dataType: "json",
+            success: function (data) {
+                $("#coursename").html("<p style='font-weight:200;'>" + data.LanguageName + "课程</p>");
+                $("#score").html("<p style='font-weight:200;'>" + data.LanguageName + "高分学员</p>");
+                $("#h4").html(data.LanguageTitle);
+                $("#Content").html(data.LanguageContent);
+                CourseShow1(Id);
+            }
+        })
+    }
+    //课程显示
+    function CourseShow1(Id) {
+
+        $.ajax({
+            type: "post",
+            url: "/LanBgImm/CourseShow",
+            async: false,
+            data: { Id: Id },
+            dataType: "json",
+            success: function (data) {
+                $("#course").empty();
+                for (var i = 0; i < data.length; i++) {
+                    $("#course").append("<div style='width:362px;float: left;' >" +
+                        "<div style='text-align:center;width:310px;height:100%;border:1px solid lightgray;padding:10px 16px;background:white;'>" +
+                        "<div style='width:100%;height: 50px; line - height:50px; text-align:center; font-size:18px;'><p style='font-weight:600;'>" + data[i].CourseName + "</p></div>" +
+                        "<div style= 'width:50px;height:2px;background-color:#3398FF;margin:0 auto;' ></div >" +
+                        "<div style='width:310px;height:160px;margin:0 auto;font-size:14px;margin-top:10px;line-height:25px;white-space:normal;word-break:break-all;word-wrap:break-word; '><p>" + data[i].CourseContent + "</p></div>"+
+                        "<a href='/Content/CourseContent/" + data[i].CourseID + "'>查看详情</a>" +
+                        "</div></div >")
+                }
+                LearnShow1(Id);
+
+            }
+        })
+    }
+    //学员显示
+    function LearnShow1(Id) {
+
+        $.ajax({
+            type: "post",
+            url: "/LanBgImm/LearnShow",
+            async: false,
+            data: { Id: Id },
+            dataType: "json",
+            success: function (data) {
+                $("#learnshow").empty();
+                for (var i = 0; i < data.length; i++) {
+                    $("#learnshow").append("<div style='width:350px;height:180px;float: left; margin:0 13px 0 0;border:1px solid #f4f4f4;'>" +
+                        "<div style= 'width:350px;height:170px;padding:5px;' >" +
+                        "<div style='width:125px;height:170px; float:left; background: url(" + data[i].LearnImage + ") center no-repeat;background-size: cover; '></div>" +
+                        "<div style='width: 210px; height: 170px; float:left;margin-left:6px;line-height:30px;'>" +
+                        "<div style='width:210px;height:30px;'><a class='LearnerName' href='/ShareList/MaxScoreStuContent/" + data[i].LearnSorceID + "'>学员姓名：" + data[i].LearnName + "</a></div>" +
+                        "<div style='width:210px;height:30px;'>学员成绩：" + data[i].Sorce + "</div>" +
+                        "<div style='width:210px;height:90px;' class='gw' Title='" + data[i].LearnerGonsis + "'>学员感悟：" + data[i].LearnerGonsis + "</div ></div></div></div>");
+                }
+            }
+        })
+        $(".gw").each(function () {
+            //$(this).attr("displayLength", "");
+            //默认值150个字节  
+            var displayLength = 75;
+
+            //判断是否有设置长度
+            //displayLength = this.attr("displayLength") || displayLength;
+
+            //获取html文本如果为空这返回""  
+            var text = $(this).html();
+            if (!text) return "";
+
+            var result = "";
+            var count = 0;
+            var x = 0;
+            for (var i = 0; i < displayLength; i++) {
+                var _char = text.charAt(i);
+                if (count >= displayLength) break;
+                if (/[^x00-xff]/.test(_char)) count++;  //双字节字符，//[u4e00-u9fa5]中文  
+
+                result += _char;
+                count++;
+                x++;
+            }
+            if (result.length < text.length) {
+                result += "...";
+            }
+            $(this).html(result);
+
+            var text_hide = "";
+            for (; x < text.length; x++) {
+                var _char = text.charAt(x);
+                text_hide += _char;
+            }
+            //var a = $("<div></div>").attr("class", "hide_div_text");
+            //a.html(text_hide).hide();
+           // a.appendTo(this);
+        })
+    }
+
+    ///加载项目类型
+    function LoadCountry() {
+
+        $.ajax({
+            url: "/LanBgImm/ProductItemJsonStr",
+            type: "GET",
+            success: function (countrylist) {
+
+                countrylist = eval("(" + countrylist + ")");
+
+                var innerhtml = "";
+                for (var i = 0; i < countrylist.length; i++) {
+                    if (countrylist[i].Pro_ID == 1) {
+                        innerhtml += " <td class='TdStyle' id='" + countrylist[i].Pro_ID + "'   ><a  onclick='Load_CountryInfo(" + countrylist[i].Pro_ID + ")' style='cursor:pointer;'>" + countrylist[i].Pro_Name + "</a></td>";
+                    }
+                    else {
+                        innerhtml += " <td id='" + countrylist[i].Pro_ID + "'><a  onclick='Load_CountryInfo(" + countrylist[i].Pro_ID + ")' style='cursor:pointer;'>" + countrylist[i].Pro_Name + "</a></td>";
+                    }
+
+
+                }
+
+                $("#CountryTabTd").html(innerhtml);
+            }
+
+        })
+    }
+    //加载申请攻略的国家导航
+    function Load_CountryInfo(id) {
+
+        $("#CountryTabTd td").addClass("TdYStyle");
+        $("#" + id + "").removeClass("TdYStyle");
+        $("#" + id + "").addClass("TdStyle");
+        var href = "\\NationalChannel\\NationalChannel\\" + id;
+        $("#GongLueHref").attr("href", href);
+        $.ajax({
+            url: "/LanBgImm/ShareJsonStr/" + id,
+            type: "GET",
+            async: false,
+            success: function (innerJson) {
+
+                innerJson = eval("(" + innerJson + ")");
+                var str = "";
+                for (var i = 0; i < innerJson.length; i++) {
+
+                    str += "<div style='width: 100%; height:100px;margin-top: 5px; '>";
+                    str += "<div  style='height: 100px; width: 140px; float:left;background: url(" + innerJson[i].ShareImg + ") center no-repeat;background-size: cover; '></div>";
+                    str += "<div style='width: 310px; height: 80px; float:left;padding:4px 0px 4px 10px;'><div style = 'height:30px;font-size:14px;line-height:24px;overflow: hidden; text-overflow:ellipsis;white-space:nowrap;' ><b>" + innerJson[i].ShareTitle + "</b></div > ";
+                    str += "<div style='word-wrap:break-word;width: 310px; height:30px;line-height:36px; overflow: hidden; text-overflow:ellipsis;white-space:nowrap; font-size:14px; title='" + innerJson[i].ShareProfile + "' '>" + innerJson[i].ShareProfile + "</div>";
+                    str += " <div style='float:right; width: 70px;'><a class='chakanxiangqing'  href='/Content/ShareShow/" + innerJson[i].ShareID + "' >查看详情></a></div>";
+                    str += "</div>";
+
+                    str += " </div>";
+                }
+
+                $("#hwlxlb").html(str);
+
+            }
+
+        });
+        LoadFud(id);
+
+    }
+
+    function LoadFud(id) {
+
+        $.ajax({
+            type: "get",
+            url: "/LanBgImm/proimglist",
+            data: { id: id },
+            dataType: "json",
+            async: false,
+            success: function (data) {
+
+                //$("#proimg").attr("src", data[0].Pro_Img);
+                $("#proactiveimg1").attr("src", data[0].ProactiveImg1);
+                $("#proactiveimg2").attr("src", data[0].ProactiveImg2);
+                }
+
+        })
+
+
+    }
+
+    $(function () {
+        $(".zhezhao").on({
+            mouseover: function () {
+                $(this).find(".txt").stop().animate({ height: $(this)[0].style.height }, 200);
+                var paddtop = $(this).attr("top") ? $(this).attr("top") : "60px";
+                $(this).find(".txt h3").stop().animate({ paddingTop: paddtop }, 200);
+            },
+            mouseout: function () {
+                $(this).find(".txt").stop().animate({ height: "45px" }, 200);
+                $(this).find(".txt h3").stop().animate({ paddingTop: "0px" }, 200);
+            }
+        })
+    })
+</script>

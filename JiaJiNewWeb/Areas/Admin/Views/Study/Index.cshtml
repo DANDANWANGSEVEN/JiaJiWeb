@@ -1,0 +1,271 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <script src="~/js/jquery-1.10.2.min.js"></script>
+    <script src="~/ueditor1_4_3_3-utf8-net/utf8-net/ueditor.config.js"></script>
+    <script src="~/ueditor1_4_3_3-utf8-net/utf8-net/ueditor.all.js"></script>
+    <link href="~/ueditor1_4_3_3-utf8-net/utf8-net/themes/iframe.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/common.css" />
+    <link rel="stylesheet" href="~/css/style.css" />
+    <script type="text/javascript" src="~/js/jquery.min.js"></script>
+    <script type="text/javascript" src="~/js/jquery.SuperSlide.js"></script>
+    <script src="~/js/jquery.cookie.js"></script>
+    <script type="text/javascript">
+        //function checkCookie() {
+        //    if (!$.cookie("Login")) {
+        //        location.href = "/Admin/study/login";
+
+        //    }
+        //}
+        $(function () {
+            if ($.cookie("Login")) {
+                var date = new Date();
+                date.setTime(date.getTime() + (30*60 * 1000)) //30 * 60 * 1000
+                $.cookie("login", "abc", { expires:date, path: "/" })
+            } else {
+                location.href = "/Admin/study/login";
+            }
+
+            (function ($) {
+                funObj = {
+                    timeUserFun: 'timeUserFun',
+                }
+                $[funObj.timeUserFun] = function (time) {
+                    var time = time || 2;
+                    var userTime = time * 60;
+                    var objTime = {
+                        init: 0,
+                        time: function () {
+                            objTime.init += 1;
+                            if (objTime.init == userTime) {
+                                location.href = "/Admin/study/login";  // 用户到达未操作事件 做一些处理
+                            }
+                        },
+                        eventFun: function () {
+                            clearInterval(testUser);
+                            objTime.init = 0;
+                            testUser = setInterval(objTime.time, 1000);
+                        }
+                    }
+
+                    var testUser = setInterval(objTime.time, 1000);
+
+                    var body = document.querySelector('html');
+                    body.addEventListener("click", objTime.eventFun);
+                    body.addEventListener("keydown", objTime.eventFun);
+                    body.addEventListener("mousemove", objTime.eventFun);
+                    body.addEventListener("mousewheel", objTime.eventFun);
+                }
+            })(window)
+
+
+            //     直接调用 参数代表分钟数,可以有一位小数;
+            timeUserFun(30);
+
+            window._console = window.console;//将原始console对象缓存
+            window.console = (function (orgConsole) {
+                return {//构造的新console对象
+                    log: getConsoleFn("log"),
+                    debug: getConsoleFn("debug"),
+                    info: getConsoleFn("info"),
+                    warn: getConsoleFn("warn"),
+                    exception: getConsoleFn("exception"),
+                    assert: getConsoleFn("assert"),
+                    dir: getConsoleFn("dir"),
+                    dirxml: getConsoleFn("dirxml"),
+                    trace: getConsoleFn("trace"),
+                    group: getConsoleFn("group"),
+                    groupCollapsed: getConsoleFn("groupCollapsed"),
+                    groupEnd: getConsoleFn("groupEnd"),
+                    profile: getConsoleFn("profile"),
+                    profileEnd: getConsoleFn("profileEnd"),
+                    count: getConsoleFn("count"),
+                    clear: getConsoleFn("clear"),
+                    time: getConsoleFn("time"),
+                    timeEnd: getConsoleFn("timeEnd"),
+                    timeStamp: getConsoleFn("timeStamp"),
+                    table: getConsoleFn("table"),
+                    error: getConsoleFn("error"),
+                    memory: getConsoleFn("memory"),
+                    markTimeline: getConsoleFn("markTimeline"),
+                    timeline: getConsoleFn("timeline"),
+                    timelineEnd: getConsoleFn("timelineEnd")
+                };
+                function getConsoleFn(name) {
+                    return function actionConsole() {
+                        if (typeof (orgConsole) !== "object") return;
+                        if (typeof (orgConsole[name]) !== "function") return;//判断原始console对象中是否含有此方法，若没有则直接返回
+                        return orgConsole[name].apply(orgConsole, Array.prototype.slice.call(arguments));//调用原始函数
+                    };
+                }
+            }(window._console));
+
+
+
+
+
+            //setInterval("checkCookie()", 200);
+
+
+	  //给所有的li绑定点击事件
+	  $(".sideMenu ul li").bind('click',function(){
+		  var a= $(this).attr("src");
+		  //alert(a);
+		  $("#rightMain").attr("src",a);//修改iframe中的src属性
+		  var b=$("#rightMain").attr("src");
+		  //alert(b);
+		  });
+      $(".sideMenu").slide({
+         titCell:"h3",
+         targetCell:"ul",
+         defaultIndex:0,
+         effect:'slideDown',
+         delayTime:'500' ,
+         trigger:'click',
+         triggerTime:'150',
+         defaultPlay:true,
+         returnDefault:false,
+         easing:'easeInQuint',
+         endFun:function(){
+              scrollWW();
+         }
+       });
+      $(window).resize(function() {
+          scrollWW();
+      });
+  });
+  function scrollWW(){
+    if($(".side").height()<$(".sideMenu").height()){
+       $(".scroll").show();
+       var pos = $(".sideMenu ul:visible").position().top-38;
+       $('.sideMenu').animate({top:-pos});
+    }else{
+       $(".scroll").hide();
+       $('.sideMenu').animate({top:0});
+       n=1;
+    }
+  }
+
+var n=1;
+function menuScroll(num){
+  var Scroll = $('.sideMenu');
+  var ScrollP = $('.sideMenu').position();
+  /*alert(n);
+  alert(ScrollP.top);*/
+  if(num==1){
+     Scroll.animate({top:ScrollP.top-38});
+     n = n+1;
+  }else{
+    if (ScrollP.top > -38 && ScrollP.top != 0) { ScrollP.top = -38; }
+    if (ScrollP.top<0) {
+      Scroll.animate({top:38+ScrollP.top});
+    }else{
+      n=1;
+    }
+    if(n>1){
+      n = n-1;
+    }
+  }
+}
+    </script>
+    <title>后台首页</title>
+</head>
+<body>
+    <div class="top">
+        <div style="color:#CCC;width:150px;height:30px; margin-top:13px; margin-left:30px; font-size:24px;">嘉际后台管理</div>
+    </div>
+    <div class="side">
+        <div class="sideMenu" style="margin:0 auto">
+            <h3> 文章管理</h3>
+            <ul>
+                <li src="/Admin/study/information">资讯管理</li>
+                <li src="/Admin/study/LatestActivity">活动管理</li>
+                <li src="/Admin/study/strategy"> 攻略管理 </li>
+                <li src="/Admin/SuccessInfo/OptionAdd"> 嘉际观点 </li>
+                <li src="/Admin/study/projectitem"> 背景提升 </li>
+                <li src="/Admin/study/solution"> 解决方案 </li>
+                <li src="/Admin/study/medium"> 媒体合作 </li>
+                <li src="/Admin/study/AreasesAdd"> 地区管理 </li>
+                <li src="/Admin/StudyNew/Project">移民项目</li>
+                <li src="/Admin/study/LanguagePeiXun">语言培训</li>
+                <li src="/Admin/study/LanBgYi">语言背景移民管理</li>
+
+            </ul>
+            <h3> 国家管理</h3>
+            <ul>
+                <li src="/Admin/study/CountryInfo">国家管理</li>
+                <li src="/Admin/study/Sprelation"> 留学规划文章 </li>
+                <li src="/Admin/StudyNew/Dominant"> 优势添加 </li>
+                <li src="/Admin/StudyNew/CountryGuiHua"> 留学规划 </li>
+                <li src="/Admin/StudyNew/applycondition"> 申请条件 </li>
+                <li src="/Admin/StudyNew/ApplyContent">申请内容</li>
+                <li src="/Admin/StudyNew/Apply"> 时间规划 </li>
+                
+            </ul>
+            <h3> 学员管理</h3>
+            <ul>
+                <li src="/Admin/SuccessInfo/Education">学历管理</li>
+                <li src="/Admin/StudyNew/LearnerList">学员列表</li>
+                <li src="/Admin/StudyNew/Index">学员分享</li>
+                <li src="/Admin/StudyNew/MaxScoStu">高分学员</li>
+            </ul>
+            <h3>团队管理</h3> 
+            <ul>
+                <li src="/Admin/Team/InsertTeam"> 精英团队 </li>
+                <li src="/Admin/Team/Title"> 团队标题内容 </li>
+            </ul>
+            <h3>院校设置</h3>
+            <ul>
+                <li src="/Admin/SuccessInfo/Index" >录取院校管理</li>
+              
+            </ul>
+            <h3> 课程设置</h3>
+            <ul>
+                <li src="/Admin/StudyNew/Course">课程管理</li>
+                <li src="/Admin/StudyNew/language">语言管理</li>
+            </ul>
+
+            <h3>分公司管理</h3>
+            <ul>
+                <li src="/Admin/study/Filiale"> 分公司管理 </li>
+                <li src="/Admin/study/Filialeadd"> 分公司信息 </li>
+            </ul>
+            <h3> 案例页面设置</h3>
+            <ul>
+                <li src="/Admin/SuccessInfo/Student">学生信息</li>
+                <li src="/Admin/SuccessInfo/AddSuccessinfo"> 成功案例 </li>
+            </ul>
+            <h3> 提交信息管理</h3>
+            <ul>
+                <li src="/Admin/study/Apply">申请信息列表</li>
+            </ul>
+            <h3> 图片设置</h3>
+            <ul>
+                <li src="/Admin/Image/IndexLunBo">首页轮播图</li>
+                <li src="/Admin/Image/ErWeiMaPage">二维码管理</li>
+                <li src="/Admin/Image/CounLunBo">国家图片管理</li>
+            </ul>
+            <h3> 导航链接管理</h3>
+            <ul>
+                <li src="/Admin/NavInfo/NavInfo">导航链接管理</li>
+            </ul>
+        </div>
+    </div>
+    <div class="main">
+        <iframe name="right" id="rightMain" src="/Admin/study/main" frameborder="no" scrolling="auto" width="100%" height="auto" allowtransparency="true"></iframe>
+    </div>
+    <div class="scroll">
+        <a href="javascript:;" class="per" title="使用鼠标滚轴滚动侧栏" onclick="menuScroll(2);">
+            </a>
+            <a href="javascript:;" class="next" title="使用鼠标滚轴滚动侧栏" onclick="menuScroll(1);"></a>
+    </div>
+</body>
+
+</html>
+

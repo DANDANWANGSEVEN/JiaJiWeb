@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewBag.Title = "CounLunBo";
+    Layout = "../study/layout.cshtml";
+}
+
+<table id="grid" style="width: 1024px" title="用户操作" iconcls="icon-view"></table>
+
+<script type="text/javascript">
+
+
+    $(function () {
+        var columns = [{ field: 'LunImageID', checkbox: true, isTableBody: 1, isFormBody: 1, type: "hidden" },   //选择
+        { title: '图片', field: 'ImageUrl', width: 300, isTableBody: 2, isFormBody: 2, type: "file", formatter: function (val) { return "<img width=\"150\" height=\"100\" src='@SiteConfig.SiteUrl" + val + "'/>"; } },
+
+         { title: '图片类型', field: 'IsLunBo', width: 100, formatter: function (val) { if (val == 0) { return '不轮播'; } else if (val == 1) { return '轮播'; } }, isTableBody: 3, isFormBody: 3, type: "radio", radioCount: 2, LunBo: "700×350", NoLunBo: "350×165" },
+        { title: '国家', field: 'CountryID', width: 80, isTableBody: 4, formatter: function (val) { return this.data[val]; }, isFormBody: 4, type: "select", url: "/Admin/study/Countryshow", valueField: "CountryID", textField: "CountryName" },
+        { title: '学生学历', field: 'EducationID', width: 100, isTableBody: 5, formatter: function (val) { return this.data[val]; }, isFormBody: 5, type: "select", url: "/Admin/study/Edushow", valueField: "EducationID", textField: "EducationName" },
+
+
+        { title: '上传时间', field: 'UpDate', width: 200, isTableBody: 6, isFormBody: 6, type: "date" },
+        ];
+        $("#grid").InitGrid("/Admin/Image/CounLunBo", "页面图片管理", columns);
+    })
+</script>

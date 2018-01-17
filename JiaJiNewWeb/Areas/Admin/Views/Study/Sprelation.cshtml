@@ -1,0 +1,39 @@
+﻿
+@{
+    ViewBag.Title = "Sprelation";
+    Layout = "../study/layout.cshtml";
+}
+
+<table id="grid" style="width: 1024px" title="用户操作" iconcls="icon-view"></table>
+
+<script type="text/javascript">
+
+
+    $(function () {
+
+        var columns = [{ field: 'StudentProgramID', checkbox: true, isTableBody: 1, isFormBody: 1, type: "hidden" },   //选择
+        { title: '国家留学规划标题', field: 'StudentProgramTitle', width: 100, isTableBody: 2, isFormBody: 2, type: "text", validType: ["required", "length[2,20]"] },
+        { title: '国家留学规划简介', field: 'StudentProfile', width: 150, isTableBody: 3, isFormBody: 3, type: "textarea", validType: ["required", "length[2,100]"] },
+        { title: '图片', field: 'ImageUrl', width: 130, isTableBody: 4, isFormBody: 4, type: "file", formatter: function (val) { return "<img width=\"100\" height=\"100\" src='@SiteConfig.SiteUrl" + val + "'/>"; } },
+
+        { title: '来源', field: 'Source', width: 100, isTableBody: 5, isFormBody: 5, type: "text", validType: ["required", "length[2,20]"] },
+        { title: '作者', field: 'Author', width: 100, isTableBody: 6, isFormBody: 6, type: "text", validType: ["required", "length[2,20]"] },
+        { title: '关键字', field: 'StudentKeyWord', width: 100, isTableBody: 7, isFormBody: 7, type: "text", validType: ["required", "length[2,20]"] },
+        { title: '阅读数量', field: 'ReadCount', width: 80, isTableBody: 8, type: "text" },
+        { title: '国家', field: 'CountryID', width: 80, isTableBody: 9, formatter: function (val) { return this.data[val]; }, isFormBody: 8, type: "select", url: "/Admin/study/Countryshow", valueField: "CountryID", textField: "CountryName" },
+
+         { title: '学历', field: 'EducationID', width: 90, isTableBody: 10, formatter: function (val) { return this.data[val]; }, isFormBody: 9, type: "select", url: "/Admin/study/Edushow", valueField: "EducationID", textField: "EducationName" },
+
+         { title: '规划类型', field: 'TypeID', width: 90, isTableBody: 11, formatter: function (val) { return this.data[val]; }, isFormBody: 10, type: "select", url: "/StudyNew/CountryGuiHuashow", valueField: "TypeID", textField: "TypeName" },
+
+
+        { title: '学生项目内容', field: 'StudentProgramContent', width: 250, isTableBody: 12, formatter: function (val) { if ($("<div>" + val + "</div>").text().length > 22) return $("<div>" + val + "</div>").text().substr(0, 22) + "..."; else return $("<div>" + val + "</div>").text(); }, isFormBody: 11, type: "ue" },
+        ];
+        $("#grid").InitGrid("/Admin/study/Sprelation", "留学规划文章", columns);
+    })
+
+    function ShowAddDialog() {
+        alert();
+    }
+</script>
+

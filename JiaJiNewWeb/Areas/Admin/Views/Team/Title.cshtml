@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewBag.Title = "Title";
+    Layout = "../study/layout.cshtml";
+}
+
+<table id="grid" style="width: 1024px" title="用户操作" iconcls="icon-view"></table>
+
+<script type="text/javascript">
+
+
+    $(function () {
+
+        var columns = [{ field: 'TermRealID', checkbox: true, isTableBody: 1, isFormBody: 1, type: "hidden" },   //选择
+        { title: '团队名称', field: 'TeamID', width: 100, isTableBody: 2, formatter: function (val) { return this.data[val]; }, isFormBody: 2, type: "select", url: "/Team/Teamshow", valueField: "TeamID", textField: "Name" },
+        { title: '标题', field: 'TitleName', width: 300, isTableBody: 3, formatter: function (val) { if ($("<div>" + val + "</div>").text().length > 22) return $("<div>" + val + "</div>").text().substr(0, 22) + "..."; else return $("<div>" + val + "</div>").text(); }, isFormBody: 3, type: "text",validType: ["required","length[2,10]"] },
+
+        { title: '介绍内容', field: 'Content', width: 600, isTableBody: 4, formatter: function (val) { if ($("<div>" + val + "</div>").text().length > 22) return $("<div>" + val + "</div>").text().substr(0, 22) + "..."; else return $("<div>" + val + "</div>").text(); }, isFormBody: 4, type: "ue" },
+
+        ];
+        $("#grid").InitGrid("/Admin/Team/Title", "团队标题内容管理", columns);
+    })
+
+    function ShowAddDialog() {
+        alert();
+    }
+</script>
+

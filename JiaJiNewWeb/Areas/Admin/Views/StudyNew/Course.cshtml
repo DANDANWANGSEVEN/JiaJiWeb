@@ -1,0 +1,35 @@
+﻿
+@{
+    ViewBag.Title = "Course";
+    Layout = "~/Views/Admin/study/layout.cshtml";
+}
+
+<table id="grid" style="width: 1024px" title="用户操作" iconcls="icon-view"></table>
+
+<script type="text/javascript">
+
+
+    $(function () {
+
+        var columns = [{ field: 'LRelationID', checkbox: true, isTableBody: 1, isFormBody: 1, type: "hidden" },   //选择
+
+        { title: '语言名称', field: 'LanguageID', width: 140, isTableBody: 2, formatter: function (val) { return this.data[val]; }, isFormBody: 2, type: "select", url: "/StudyNew/Languageshow", valueField: "LanguageID", textField: "LanguageName" },
+
+        { title: '课程名称', field: 'CourseName', width: 200, isTableBody: 3, isFormBody: 3, type: "text", validType: ["required", "length[2,15]"] },
+        { title: '课程介绍', field: 'CourseContent', width: 300, isTableBody: 4, isFormBody: 4, type: "textarea", validType: ["required", "length[2,100]"] },
+        { title: '点击度', field: 'CourseReadCount', width: 80, isTableBody: 5, type: "text" },
+        { title: '日期', field: 'CourseDate', width: 100, isTableBody: 6, isFormBody: 5, type: "datetime" },
+        { title: '关键字', field: 'CourseKeyWord', width: 80, isTableBody: 7, isFormBody: 6, type: "text" },
+        { title: '课程详情', field: 'CourseDetail', width: 300, isTableBody: 8, formatter: function (val) { if ($("<div>" + val + "</div>").text().length > 22) return $("<div>" + val + "</div>").text().substr(0, 22) + "..."; else return $("<div>" + val + "</div>").text(); }, isFormBody: 7, type: "ue",validType: ["required","length[5,80]"] },
+
+
+        ];
+        $("#grid").InitGrid("/Admin/studyNew/Course", "课程管理", columns);
+    })
+
+    function ShowAddDialog() {
+        alert();
+    }
+</script>
+
+

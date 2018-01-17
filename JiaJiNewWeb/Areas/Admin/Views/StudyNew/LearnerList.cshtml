@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewBag.Title = "LearnerList";
+    Layout = "../study/layout.cshtml";
+}
+
+<table id="grid" style="width: 1024px" title="用户操作" iconcls="icon-view"></table>
+
+<script type="text/javascript">
+
+
+    $(function () {
+        var columns = [{ field: 'LearnerID', checkbox: true, isTableBody: 1, isFormBody: 1, type: "hidden" },   //选择
+        { title: '学员姓名', field: 'LearnName', width: 100, isTableBody: 2, isFormBody: 2, type: "text",validType: ["required","length[2,10]"] },
+        { title: '联系方式', field: 'Phone', width: 100, isTableBody: 3, isFormBody: 3, type: "text", validType: ["required", "idcard"] },
+        { title: '出国时间', field: 'GoTime', width: 100, isTableBody: 4, isFormBody: 4, type: "date" },
+        { title: '所去国家', field: 'CountryID', width: 100, isTableBody: 5, formatter: function (val) { return this.data[val]; }, isFormBody: 5, type: "select", url: "/Admin/study/Countryshow", valueField: "CountryID", textField: "CountryName" },
+        {
+            title: '图片', field: 'LearnImage', width: 400, isTableBody: 6, isFormBody: 6, type: "file"
+        , formatter: function (val) { return "<img width=\"100\" height=\"100\" src='@SiteConfig.SiteUrl" + val + "'/>"; }, Size: "125×170"
+        }
+        ];
+        $("#grid").InitGrid("/Admin/StudyNew/LearnerList", "学员列表管理", columns);
+    })
+
+    function ShowAddDialog() {
+        alert();
+    }
+</script>
+
+

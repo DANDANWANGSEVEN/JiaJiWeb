@@ -1,0 +1,199 @@
+﻿
+@{
+    ViewBag.Title = "TeamXiangQing";
+}
+
+@model List<JiaJiNewWebModel.Team>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<link href="~/PageCSS/ListCSS.css" rel="stylesheet" />
+<style>
+    .aa {
+        background-color: #59AAFC;
+        color: #ffffff;
+    }
+    .TeamTitle :hover{
+        border-bottom: #59AAFC;
+    }
+</style>
+<style>
+    .tab_hd td a {
+        color: black;
+        text-decoration: none;
+    }
+
+        .tab_hd td a:hover {
+            color: #3398FF;
+            text-decoration: none;
+        }
+
+    #HotActive a {
+        color: #666666;
+        text-decoration:none;
+    }
+
+        #HotActive a:hover {
+            color: #3398FF;
+        }
+</style>
+<div style="width:1100px;margin:0 auto;height:1100px;">
+    <div style="width:100%;height:50px;line-height:50px;">
+        <div style="width:730px;height:50px;line-height:50px;border-bottom:3px solid #5E9FF3;">当前位置：首页>案例><span id="countryname"></span>留学><span id="educationname"></span></div>
+    </div>
+    <div style="width:100%;">
+        <div style="width:730px;float:left;height:1000px;">
+            
+            
+            <div id="con">
+          
+            </div>
+            <div class="FenYe"></div>
+        </div>
+
+        <div style="width:340px;float:right;height:1000px;">
+            <div style="width:100%;height:200px;background:url(/image/CaseList/案例列表_14.png) center no-repeat;"></div>
+
+
+
+            <div style="width:100%;height:240px;margin-top:20px;">
+                <div id="HotTitle">热门活动</div>
+                <div>
+                    <ul id="HotActive">
+                        @{
+                            foreach (var item in ViewBag.activelist as List<JiaJiNewWebModel.Active>)
+                            {
+                                <li style="overflow: hidden;white-space:nowrap;text-overflow:ellipsis;"><a  href="/Content/Active/@item.ActiveID">· @item.ActiveTitle</a></li>
+
+                            }
+                        }
+                    </ul>
+                </div>
+            </div>
+
+            <div style="width:100%;height:240px;margin-top:20px;">
+                <div id="HotTitle">嘉际观点</div>
+                <div>
+                    <ul id="HotActive">
+                        @{
+                            foreach (var item in ViewBag.optionlist as List<JiaJiNewWebModel.Option>)
+                            {
+                                <li style="overflow: hidden;white-space:nowrap;text-overflow:ellipsis;"><a  href="/Content/OptionShow/@item.OptionID">· @item.OptionTitle</a></li>
+                            }
+
+                        }
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+
+    var pageindex = 1;
+
+    $(function () {
+
+        Rowcount();
+        GetAnLi(pageindex)
+    })
+    
+
+    function GetAnLi(id) {
+        var href = location.href;
+        var teamid = href.substring(href.lastIndexOf("/") + 1);
+        $.ajax({
+            type: "get",
+            url: "/ConsContent/GetSuccessCount",
+            data: {
+                "teamid": teamid,
+                "pageindex": id
+            },
+            async: false,
+            dataType: "json",
+            success: function (data) {
+
+                $("#con").empty();
+                var aa = "";
+                for (var i = 0; i < data.length; i++) {
+                    aa += '<div style="width:100%;height:140px;margin-top:20px;padding-bottom:15px;border-bottom:1px dashed #dadada;">' +
+                        '<div style= "width:150px;height:100%;background:url(' + data[i].CollegeImg + ') center no-repeat;float:left;border:1px solid lightgray;" ></div >' +
+                            '<div style="float:right; width:550px;height:100%;font-size:16px;">' +
+                                '<div style="width:100%;height:45px;line-height:45px;font-size:20px;font-weight:600;">' + data[i].SuccessTitle + '</div>' +
+                                '<div style="width:100%;height:35px;line-height:35px;">' +
+                                    '<span>学生：' + data[i].StudentName + '</span>' +
+                                    '<span style="margin-left:20px;">成绩：' + data[i].Score + '</span>' +
+                                '</div>' +
+                                '<div style="width:100%;height:35px;line-height:35px;overflow: hidden;white-space:nowrap;text-overflow:ellipsis;">' +
+                                    '录取学校：' + data[i].CollegeName + '' +
+                    '</div>' +
+                                '<div style="width:100px;height:25px;float:right;">' +
+                                    '<a href="/Content/Success/' + data[i].SRelationID + '" style="list-style:none;color:#3298FD;display:block;width:100px;height:30px;line-height:30px;text-align:center;text-decoration:none;" >查看详情>></a>' +
+                                '</div>' +
+                            '</div>' +
+                            '</div >';
+                }
+                $("#con").append(aa);
+            }
+        })
+    }
+
+    function Rowcount()
+    {
+        var href = location.href;
+        var teamid = href.substring(href.lastIndexOf("/") + 1);
+        $.ajax({
+            type: "get",
+            url: "/ConsContent/GerRowCounts",
+            data: { "teamid": teamid },
+            async: false,
+            success: function (data) {
+                allrowcount = data;
+                var strin = "";
+                $(".FenYe").empty();
+                if (data == 0) {
+                    return;
+                }
+
+                strin += '<span style="width:60px;" onclick="last()">上一页</span>';
+                for (var i = 1; i <= Number(data); i++) {
+                    if (pageindex == i) {
+                        strin += '<span style="color:red;" onclick="on(' + i + ')">' + i + '</span >';
+                    }
+                    else {
+                        strin += '<span onclick="on(' + i + ')">' + i + '</span >';
+                    }
+                }
+                strin += '<span style="width:60px;" onclick="next()">下一页</span>';
+                $(".FenYe").append(strin);
+            }
+        })
+    }
+    function on(id) {
+        pageindex = id;
+        GetAnLi(id);
+        Rowcount();
+    }
+    function last() {
+
+        if (Number(pageindex) > 1) {
+            pageindex = Number(pageindex) - 1;
+            GetAnLi(pageindex);
+            Rowcount();
+        }
+        else {
+            alert("当前已经是第一页了");
+        }
+    }
+    function next() {
+
+        if (Number(pageindex) < Number(allrowcount)) {
+            pageindex = Number(pageindex) + 1;
+            GetAnLi(pageindex)
+            Rowcount();
+        }
+        else {
+            alert("当前已经是最后一页了");
+        }
+    }
+</script>

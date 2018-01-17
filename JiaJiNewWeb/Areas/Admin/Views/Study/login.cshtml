@@ -1,0 +1,108 @@
+﻿
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <script type="text/javascript" src="~/js/jquery.min.js"></script>
+    <link href="~/css/login.css" rel="stylesheet" />
+    <script src="~/js/jquery.cookie.js"></script>
+    <title>后台登陆</title>
+   
+</head>
+<body>
+    <div id="login_top">
+        <div id="welcome">
+            欢迎使用嘉际后台管理系统
+        </div>
+        <div id="back">
+            <a href="#">返回首页</a>&nbsp;&nbsp; | &nbsp;&nbsp;
+            <a href="#">帮助</a>
+        </div>
+    </div>
+    <div id="login_center" style="position:relative;">
+       
+        <div id="login_area">
+            <div id="login_form">
+                <form action="/Admin/Study/login" method="post" onsubmit="return false;" id="Login" autocomplete="on">
+                    <div id="login_tip">
+                        用户登录&nbsp;&nbsp;UserLogin
+                    </div>
+                    <div><input type="text" class="username" name="uname" autofocus></div>
+                    <div><input type="password" class="pwd" name="pwd"></div>
+                    <div id="btn_area">
+                        <input type="submit" name="submit" id="sub_btn" value="登&nbsp;&nbsp;录">&nbsp;&nbsp;
+                        <input type="text" class="verify" name="validateCode"> 
+                        <img src="/study/validatecode" onclick="this.src=this.src+'?d='+new Date()" alt="" width="80" height="40">
+                        <p class="alert" style="color:red;margin-top:5px;margin-left:40px;"></p>
+                    </div>
+                    @*<div style="float:right;"><input type="checkbox" id="checkbox" /> <a>记住密码</a> </div>*@
+                </form>
+            </div>
+        </div>
+    </div>
+    <div id="login_bottom">
+        版权所有
+    </div>
+    <script>
+        if($.cookie("Login"))
+        {
+            location.href = "/Admin/study/index";
+        }
+
+
+        IsSub = false;
+        if (localStorage.SaveName) { $("[name='uname']").val(localStorage.SaveName); }
+        $("[name='validateCode']").bind('input propertychange', function () {
+        if ($(this).val().length < 6) {
+            IsSub = false;
+
+            return;
+        }
+        $.ajax({
+            url: "/Admin/Study/validatecode",
+            type: "post",
+            data: { "code": $(this).val() },
+            success: function (data) {
+                if (data == 1) {
+                    $(".alert").text("验证码有误");
+                    IsSub = false;
+                }
+                else {
+                    $(".alert").text("");
+                    IsSub = true;
+                }
+            }
+        });
+
+            });
+
+        $("#sub_btn").click(function () {
+            $("[name='validateCode']").trigger("propertychange");
+            $("[name='validateCode']").trigger("input");
+            for (var i = 0; i < $("#Login :input").not("[name='submit']").length; i++) {
+                if ($("#Login :input").not("[name='submit']")[i].value == "") {
+                    $(".alert").text("请输入完整的用户信息");
+                    $(this).focus();
+                    return;
+                }
+            }
+            if (IsSub) {
+                $("#Login").removeAttr('onsubmit');
+                localStorage.SaveName = $("[name='uname']").val();
+                $("#Login").submit();
+            } else {
+                $(".alert").text("请输入完整的验证码");
+            }
+        });
+    </script>
+</body>
+</html>
+
+
+
+
+
+

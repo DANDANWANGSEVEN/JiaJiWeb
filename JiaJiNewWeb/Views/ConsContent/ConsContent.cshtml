@@ -1,0 +1,165 @@
+﻿
+@{
+    ViewBag.Title = "ConsContent";
+}
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<style>
+    /*#Person {
+    width:200px;
+    height:450px;
+    margin:0 auto;
+    }
+    #img {
+     margin-right:5px;
+     height:450px;
+    }*/
+    #Name {
+        font-size: 42px;
+        font-family: "Microsoft YaHei";
+    }
+
+    #Position {
+        font-size: 25px;
+        font-family: "Microsoft YaHei";
+    }
+
+    #Shenqing, #Time, #Success {
+        font-family: "Microsoft YaHei";
+        font-size: 14px;
+    }
+    #Imgs
+    {
+        height:100%;
+        width:300px;
+        margin-left:25%;
+        float:left;
+
+    }
+    #Name{
+
+    }
+    #Person
+    {
+        
+        margin:80px 40px;
+    }
+    #ShenQing, #Time, #Success {
+        font-size: 16px;
+    }
+    #InfoUser button{
+       display:block;
+        width:260px;
+        height:35px;
+        font-size:16px;
+        color:#ffffff;
+        line-height:35px;
+        text-align:center;margin:50px auto;
+        background-color:#0094ff;
+        border:none;
+    }
+    #Success a{
+        font-size:16px;margin-left:15px;text-decoration:none;color:black;
+    }
+    #Success a:hover{
+        color:#3298FD;text-decoration:underline;
+    }
+    #yuyue{
+    width:100%;line-height:80px;background-color:#3298FD;color:white;padding:5px 80px;border-radius:5px;margin-top:20px;
+    cursor:pointer;
+    }
+
+</style>
+
+    <div style="height:450px;width:100%;margin-top:8px; background-image:url(/image/CaseList/顾问内页_05.png)"  id="TeamShow">
+        <div id="Imgs"><img id="teamimage2" style="width: 300px;margin-top:10%;height: 370px;" src="#"/></div>
+        <div id="InfoUser" style="background-image:url(/image/CaseList/顾问内页_08.png); width:350px;height:90%;float:left;margin:20px 5%;"></div>
+    </div>
+<div style="width:1100px;margin:5px auto;">
+    <div id="Content">
+    
+    </div>
+</div>
+<script>
+    $(function () {
+
+        $.ajax({
+            type: "post",
+            url: "/ConsContent/ContentShow",
+            async: false,
+            dataType: "json",
+            success: function (data) {
+
+                $("#Content").empty();
+                for (var i = 0; i < data.length; i++) {
+                    $("#Content").append("<div style='margin-top:20px;'>" +
+                        "<div>" +
+                        "<div style='width:100%; height:45px;'>" +
+                        "<span style='display:block;margin:0px;width:400px; height:30px; border-left:#3398FF 3px solid; padding-left:15px; margin-top:10px; line-height:30px; font-size:22px; float:left;'>" + data[i].Title + "</span>" +
+                        "</div>" +
+                        "</div >" +
+                        "<div style='margin-top:10px;'>" + data[i].Content + "</div>" +
+                        "</div >");
+                }
+            }
+        })
+        Team();
+    })
+
+    function Team() {
+        $("#InfoUser").html(
+            "<div id='Person'><p><label id='Name'></label><label id='Position'></label></p>" +
+            "<p><label id='ShenQing'></label></p >" +
+            "<p><label id='Time'></label></p>" +
+            "<p><label id='Success'></label></p><a style='text-decoration:none;' id='yuyue' href='http://www17.53kf.com/webCompany.php?arg=10117268&style=1&language=cn&charset=gbk&kflist=off&kf=leyu@jiajiedu.cn,37369991@qq.com&zdkf_type=1&referer=http%3A%2F%2Fwww.jiajiedu.cn%2F&keyword=https%3A%2F%2Fwww.sogou.com%2Flink%3Furl%3DDSOYnZeCC_rUQfLnmBwrcz4IRDdG1RpI&tfrom=1&tpl=crystal_blue&uid=f9e56b536d422fabc50d292f73790623&timeStamp=1512366256219&ucust_id='>预约办理留学</a></div>");
+        $.ajax({
+            type: "post",
+            url: "/ConsContent/TeamShow",
+            dataType: "json",
+            async: false,
+            success: function (data) {
+
+                $("#Name").text(data.Name);
+                $("#Position").html("&nbsp;&nbsp;&nbsp;" + data.Position);
+                $("#ShenQing").text("擅长申请：" + data.ShenQing);
+                $("#Time").text("从业时间：" + data.WorkDate);
+                $("#Success").text("成功案例：" + data.SuccessCount);
+                $("#teamimage2").attr("src", "" + data.Image2 + "");
+                
+            }
+        })
+        Count();
+    }
+    function Count() {
+        $.ajax({
+            type: "post",
+            url: "/ConsContent/SuccessCount",
+            dataType: "json",
+            async: false,
+            success: function (data) {
+
+                //$("#Success").text("成功案例：" + data);
+
+                var href = location.href;
+                var teamid = href.substring(href.lastIndexOf("/")+1);
+
+                $("#Success").append("<a class='chakanxianqing' href=\"/ConsContent/TeamXiangQing/" + teamid + "\" >查看详情>></a>");
+
+                $(".chakanxianqing").click(function () {
+
+                    if(data==0)
+                    {
+                        alert("暂无信息");
+                        return false;
+                    }
+
+                })
+
+            }
+        })
+
+       
+
+
+    }
+</script>
+

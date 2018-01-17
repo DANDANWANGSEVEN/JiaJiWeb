@@ -1,0 +1,31 @@
+﻿@model List<JiaJiModels.Active>
+@{
+    ViewBag.Title = "LatestActivity";
+    Layout = "../study/layout.cshtml";
+}
+<table id="grid" style="width: 1024px" title="用户操作" iconcls="icon-view"></table>
+
+<script type="text/javascript">
+
+
+    $(function () {
+        var columns = [{ field: 'ActiveID', checkbox: true, isTableBody: 1, isFormBody: 1, type: "hidden" },   //选择
+        { title: '活动标题', field: 'ActiveTitle', width: 140, isTableBody: 2, isFormBody: 2, type: "text", validType: ["required", "length[5,20]"] },
+        { title: '活动时间', field: 'ActiveDate', width: 200, isTableBody: 3, isFormBody: 3, type: "datetime" },
+        { title: '点击度', field: 'HeatID', width: 80, isTableBody: 4, type: "text" },
+        { title: '关键字', field: 'ActiveKeyWord', width: 100, isTableBody: 5, isFormBody: 4, type: "text" },
+        { title: '活动地点', field: 'Site', width: 80, isTableBody: 6, formatter: function (val) { return this.data[val]; }, isFormBody: 5, type: "select", url: "/Admin/study/Areashow", valueField: "AreaID", textField: "AreaName" },
+        { title: '活动简介', field: 'ActiveProfile', width: 230, isTableBody: 10, formatter: function (val) { if ($("<div>" + val + "</div>").text().length > 22) return $("<div>" + val + "</div>").text().substr(0, 22) + "..."; else return $("<div>" + val + "</div>").text(); }, isFormBody: 9, type: "textarea" },
+
+        { title: '国家', field: 'CountryID', width: 80, isTableBody: 7, formatter: function (val) { return this.data[val]; }, isFormBody: 6, type: "select", url: "/Admin/study/Countryshow", valueField: "CountryID", textField: "CountryName" },
+        { title: '详情描述', field: 'Datails', width: 300, isTableBody: 8, formatter: function (val) { if ($("<div>" + val + "</div>").text().length > 22) return $("<div>" + val + "</div>").text().substr(0, 22) + "..."; else return $("<div>" + val + "</div>").text(); }, isFormBody: 7, type: "ue" },
+        { title: '报名电话', field: 'ActivePhone', width: 100, isTableBody: 9, isFormBody: 8, type: "text", validType: ["required", "idcard"] },
+        ];
+        $("#grid").InitGrid("/Admin/study/LatestActivity", "活动管理", columns);
+    })
+
+    function ShowAddDialog() {
+        alert();
+    }
+</script>
+

@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewBag.Title = "Education";
+    Layout = "../study/layout.cshtml";
+}
+    <table id="grid" style="width: 1024px" title="用户操作" iconcls="icon-view"></table>
+
+    <script type="text/javascript">
+
+    $(function () {
+        var columns = [{ field: 'EducationID', checkbox: true, isTableBody: 1, isFormBody: 1, type: "hidden" },   //选择
+        { title: '学历名称', field: 'EducationName', width: 200, isTableBody: 2, isFormBody: 2, type: "text", validType: ["required", "length[2,10]"] },
+        ];
+        $("#grid").InitGrid("/Admin/SuccessInfo/Education", "学历管理", columns);
+    })
+
+    function ShowAddDialog() {
+        alert();
+    }
+    </script>
+

@@ -1,0 +1,173 @@
+﻿
+
+@{
+    ViewBag.Title = "Filialeadd";
+    Layout = "../study/layout.cshtml";
+}
+
+<table id="grid" style="width: 1024px" title="用户操作" iconcls="icon-view"></table>
+
+<script type="text/javascript">
+
+
+    $(function () {
+
+        var columns = [{ field: 'FilialeTextId', checkbox: true, isTableBody: 1, isFormBody: 1, type: "hidden" },   //选择
+        { title: '分公司名称', field: 'FilialeId', width: 200, isTableBody: 2, isFormBody: 2, formatter: function (val) { return this.data[val]; }, isFormBody: 2, type: "select", url: "/Admin/study/Filialeshow", valueField: "FilialeId", textField: "FilialeName" },
+        { title: '分公司地址', field: 'FilialeTextAddr', width: 100, isTableBody: 3, isFormBody: 3, type: "text", validType: ["required", "length[2,20]"] },
+        { title: '分公司联系电话', field: 'FilialeTextPhone', width: 100, isTableBody: 4, isFormBody: 4, type: "text" },
+        { title: '分公司介绍', field: 'FilialeTexts', width: 300, isTableBody: 6, formatter: function (val) { if ($("<div>" + val + "</div>").text().length > 22) return $("<div>" + val + "</div>").text().substr(0, 22) + "..."; else return $("<div>" + val + "</div>").text(); }, isFormBody: 6, type: "ue", validType: ["required", "length[2,100]"] },
+        {
+            title: '图片', field: 'FilialeImg', width: 300, isTableBody: 5, isFormBody: 5, type: "file"
+        , formatter: function (val) { return "<img width=\"200\" height=\"100\"src='@SiteConfig.SiteUrl" + val + "'/>"; }, Size: "1100×400"
+        }
+        ];
+        $("#grid").InitGrid("/Admin/study/Filialeadd", "公司介绍", columns);
+    })
+
+    function ShowAddDialog() {
+        alert();
+    }
+</script>
+
+
+
+@*<div>
+    <h1>分公司添加</h1>
+    <div>
+        <form id="FormAdd">
+            <table>
+                <tr>
+                    <td>公司名称</td>
+                    <td><input type="text" name="FilialeName" /></td>
+                </tr>
+                <tr>
+                    <td>公司介绍</td>
+                    <td><input type="text" name="FilialeTexts" /></td>
+                </tr>
+                <tr>
+                    <td>公司地址</td>
+                    <td><input type="text" name="FilialeTextAddr" /></td>
+                </tr>
+                <tr>
+                    <td>分公司联系电话</td>
+                    <td><input type="text" name="FilialeTextPhone" /></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input type="button" value="添加" onclick="FilialePutin()" /></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+
+    <hr />
+
+    <h1>分公司内容修改</h1>
+    <div>
+        <form id="UpdateFiliale">
+            <table>
+                <tr>
+                    <td>要修改的时间</td>
+                    <td>
+                        <select id="Select1" name="FilialeId" onchange="FilialeTextShow()">
+                            <option></option>
+
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>公司介绍</td>
+                    <td><input type="text" name="FilialeTexts" id="FilialeTexts" /></td>
+                </tr>
+                <tr>
+                    <td>公司地址</td>
+                    <td><input type="text" name="FilialeTextAddr" id="FilialeTextAddr" /></td>
+                </tr>
+                <tr>
+                    <td>分公司联系电话</td>
+                    <td><input type="text" name="FilialeTextPhone" id="FilialeTextPhone" /></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input type="button" value="修改" onclick="UpdateFiliale()" /></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>*@
+
+@*<script>
+    $(function () {
+        FilialeDropShow();
+    });
+
+    function FilialePutin()
+    {
+        $.ajax({
+            type: "post",
+            url: "/Admin/study/FilialePutin",
+            data: $("#FormAdd").serialize(),
+            success: function (data)
+            {
+                if (data > 0) {
+                    alert("添加成功");
+                    FilialeDropShow();
+                }
+                else
+                {
+                    alert("添加失败");
+                }
+            }
+        });
+    }
+
+    function FilialeDropShow()
+    {
+        $.ajax({
+            url: "/Admin/study/FilialeShow",
+            type: "post",
+            dataType: "json",
+            success: function (data) {
+                $("#Select1").empty();
+                for (var i = 0; i < data.length; i++) {
+                    $("#Select1").append(
+                        '<option value="'+data[i].FilialeId+'">'+data[i].FilialeName+'</option>'
+                    );
+                }
+                FilialeTextShow();
+            }
+        })
+    }
+
+    function FilialeTextShow() {
+        $.ajax({
+            url: "/Admin/study/FilialeTextShow",
+            type: "post",
+            data: { "FilialeId": $("#Select1").val() },
+            dataType: "json",
+            success: function (data) {
+                $("#FilialeTexts").val(data.FilialeTexts);
+                $("#FilialeTextAddr").val(data.FilialeTextAddr);
+                $("#FilialeTextPhone").val(data.FilialeTextPhone);
+            }
+        })
+    }
+
+    function UpdateFiliale()
+    {
+        $.ajax({
+            url: "/Admin/study/UpdateFiliale",
+            type: "post",
+            data: $("#UpdateFiliale").serialize(),
+            success: function (data) {
+                if (data > 0) {
+                    alert("添加成功");
+                }
+                else {
+                    alert("添加失败");
+                }
+            }
+        })
+    }
+</script>*@

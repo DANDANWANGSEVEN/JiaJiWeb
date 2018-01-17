@@ -1,0 +1,35 @@
+﻿
+@{
+    ViewBag.Title = "Project";
+    Layout = "../study/layout.cshtml";
+}
+
+<table id="grid" style="width: 1024px" title="用户操作" iconcls="icon-view"></table>
+
+<script type="text/javascript">
+
+
+    $(function () {
+
+        var columns = [{ field: 'ProjectID', checkbox: true, isTableBody: 1, isFormBody: 1, type: "hidden" },   //选择
+        { title: '移民项目（英文）', field: 'EnglistName', width: 100, isTableBody: 2, isFormBody: 2, type: "text", validType: ["required", "length[2,20]"] },
+        { title: '移民项目标题', field: 'ProjectTitle', width: 100, isTableBody: 3, isFormBody: 3, type: "text", validType: ["required", "length[2,10]"] },
+        { title: '移民项目简介', field: 'ProjectProfile', width: 150, isTableBody: 4, isFormBody: 4, type: "textarea" },
+        { title: '关键字', field: 'ProjectKeyWord', width: 100, isTableBody: 5, isFormBody: 5, type: "text" },
+        { title: '来源', field: 'ProjectSource', width: 120, isTableBody: 6, isFormBody: 6, type: "text" },
+        { title: '作者', field: 'ProjectAuthor', width: 100, isTableBody: 7, isFormBody: 7, type: "text" },
+        { title: '阅读量', field: 'ProjectReadCount', width: 80, isTableBody: 8, type: "text" },
+        { title: '日期', field: 'Date', width: 150, isTableBody: 9, isFormBody: 8, type: "datetime" },
+        { title: '移民项目内容', field: 'ProjectContent', width: 200, isTableBody: 10, formatter: function (val) { if ($("<div>" + val + "</div>").text().length > 22) return $("<div>" + val + "</div>").text().substr(0, 22) + "..."; else return $("<div>" + val + "</div>").text(); }, isFormBody: 10, type: "ue" },
+        { title: '图片', field: 'Image', width: 150, isTableBody: 11, isFormBody: 9, type: "file", formatter: function (val) { return "<img width=\"200\" height=\"100\" src='@SiteConfig.SiteUrl" + val + "'/>"; }, Size: "530×300" }
+
+        ];
+        $("#grid").InitGrid("/Admin/StudyNew/Project", "移民项目管理", columns);
+    })
+
+    function ShowAddDialog() {
+        alert();
+    }
+</script>
+
+

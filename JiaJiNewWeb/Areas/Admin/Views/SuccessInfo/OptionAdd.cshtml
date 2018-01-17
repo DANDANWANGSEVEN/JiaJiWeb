@@ -1,0 +1,33 @@
+﻿@{
+    ViewBag.Title = "information";
+    Layout = "../study/layout.cshtml";
+}
+<table id="grid" style="width: 1024px" title="用户操作" iconcls="icon-view"></table>
+
+<script type="text/javascript">
+
+
+    $(function () {
+
+        var columns = [{ field: 'OptionID', checkbox: true, isTableBody: 1,isFormBody:1, type: "hidden" },   //选择
+        { title: '观点标题', field: 'OptionTitle', width: 200, isTableBody: 2, isFormBody: 2, type: "text", validType: ["required", "length[5,20]"] },
+        { title: '作者', field: 'Author', width: 200, isTableBody: 3, isFormBody: 3, type: "text", validType: ["required", "length[2,20]"] },
+        { title: '内容', field: 'OptionContent', width: 400, isTableBody: 4, formatter: function (val) { if ($("<div>" + val + "</div>").text().length > 22) return $("<div>" + val + "</div>").text().substr(0, 22) + "..."; else return $("<div>" + val + "</div>").text(); }, isFormBody: 4, type: "ue" },
+        { title: '来源', field: 'Source', width: 80, isTableBody: 5, isFormBody: 5, type: "text", validType: ["required", "length[2,20]"] },
+        { title: '发表日期', field: 'Date', width: 80, isTableBody: 6, isFormBody: 6, type: "datetime" },
+        { title: '热度', field: 'OptionHot', width: 80, isTableBody: 7, type: "text" },
+        { title: '关键词', field: 'OptionKeyWord', width: 100, isTableBody: 8, isFormBody: 7, type: "text", validType: ["required", "length[2,20]"] },
+        { title: '观点图片', field: 'OptionUrl', width: 130, isTableBody: 9, isFormBody: 8, type: "file", formatter: function (val) { return "<img width=\"100\" height=\"100\" src='@SiteConfig.SiteUrl" + val + "'/>"; }, Size: "255×180" },
+
+    ];
+        $("#grid").InitGrid("/Admin/SuccessInfo/OptionAdd", "嘉际观点管理", columns);
+    })
+
+    function ShowAddDialog() {
+        alert();
+    }
+</script>
+
+
+
+

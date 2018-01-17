@@ -1,0 +1,155 @@
+﻿@{
+    ViewBag.Title = "MaxScoreStuContent";
+}
+
+<!DOCTYPE html>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<link href="~/PageCSS/ContentCss.css" rel="stylesheet" />
+
+
+
+<style>
+    #HotActive a {
+        color: #666666;
+        text-decoration: none;
+    }
+
+        #HotActive a:hover {
+            color: #3398FF;
+        }
+
+        .Prve:hover {
+            color: #60B6F7;
+        }
+</style>
+<div style="width:1100px;margin:0 auto;height:auto;margin-top:10px;">
+    <div style="width:100%;height:50px;line-height:50px;">
+        <div style="width:730px;height:50px;line-height:50px;border-bottom:3px solid #5E9FF3;">当前位置：高分学员详情></div>
+    </div>
+    <div style="width:100%;">
+        <div style="width:730px;float:left;height:auto;">
+            <div style="width:730px;height:auto;margin-top:10px;">
+                <div style="width:730px;height:auto;overflow:hidden;" id="frameContent">
+                    <h3 id="title"></h3>
+                    <p><label id="Author">&nbsp;&nbsp;&nbsp;</label>&nbsp;&nbsp;&nbsp;<label id="ReadCount"></label></p>
+                    <div id="Content" style="border-top:1px dashed #dadada;padding-top:20px;line-height:32px;">
+
+                    </div>
+                </div>
+            </div>
+            <div style="width:100%;height:auto;line-height:40px;margin:0 auto;margin-top:30px;border-top:1px solid #dadada;">
+                <table class="prvenext" style="width:100%;margin:0 auto;" align="center">
+                    <tr>
+                        <td align="center" style="width:50%;"><div class="Prve"></div></td>
+                        <td align="center" style="width:50%;"><div class="Next"></div></td>
+                    </tr>
+                    <tr>
+                        <td align="center" colspan="2"><a id="List" href="/ShareList/MaxScoreStuList">查看列表页</a></td>
+                    </tr>
+                </table>
+
+
+            </div>
+
+            <div id="pages"></div>
+
+        </div>
+        <div style="width:340px;float:right;height:auto;">
+            <div style="width:100%;height:200px;background:url(../../image/ConsList/gwlist.png) center no-repeat;"></div>
+            <div style="width:100%;height:240px;margin-top:20px;">
+                <div style="font-size:20px;width:200px;height:30px;border-left:4px solid #5E9FF3;line-height:30px;padding-left:20px;margin-left:8px;font-weight:600;">热门活动</div>
+                <div>
+                    <ul class="HotActive">
+                        @{
+                            foreach (var item in ViewBag.activelist as List<JiaJiNewWebModel.Active>)
+                            {
+                                <li style="overflow: hidden;white-space:nowrap;text-overflow:ellipsis;"><a href="/Content/Active/@item.ActiveID">·  @item.ActiveTitle</a></li>
+
+                            }
+                        }
+
+                    </ul>
+                </div>
+            </div>
+
+            <div style="width:100%;height:240px;margin-top:20px;">
+                <div style="font-size:20px;width:200px;height:30px;border-left:4px solid #5E9FF3;line-height:30px;padding-left:20px;margin-left:8px;font-weight:600;">嘉际观点</div>
+                <div>
+                    <ul class="HotActive">
+                        @{
+                            foreach (var item in ViewBag.optionlist as List<JiaJiNewWebModel.Option>)
+                            {
+                                <li style="overflow: hidden;white-space:nowrap;text-overflow:ellipsis;"><a href="/Content/OptionShow/@item.OptionID">·  @item.OptionTitle</a></li>
+                            }
+
+                        }
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+
+    $(function () {
+        var index = location.href.lastIndexOf('/') + 1;
+        var href = location.href;
+            $.ajax({
+                type: "post",
+                url: "/ShareList/MaxScoreStuContentShow",
+                data: { LearnSorceID: href.substr(index) },
+                async: false,
+                dataType: "json",
+                success: function (data) {
+
+                    $("#title").text(data.LearnerGonsis);
+                    $("#Author").text("学员姓名:" + data.LearnName + '  ' + "分数：" + data.Sorce +'  ');
+                    $("#ReadCount").text("点击量:" + data.HeatHot + "   ");
+                    $("#Content").html(data.LearnerContent);
+                }
+            })
+            Prve();
+    })
+
+    function Prve() {
+        $.ajax({
+            type: "post",
+            url: "/ShareList/MaxScoreStuContentPrve",
+            async: false,
+            dataType: "json",
+            success: function (data) {
+                $(".Prve").empty();
+                if (data.LearnerGonsis == "已是第一章了") {
+
+                    $(".Prve").append("<span style='width: 300px;display: block;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;' >上一章：<a title='" + data.LearnerGonsis + "'  >" + data.LearnerGonsis + "</a></span>");
+                } else {
+                    $(".Prve").append("<span style='width: 300px;display: block;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;'>上一章：<a title='" + data.LearnerGonsis + "' href='/ShareList/MaxScoreStuContent/" + data.LearnSorceID + "'>" + data.LearnerGonsis + "</a></span>");
+                }
+                Next();
+            }
+        })
+
+    };
+    function Next() {
+        $.ajax({
+            type: "post",
+            url: "/ShareList/MaxScoreStuContentNext",
+            dataType: "json",
+            async: false,
+            success: function (data) {
+                $(".Next").empty();
+                if (data.LearnerGonsis == "已经是最后一章了") {
+                    $(".Next").append("<p><span style='width: 300px;display: block;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;'>下一章：<a style='overflow: hidden; text-overflow:ellipsis;white-space:nowrap;-webkit-line-clamp: 1;' title='" + data.LearnerGonsis + "'>" + data.LearnerGonsis + "</a></span></p>");
+                } else {
+                    $(".Next").append("<p><span style='width: 300px;display: block;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;'>下一章：<a style='overflow: hidden; text-overflow:ellipsis;white-space:nowrap;-webkit-line-clamp: 1;' title='" + data.LearnerGonsis + "' href='/ShareList/MaxScoreStuContent/" + data.LearnSorceID + "'>" + data.LearnerGonsis + "</a></span></p>");
+                }
+            }
+        })
+    }
+
+
+
+</script>
+

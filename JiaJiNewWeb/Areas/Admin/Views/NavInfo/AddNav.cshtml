@@ -1,0 +1,192 @@
+﻿
+@{
+    ViewBag.Title = "AddNav";
+    Layout = "../study/layout.cshtml";
+}
+
+<script src="~/js/jquery-1.10.2.min.js"></script>
+<link href="~/css/bootstrap.min.css" rel="stylesheet" />
+<script src="~/js/bootstrap.min.js"></script>
+<link href="~/script/themes/default/default.css" rel="stylesheet" />
+<script src="~/script/kindeditor-min.js"></script>
+<script src="~/script/lang/zh_CN.js"></script>
+<script>
+			var editor;
+			KindEditor.ready(function(K) {
+			    editor = K.create('textarea[name="content"]', {
+			        uploadJson:"../../../script/asp.net/upload_json.ashx",
+			        fileManagerJson: "../../../../script/asp.net/file_manager_json.ashx",
+				    allowFileManager: true,
+				    allowImageUpload: true,
+				    allowFileManager: true,
+				    afterUpload: function () {
+				        this.sync();
+				    },
+				    afterBlur: function () {
+				        this.sync();
+				    }
+				});
+				K('input[name=getHtml]').click(function(e) {
+					alert(editor.html());
+				});
+				K('input[name=isEmpty]').click(function(e) {
+					alert(editor.isEmpty());
+				});
+				K('input[name=getText]').click(function(e) {
+					alert(editor.text());
+				});
+				K('input[name=selectedHtml]').click(function(e) {
+					alert(editor.selectedHtml());
+				});
+				K('input[name=setHtml]').click(function(e) {
+					editor.html('<h3>Hello KindEditor</h3>');
+				});
+				K('input[name=setText]').click(function(e) {
+					editor.text('<h3>Hello KindEditor</h3>');
+				});
+				K('input[name=insertHtml]').click(function(e) {
+					editor.insertHtml('<strong>插入HTML</strong>');
+				});
+				K('input[name=appendHtml]').click(function(e) {
+					editor.appendHtml('<strong>添加HTML</strong>');
+				});
+				K('input[name=clear]').click(function(e) {
+					editor.html('');
+				});
+			});
+
+			$(function () {
+			    $("#btn_tj").click(function () {
+			        var guojia = $("#guojia option:selected");
+			        var buwei = $("#buwei option:selected");
+			        var lianjie = $("#lianjie option:selected"); //获取选中的项
+			        var jiedian = $("#ischild option:selected");
+			        var parentsid = $("#parent  option:selected");
+			        var daohangbiaoti = $("#daohangbiaoti");
+			        var wenzhangbiaoti = $("#wenzhangbiaoti");
+			        var shendu = $("#shendu");
+			        var content = $("#content");
+			        var paixu = $("#paixu");
+			        $.post("/Admin/NavInfo/GetModel", { "guojia": guojia.text(), "buwei": buwei.text(), "lianjie": lianjie.val(), "parentsid": parentsid.val(), "daohangbiaoti": daohangbiaoti.val(), "wenzhangbiaoti": wenzhangbiaoti.val(), "shendu": shendu.val(), "content": content.val(), "paixu": paixu.val() }, function (data) {
+			            if (data == "ok")
+			                confirm("添加成功");
+			            else
+			                confirm("添加失败");
+			            location.reload("/Admin\NavInfo\AddNav\0");
+			        })
+			    });
+			});
+</script>
+<style>
+    .tab td {
+    width:100px;height:35px;line-height:35px;
+    }
+</style>
+<div>
+        <table style="margin-top:10px;margin-left:10px;" class="tab">
+            <tr>
+                <td>国家：</td>
+                <td>
+                    <select id="guojia" name="guojia" style="width:150px;height:30px;line-height:30px;">
+                        <option value="美国">美国</option>
+                        <option value="加拿大">加拿大</option>
+                        <option value="英国">英国</option>
+                        <option value="澳洲">澳洲</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>部位：</td>
+                <td>
+                    <select id="buwei" name="buwei" style="width:150px;height:30px;line-height:30px;">
+                        <option value="国家留学">国家留学</option>
+                        <option value="语言培训">语言培训</option>
+                        <option value="留学必备">留学必备</option>
+                        <option value="背景提升">背景提升</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>链接：</td>
+                <td>
+                    <select id="lianjie" name="lianjie" style="width:150px;height:30px;line-height:30px;">
+                        <option value="/CaseList/CaseList">成功案例</option>
+                        <option value="/ConsList/ConsList">精英团队</option>
+                        <option value="/ActivityList/ActivityList">近期活动</option>
+                        <option value="/LanBgImm/LanBgImm/">语言课程</option>
+                        <option value="/NavLinks/NavLinks">页面链接</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>父节点：</td>
+                <td>
+                    <select id="parent" name="parent" style="width:150px;height:30px;line-height:30px;">
+                        <option value="0">添加根节点</option>
+                        @{
+                            List<string> listCountry = new JiaJiBLL.NavInfoBll().GetAllCountry();
+                            for (int i = 0; i < listCountry.Count; i++)
+                            {
+                                <optgroup label="|-@{@listCountry[i]} "></optgroup>
+                                List<JiaJiModels.NavInfo> listBuWei = new JiaJiBLL.NavInfoBll().GetTypeByCountry(listCountry[i]);
+                                    for (int j = 0; j < listBuWei.Count; j++)
+                                    {
+                                    <option value="@{@listBuWei[j].NavID} ">&nbsp;&nbsp;|-@listBuWei[j].NavTitleOne</option>
+    List<JiaJiModels.NavInfo> listHang = new JiaJiBLL.NavInfoBll().GetNavInfo(listCountry[i], listBuWei[j].NavID, listBuWei[j].BuWei);
+    for (int k = 0; k < listHang.Count; k++)
+    {
+        <option value="@{@listHang[k].NavID} ">&nbsp;&nbsp;&nbsp;&nbsp;|-@listHang[k].NavTitleOne</option>
+            }
+        }
+    }
+                        }
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>是否子节点：</td>
+                <td>
+                    <select id="ischild" name="ischild" style="width:150px;height:30px;line-height:30px;">
+                        <option value="0">父节点</option>
+                        <option value="1">子节点</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>导航标题：</td>
+                <td>
+                    <input id="daohangbiaoti" type="text" name="titleone" value=""  style="width:200px;height:30px;line-height:30px;"/>
+                </td>
+            </tr>
+            <tr>
+                <td>文章标题：</td>
+                <td>
+                    <input id="wenzhangbiaoti" type="text" name="titletwo" value=""  style="width:600px;height:30px;line-height:30px;"/>
+                </td>
+            </tr>
+            <tr>
+                <td>深度：</td>
+                <td>
+                    <input id="shendu" type="text" name="depth" value="" style="width:150px;height:30px;line-height:30px;" />
+                </td>
+            </tr>
+            <tr>
+                <td>同一行排序：</td>
+                <td>
+                    <input id="paixu" type="text" name="paixu" value="" style="width:150px;height:30px;line-height:30px;" />
+                </td>
+            </tr>
+            <tr>
+                <td>文章内容：</td>
+                <td>
+                    <textarea id="content" name="content" style="width:600px;height:400px;"></textarea>
+                </td>
+            </tr>
+        </table>
+        <input id="btn_tj" type="submit" value="提交" style="width:150px;height:40px;text-align:center;border:0px;background-color:#F5E590;" />
+</div>
+
+
+
+
+

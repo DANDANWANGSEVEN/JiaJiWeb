@@ -1,0 +1,32 @@
+﻿
+@{
+    ViewBag.Title = "Apply";
+    Layout = "../study/layout.cshtml";
+}
+
+<table id="grid" style="width: 1024px" title="用户操作" iconcls="icon-view"></table>
+
+<script type="text/javascript">
+
+
+    $(function () {
+
+        var columns = [{ field: 'ArrangeID', checkbox: true, isTableBody: 1, isFormBody: 1, type: "hidden" },   //选择
+        { title: '显示顺序', field: 'ShowID', width: 300, isTableBody: 2, isFormBody: 2, type: "text", validType: ["checkNum"]},
+        { title: '所属国家', field: 'CountryID', width: 100, isTableBody: 3, formatter: function (val) { return this.data[val]; }, isFormBody: 3, type: "select", url: "/Admin/study/Countryshow", valueField: "CountryID", textField: "CountryName" },
+        { title: '学生学历', field: 'EducationID', width: 100, isTableBody: 4, formatter: function (val) { return this.data[val]; }, isFormBody: 4, type: "select", url: "/Admin/study/Edushow", valueField: "EducationID", textField: "EducationName" },
+        { title: '规划时间', field: 'ArrangeMonth', width: 200, isTableBody: 5, isFormBody: 5, type: "text", validType: ["required", "length[2,8]"] },
+        { title: '规划内容', field: 'ArrangeContent', width: 300, isTableBody: 6, isFormBody: 6, type: "text",validType: ["required","length[5,20]"] },
+
+
+
+        ];
+        $("#grid").InitGrid("/Admin/StudyNew/Apply", "时间规划管理", columns);
+    })
+
+    function ShowAddDialog() {
+        alert();
+    }
+</script>
+
+

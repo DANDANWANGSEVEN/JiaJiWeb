@@ -1,0 +1,815 @@
+﻿<!DOCTYPE html>
+<html>
+
+@{
+    List<JiaJiNewWebModel.erweima> erweimalist = Model as List<JiaJiNewWebModel.erweima>;
+}
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>嘉际网站</title>
+    <meta content="" name="Keywords">
+    <meta name="description" content="">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/text_overflow.js"></script>
+    <link href="~/PageCSS/LayoutCSS.css" rel="stylesheet" />
+    <style>
+        .activenavtab {
+            background-color: #58aafe;
+        }
+
+        .navtab > table > tbody > tr > td:hover {
+            background-color: #58aafe;
+        }
+        #beixin a{
+            text-decoration:none;
+            color:black;
+        }
+        #beixin a:hover{
+           
+            color:#58aafe;
+        }
+        /*.sMenu:hover{
+            cursor:pointer;
+        }*/
+        .sMenu a {
+        text-decoration:none;
+        color:white;
+        }
+        .sMenu a:hover {
+            text-decoration:underline;
+            color:white:
+            }
+    </style>
+
+</head>
+<body style="border:0px; padding:0px; margin:0px;">
+    <div class="top" style="width:100%; height:150px;min-width:1100px;">
+        <div style="width:1100px; height:80px; margin:0 auto;">
+            <div style="background:url(../../image/Model/logo.png) 20px no-repeat; width:400px; height:80px; float:left;"></div>
+            <div style="background:url(../../image/Model/dy.png) center no-repeat; width:300px; height:80px; float:left;"></div>
+            <div style="width:380px; height:80px; float:left;">
+
+                <form method="post">
+                    <div style="margin-top:20px; float:right;width:300px;">
+
+                        <input type="text" id="sousuo" placeholder=" 留学问题，院校请搜一下" style="width:250px; height:23px; float:left; border:#3398FF 1px solid;" />
+                        <input type="button" style="float:left;border:none; background:url(../../image/Model/ss.png) center no-repeat; width:45px; height:25px;" onclick="funFind()" />
+                        
+                    </div>
+                </form>
+                <div style="clear:both;"></div>
+                <table style="width:300px;float:right;margin-top:2px;" id="beixin">
+                    <tr style="color:#838383;">
+                        <td style="border-right:2px solid #838383;text-align:center;">
+                            <a href="\BJBranch\BJBranch">嘉际北京</a>
+                            @*<span>|</span>*@
+                        </td>
+                        <td style="border-right:2px solid #838383;text-align:center;">
+                            <a href="\XABranch\XABranch">嘉际西安</a>
+                            @*<span>|</span>*@
+                        </td>
+                        <td style="border-right:2px solid #838383;text-align:center;">
+                            <a href="#">嘉际海外</a>
+                            @*<span>|</span>*@
+                        </td>
+                        <td style="text-align:center;">
+                            <a href="#">关于嘉际</a>
+                        </td>
+                    </tr>
+                </table>
+               
+            </div>
+        </div>
+        <div class="nav">
+            <div class="navtab">
+                <table style="border:0px; padding:0px; margin:0px;">
+                    <tr>
+                        <td class="td"><a class="liuxue" href="\Home\index">首页</a></td>
+                        <td class="td">
+                            <a class="liuxue" href="\NationalChannel\NationalChannel\1">美国留学</a>
+                            <div class="sMenu">
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <div class="sMenuLeft" style="width:350px; height:240px; float:left;">
+                                                <div>
+                                                    @{                                             
+                                                    List<JiaJiNewWebModel.NavInfoModel> ListUSA1 = new JiaJiNewWebBLL.NavInfoBLL().GetNavInfo("美国", 0, "国家留学");
+                                                        for (int i = 0; i < ListUSA1.Count; i++)
+                                                        {
+                                                            <div style="width:300px; height:130px; text-align:left; font-size:15px; margin:0 auto;">
+                                                                <div style="font-size:18px; height:35px; line-height:35px;" class="1-1">@ListUSA1[i].NavTitleOne</div>
+                                                                @{ 
+                                                                    List<JiaJiNewWebModel.NavInfoModel> ListUSA11 = new JiaJiNewWebBLL.NavInfoBLL().GetNavInfo(ListUSA1[i].GuoJia, ListUSA1[i].NavId, ListUSA1[i].BuWei);
+                                                                    for (int j = 0; j < ListUSA11.Count; j++)
+                                                                    {
+                                                                     <div style="height:26px; line-height:26px;">
+                                                                        <span class="1-1-1">@ListUSA11[j].NavTitleOne：</span>
+                                                                         @{
+                                                                             List<JiaJiNewWebModel.NavInfoModel> ListUSA111 = new JiaJiNewWebBLL.NavInfoBLL().GetNavInfo(ListUSA11[j].GuoJia, ListUSA11[j].NavId, ListUSA11[j].BuWei);
+                                                                             for (int k = 0; k < ListUSA111.Count; k++)
+                                                                             {
+                                                                                 if (k == (ListUSA111.Count - 1))
+                                                                                 {
+                                                                                     <a href="@{@ListUSA111[k].LinkFor}\@{@ListUSA111[k].NavId} ">@ListUSA111[k].NavTitleOne</a>
+                                                                                 }
+                                                                                 else
+                                                                                 {
+                                                                                     <a href="@{@ListUSA111[k].LinkFor}\@{@ListUSA111[k].NavId}">@ListUSA111[k].NavTitleOne</a><span>></span>
+                                                                                 }
+                                                                             }
+                                                                             }
+                                                                     </div>
+                                                                     }
+                                                                    }
+                                                                </div>
+                                                            }
+                                                            List<JiaJiNewWebModel.NavInfoModel> ListUSA2 = new JiaJiNewWebBLL.NavInfoBLL().GetNavInfo("美国", 0, "语言培训");
+                                                            for (int i = 0; i < ListUSA2.Count; i++)
+                                                            {
+                                                                      <div style="width:300px; height:150px; text-align:left; font-size:15px; margin:0 auto;">
+                                                                      <div style="font-size:18px; height:35px; line-height:35px;">@ListUSA2[i].NavTitleOne</div>
+                                                                        @{ 
+                                                                            List<JiaJiNewWebModel.NavInfoModel> ListUSA21 = new JiaJiNewWebBLL.NavInfoBLL().GetNavInfo(ListUSA2[i].GuoJia, ListUSA2[i].NavId, ListUSA2[i].BuWei);
+                                                                            for (int j = 0; j < ListUSA21.Count; j++)
+                                                                            {
+                                                                                <div style="height:26px; line-height:26px;">
+                                                                                    @{ 
+                                                                                        List<JiaJiNewWebModel.NavInfoModel> ListUSA211 = new JiaJiNewWebBLL.NavInfoBLL().GetNavInfo(ListUSA21[j].GuoJia, ListUSA21[j].NavId, ListUSA21[j].BuWei);
+                                                                                        for (int k = 0; k < ListUSA211.Count; k++)
+                                                                                        {
+                                                                                            if (k == (ListUSA211.Count - 1))
+                                                                                            {
+                                                                                                     <a href="@{@ListUSA211[k].LinkFor}\@{@ListUSA211[k].NavId} ">@ListUSA211[k].NavTitleOne</a>
+    }
+    else
+    {
+                                                                                                       <a href="@{@ListUSA211[k].LinkFor}\@{@ListUSA211[k].NavId}">@ListUSA211[k].NavTitleOne</a><span>></span>
+                                                                                                  }
+                                                                                        }
+                                                                                    }
+                                                                                </div>
+                                                                                }
+                                                                        }
+                                                                      </div>
+                                                            }
+                                                     }
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div style="background:url(../../image/Model/xian.png) center no-repeat; width:5px; height:240px; float:left"></div>
+                                        </td>
+                                        <td>
+                                            <div class="sMenuRight" style="width:740px; height:240px; float:left;">
+                                                <div class="sMenuRightLeft" style="float:left; margin-left:45px;width:320px;height:240px;">
+                                                  @{                                             
+                                                    List<JiaJiNewWebModel.NavInfoModel> ListUSA3 = new JiaJiNewWebBLL.NavInfoBLL().GetNavInfo("美国", 0, "留学必备");
+                                                        for (int i = 0; i < ListUSA3.Count; i++)
+                                                        {
+                                                    <div style="width:320px; height:130px; text-align:left; font-size:15px; margin:0 auto;">
+                                                        <div style="font-size:18px; height:35px; line-height:35px;">@ListUSA3[i].NavTitleOne</div>
+                                                                @{ 
+                                                                    List<JiaJiNewWebModel.NavInfoModel> ListUSA31 = new JiaJiNewWebBLL.NavInfoBLL().GetNavInfo(ListUSA3[i].GuoJia, ListUSA3[i].NavId, ListUSA3[i].BuWei);
+                                                                    for (int j = 0; j < ListUSA31.Count; j++)
+                                                                    {
+                                                                     <div style="height:26px; line-height:26px;">
+                                                                         @{
+                                                                             List<JiaJiNewWebModel.NavInfoModel> ListUSA311 = new JiaJiNewWebBLL.NavInfoBLL().GetNavInfo(ListUSA31[j].GuoJia, ListUSA31[j].NavId, ListUSA31[j].BuWei);
+                                                                             for (int k = 0; k < ListUSA311.Count; k++)
+                                                                             {
+                                                                                 if (k == (ListUSA311.Count - 1))
+                                                                                 {
+                                                                                     <a href="@{@ListUSA311[k].LinkFor}\@{@ListUSA311[k].NavId} ">@ListUSA311[k].NavTitleOne</a>
+                                                                                 }
+                                                                                 else
+                                                                                 {
+                                                                                     <a href="@{@ListUSA311[k].LinkFor}\@{@ListUSA311[k].NavId} ">@ListUSA311[k].NavTitleOne</a><span>></span>
+                                                                                 }
+                                                                             }
+                                                                             }
+                                                                     </div>
+                                                                     }
+                                                                    }
+                                                                </div>
+                                                            }
+                                                            List<JiaJiNewWebModel.NavInfoModel> ListUSA4 = new JiaJiNewWebBLL.NavInfoBLL().GetNavInfo("美国", 0, "背景提升");
+                                                            for (int i = 0; i < ListUSA4.Count; i++)
+                                                            {
+                                                                      <div style="width:320px; height:150px; text-align:left; font-size:15px; margin:0 auto;">
+                                                                      <div style="font-size:18px; height:35px; line-height:35px;">@ListUSA4[i].NavTitleOne</div>
+                                                                        @{ 
+                                                                            List<JiaJiNewWebModel.NavInfoModel> ListUSA41 = new JiaJiNewWebBLL.NavInfoBLL().GetNavInfo(ListUSA4[i].GuoJia, ListUSA4[i].NavId, ListUSA4[i].BuWei);
+                                                                            for (int j = 0; j < ListUSA41.Count; j++)
+                                                                            {
+                                                                                <div style="height:26px; line-height:26px;">
+                                                                                    @{ 
+                                                                                        List<JiaJiNewWebModel.NavInfoModel> ListUSA411 = new JiaJiNewWebBLL.NavInfoBLL().GetNavInfo(ListUSA41[j].GuoJia, ListUSA41[j].NavId, ListUSA41[j].BuWei);
+                                                                                        for (int k = 0; k < ListUSA411.Count; k++)
+                                                                                        {
+                                                                                                if (k == (ListUSA411.Count - 1))
+                                                                                                    {
+                                                                                                     <a href="@{@ListUSA411[k].LinkFor}\@{@ListUSA411[k].NavId} ">@ListUSA411[k].NavTitleOne</a>
+                                                                                                    }
+                                                                                               else
+                                                                                                   {
+                                                                                                       <a href="@{@ListUSA411[k].LinkFor}\@{@ListUSA411[k].NavId} ">@ListUSA411[k].NavTitleOne</a><span>></span>
+                                                                                                  }
+                                                                                        }
+                                                                                    }
+                                                                                </div>
+                                                                                }
+                                                                        }
+                                                                      </div>
+                                                            }
+                                                     }
+                                                </div>
+                                                <div style="float:left; width:280px; height:220px; background:url(../../image/Model/navyglx_right.png) center no-repeat;"></div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            <div style="clear:both;"></div>
+                            </div>
+                        </td>
+                        <td class="td">
+                            <a class="liuxue" href="\NationalChannel\NationalChannel\2">加拿大留学</a>
+                            <div class="sMenu">
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <div class="sMenuLeft" style="width:350px; height:240px; float:left;">
+                                                <div>
+                                                    @{                                             
+                                                    List<JiaJiNewWebModel.NavInfoModel> ListCanada1 = new JiaJiNewWebBLL.NavInfoBLL().GetNavInfo("加拿大", 0, "国家留学");
+                                                        for (int i = 0; i < ListCanada1.Count; i++)
+                                                        {
+                                                            <div style="width:300px; height:130px; text-align:left; font-size:15px; margin:0 auto;">
+                                                                <div style="font-size:18px; height:35px; line-height:35px;" class="1-1">@ListCanada1[i].NavTitleOne</div>
+                                                                @{ 
+                                                                    List<JiaJiNewWebModel.NavInfoModel> ListCanada11 = new JiaJiNewWebBLL.NavInfoBLL().GetNavInfo(ListCanada1[i].GuoJia, ListCanada1[i].NavId, ListCanada1[i].BuWei);
+                                                                    for (int j = 0; j < ListCanada11.Count; j++)
+                                                                    {
+                                                                     <div style="height:26px; line-height:26px;">
+                                                                        <span class="1-1-1">@ListCanada11[j].NavTitleOne：</span>
+                                                                         @{
+                                                                             List<JiaJiNewWebModel.NavInfoModel> ListCanada111 = new JiaJiNewWebBLL.NavInfoBLL().GetNavInfo(ListCanada11[j].GuoJia, ListCanada11[j].NavId, ListCanada11[j].BuWei);
+                                                                             for (int k = 0; k < ListCanada111.Count; k++)
+                                                                             {
+                                                                                 if (k == (ListCanada111.Count - 1))
+                                                                                 {
+                                                                                     <a href="@{@ListCanada111[k].LinkFor}\@{@ListCanada111[k].NavId}  ">@ListCanada111[k].NavTitleOne</a>
+                                                                                 }
+                                                                                 else
+                                                                                 {
+                                                                                     <a href="@{@ListCanada111[k].LinkFor}\@{@ListCanada111[k].NavId} ">@ListCanada111[k].NavTitleOne</a><span>></span>
+                                                                                 }
+                                                                             }
+                                                                             }
+                                                                     </div>
+                                                                     }
+                                                                    }
+                                                                </div>
+                                                            }
+                                                            List<JiaJiNewWebModel.NavInfoModel> ListCanada2 = new JiaJiNewWebBLL.NavInfoBLL().GetNavInfo("加拿大", 0, "语言培训");
+                                                            for (int i = 0; i < ListCanada2.Count; i++)
+                                                            {
+                                                                      <div style="width:300px; height:150px; text-align:left; font-size:15px; margin:0 auto;">
+                                                                      <div style="font-size:18px; height:35px; line-height:35px;">@ListCanada2[i].NavTitleOne</div>
+                                                                        @{ 
+                                                                            List<JiaJiNewWebModel.NavInfoModel> ListCanada21 = new JiaJiNewWebBLL.NavInfoBLL().GetNavInfo(ListCanada2[i].GuoJia, ListCanada2[i].NavId, ListCanada2[i].BuWei);
+                                                                            for (int j = 0; j < ListCanada21.Count; j++)
+                                                                            {
+                                                                                <div style="height:26px; line-height:26px;">
+                                                                                    @{ 
+                                                                                        List<JiaJiNewWebModel.NavInfoModel> ListCanada211 = new JiaJiNewWebBLL.NavInfoBLL().GetNavInfo(ListCanada21[j].GuoJia, ListCanada21[j].NavId, ListCanada21[j].BuWei);
+                                                                                        for (int k = 0; k < ListCanada211.Count; k++)
+                                                                                        {
+                                                                                                if (k == (ListCanada211.Count - 1))
+                                                                                                    {
+                                                                                                     <a href="@{@ListCanada211[k].LinkFor}\@{@ListCanada211[k].NavId} ">@ListCanada211[k].NavTitleOne</a>
+                                                                                                    }
+                                                                                               else
+                                                                                                   {
+                                                                                                       <a href="@{@ListCanada211[k].LinkFor}\@{@ListCanada211[k].NavId} ">@ListCanada211[k].NavTitleOne</a><span>></span>
+                                                                                                  }
+                                                                                        }
+                                                                                    }
+                                                                                </div>
+                                                                                }
+                                                                        }
+                                                                      </div>
+                                                            }
+                                                     }
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div style="background:url(../../image/Model/xian.png) center no-repeat; width:5px; height:240px; float:left"></div>
+                                        </td>
+                                        <td>
+                                            <div class="sMenuRight" style="width:740px; height:240px; float:left;">
+                                                <div class="sMenuRightLeft" style="float:left; margin-left:45px;width:320px;height:240px;">
+                                                    @{                                             
+                                                    List<JiaJiNewWebModel.NavInfoModel> ListCanada3 = new JiaJiNewWebBLL.NavInfoBLL().GetNavInfo("加拿大", 0, "留学必备");
+                                                        for (int i = 0; i < ListCanada3.Count; i++)
+                                                        {
+                                                    <div style="width:320px; height:130px; text-align:left; font-size:15px; margin:0 auto;">
+                                                        <div style="font-size:18px; height:35px; line-height:35px;">@ListCanada3[i].NavTitleOne</div>
+                                                                @{ 
+                                                                    List<JiaJiNewWebModel.NavInfoModel> ListCanada31 = new JiaJiNewWebBLL.NavInfoBLL().GetNavInfo(ListCanada3[i].GuoJia, ListCanada3[i].NavId, ListCanada3[i].BuWei);
+                                                                    for (int j = 0; j < ListCanada31.Count; j++)
+                                                                    {
+                                                                     <div style="height:26px; line-height:26px;">
+                                                                         @{
+                                                                             List<JiaJiNewWebModel.NavInfoModel> ListCanada311 = new JiaJiNewWebBLL.NavInfoBLL().GetNavInfo(ListCanada31[j].GuoJia, ListCanada31[j].NavId, ListCanada31[j].BuWei);
+                                                                             for (int k = 0; k < ListCanada311.Count; k++)
+                                                                             {
+                                                                                 if (k == (ListCanada311.Count - 1))
+                                                                                 {
+                                                                                     <a href="@{@ListCanada311[k].LinkFor}\@{@ListCanada311[k].NavId} ">@ListCanada311[k].NavTitleOne</a>
+                                                                                 }
+                                                                                 else
+                                                                                 {
+                                                                                     <a href="@{@ListCanada311[k].LinkFor}\@{@ListCanada311[k].NavId} ">@ListCanada311[k].NavTitleOne</a><span>></span>
+                                                                                 }
+                                                                             }
+                                                                             }
+                                                                     </div>
+                                                                     }
+                                                                    }
+                                                                </div>
+                                                            }
+                                                            List<JiaJiNewWebModel.NavInfoModel> ListCanada4 = new JiaJiNewWebBLL.NavInfoBLL().GetNavInfo("加拿大", 0, "背景提升");
+                                                            for (int i = 0; i < ListCanada4.Count; i++)
+                                                            {
+                                                                      <div style="width:320px; height:150px; text-align:left; font-size:15px; margin:0 auto;">
+                                                                      <div style="font-size:18px; height:35px; line-height:35px;">@ListCanada4[i].NavTitleOne</div>
+                                                                        @{ 
+                                                                            List<JiaJiNewWebModel.NavInfoModel> ListCanada41 = new JiaJiNewWebBLL.NavInfoBLL().GetNavInfo(ListCanada4[i].GuoJia, ListCanada4[i].NavId, ListCanada4[i].BuWei);
+                                                                            for (int j = 0; j < ListCanada41.Count; j++)
+                                                                            {
+                                                                                <div style="height:26px; line-height:26px;">
+                                                                                    @{ 
+                                                                                        List<JiaJiNewWebModel.NavInfoModel> ListCanada411 = new JiaJiNewWebBLL.NavInfoBLL().GetNavInfo(ListCanada41[j].GuoJia, ListCanada41[j].NavId, ListCanada41[j].BuWei);
+                                                                                        for (int k = 0; k < ListCanada411.Count; k++)
+                                                                                        {
+                                                                                                if (k == (ListCanada411.Count - 1))
+                                                                                                    {
+                                                                                                     <a href="@{@ListCanada411[k].LinkFor}\@{@ListCanada411[k].NavId} ">@ListCanada411[k].NavTitleOne</a>
+                                                                                                    }
+                                                                                               else
+                                                                                                   {
+                                                                                                       <a href="@{@ListCanada411[k].LinkFor}\@{@ListCanada411[k].NavId} ">@ListCanada411[k].NavTitleOne</a><span>></span>
+                                                                                                  }
+                                                                                        }
+                                                                                    }
+                                                                                </div>
+                                                                                }
+                                                                        }
+                                                                      </div>
+                                                            }
+                                                     }
+                                                </div>
+                                                <div style="float:left; width:280px; height:220px; background:url(../../image/Model/navyglx_right.png) center no-repeat;"></div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <div style="clear:both;"></div>
+                            </div>
+                        </td>
+                        <td class="td">
+                            <a class="liuxue" href="\NationalChannel\NationalChannel\3">英国留学</a>
+                            <div class="sMenu">
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <div class="sMenuLeft" style="width:350px; height:240px; float:left;">
+                                                <div>
+                                                     @{                                             
+                                                    List<JiaJiNewWebModel.NavInfoModel> ListEngland1 = new JiaJiNewWebBLL.NavInfoBLL().GetNavInfo("英国", 0, "国家留学");
+                                                        for (int i = 0; i < ListEngland1.Count; i++)
+                                                        {
+                                                            <div style="width:300px; height:130px; text-align:left; font-size:15px; margin:0 auto;">
+                                                                <div style="font-size:18px; height:35px; line-height:35px;" class="1-1">@ListEngland1[i].NavTitleOne</div>
+                                                                @{ 
+                                                                    List<JiaJiNewWebModel.NavInfoModel> ListEngland11 = new JiaJiNewWebBLL.NavInfoBLL().GetNavInfo(ListEngland1[i].GuoJia, ListEngland1[i].NavId, ListEngland1[i].BuWei);
+                                                                    for (int j = 0; j < ListEngland11.Count; j++)
+                                                                    {
+                                                                     <div style="height:26px; line-height:26px;">
+                                                                        <span class="1-1-1">@ListEngland11[j].NavTitleOne：</span>
+                                                                         @{
+                                                                             List<JiaJiNewWebModel.NavInfoModel> ListEngland111 = new JiaJiNewWebBLL.NavInfoBLL().GetNavInfo(ListEngland11[j].GuoJia, ListEngland11[j].NavId, ListEngland11[j].BuWei);
+                                                                             for (int k = 0; k < ListEngland111.Count; k++)
+                                                                             {
+                                                                                 if (k == (ListEngland111.Count - 1))
+                                                                                 {
+                                                                                     <a href="@{@ListEngland111[k].LinkFor}\@{@ListEngland111[k].NavId} ">@ListEngland111[k].NavTitleOne</a>
+                                                                                 }
+                                                                                 else
+                                                                                 {
+                                                                                     <a href="@{@ListEngland111[k].LinkFor}\@{@ListEngland111[k].NavId} ">@ListEngland111[k].NavTitleOne</a><span>></span>
+                                                                                 }
+                                                                             }
+                                                                             }
+                                                                     </div>
+                                                                     }
+                                                                    }
+                                                                </div>
+                                                            }
+                                                            List<JiaJiNewWebModel.NavInfoModel> ListEngland2 = new JiaJiNewWebBLL.NavInfoBLL().GetNavInfo("英国", 0, "语言培训");
+                                                            for (int i = 0; i < ListEngland2.Count; i++)
+                                                            {
+                                                                      <div style="width:300px; height:150px; text-align:left; font-size:15px; margin:0 auto;">
+                                                                      <div style="font-size:18px; height:35px; line-height:35px;">@ListEngland2[i].NavTitleOne</div>
+                                                                        @{ 
+                                                                            List<JiaJiNewWebModel.NavInfoModel> ListEngland21 = new JiaJiNewWebBLL.NavInfoBLL().GetNavInfo(ListEngland2[i].GuoJia, ListEngland2[i].NavId, ListEngland2[i].BuWei);
+                                                                            for (int j = 0; j < ListEngland21.Count; j++)
+                                                                            {
+                                                                                <div style="height:26px; line-height:26px;">
+                                                                                    @{ 
+                                                                                        List<JiaJiNewWebModel.NavInfoModel> ListEngland211 = new JiaJiNewWebBLL.NavInfoBLL().GetNavInfo(ListEngland21[j].GuoJia, ListEngland21[j].NavId, ListEngland21[j].BuWei);
+                                                                                        for (int k = 0; k < ListEngland211.Count; k++)
+                                                                                        {
+                                                                                                if (k == (ListEngland211.Count - 1))
+                                                                                                    {
+                                                                                                     <a href="@{@ListEngland211[k].LinkFor}\@{@ListEngland211[k].NavId} ">@ListEngland211[k].NavTitleOne</a>
+                                                                                                    }
+                                                                                               else
+                                                                                                   {
+                                                                                                       <a href="@{@ListEngland211[k].LinkFor}\@{@ListEngland211[k].NavId}  ">@ListEngland211[k].NavTitleOne</a><span>></span>
+                                                                                                  }
+                                                                                        }
+                                                                                    }
+                                                                                </div>
+                                                                                }
+                                                                        }
+                                                                      </div>
+                                                            }
+                                                     }
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div style="background:url(../../image/Model/xian.png) center no-repeat; width:5px; height:240px; float:left"></div>
+                                        </td>
+                                        <td>
+                                            <div class="sMenuRight" style="width:740px; height:240px; float:left;">
+                                                <div class="sMenuRightLeft" style="float:left; margin-left:45px;width:320px;height:240px;">
+                                                    @{                                             
+                                                    List<JiaJiNewWebModel.NavInfoModel> ListEngland3 = new JiaJiNewWebBLL.NavInfoBLL().GetNavInfo("英国", 0, "留学必备");
+                                                        for (int i = 0; i < ListEngland3.Count; i++)
+                                                        {
+                                                    <div style="width:320px; height:130px; text-align:left; font-size:15px; margin:0 auto;">
+                                                        <div style="font-size:18px; height:35px; line-height:35px;">@ListEngland3[i].NavTitleOne</div>
+                                                                @{ 
+                                                                    List<JiaJiNewWebModel.NavInfoModel> ListEngland31 = new JiaJiNewWebBLL.NavInfoBLL().GetNavInfo(ListEngland3[i].GuoJia, ListEngland3[i].NavId, ListEngland3[i].BuWei);
+                                                                    for (int j = 0; j < ListEngland31.Count; j++)
+                                                                    {
+                                                                     <div style="height:26px; line-height:26px;">
+                                                                         @{
+                                                                             List<JiaJiNewWebModel.NavInfoModel> ListEngland311 = new JiaJiNewWebBLL.NavInfoBLL().GetNavInfo(ListEngland31[j].GuoJia, ListEngland31[j].NavId, ListEngland31[j].BuWei);
+                                                                             for (int k = 0; k < ListEngland311.Count; k++)
+                                                                             {
+                                                                                 if (k == (ListEngland311.Count - 1))
+                                                                                 {
+                                                                                     <a href="@{@ListEngland311[k].LinkFor}\@{@ListEngland311[k].NavId}  ">@ListEngland311[k].NavTitleOne</a>
+                                                                                 }
+                                                                                 else
+                                                                                 {
+                                                                                     <a href="@{@ListEngland311[k].LinkFor}\@{@ListEngland311[k].NavId} ">@ListEngland311[k].NavTitleOne</a><span>></span>
+                                                                                 }
+                                                                             }
+                                                                             }
+                                                                     </div>
+                                                                     }
+                                                                    }
+                                                                </div>
+                                                            }
+                                                            List<JiaJiNewWebModel.NavInfoModel> ListEngland4 = new JiaJiNewWebBLL.NavInfoBLL().GetNavInfo("英国", 0, "背景提升");
+                                                            for (int i = 0; i < ListEngland4.Count; i++)
+                                                            {
+                                                                      <div style="width:320px; height:150px; text-align:left; font-size:15px; margin:0 auto;">
+                                                                      <div style="font-size:18px; height:35px; line-height:35px;">@ListEngland4[i].NavTitleOne</div>
+                                                                        @{ 
+                                                                            List<JiaJiNewWebModel.NavInfoModel> ListEngland41 = new JiaJiNewWebBLL.NavInfoBLL().GetNavInfo(ListEngland4[i].GuoJia, ListEngland4[i].NavId, ListEngland4[i].BuWei);
+                                                                            for (int j = 0; j < ListEngland41.Count; j++)
+                                                                            {
+                                                                                <div style="height:26px; line-height:26px;">
+                                                                                    @{ 
+                                                                                        List<JiaJiNewWebModel.NavInfoModel> ListEngland411 = new JiaJiNewWebBLL.NavInfoBLL().GetNavInfo(ListEngland41[j].GuoJia, ListEngland41[j].NavId, ListEngland41[j].BuWei);
+                                                                                        for (int k = 0; k < ListEngland411.Count; k++)
+                                                                                        {
+                                                                                                if (k == (ListEngland411.Count - 1))
+                                                                                                    {
+                                                                                                     <a href="@{@ListEngland411[k].LinkFor}\@{@ListEngland411[k].NavId} ">@ListEngland411[k].NavTitleOne</a>
+                                                                                                    }
+                                                                                               else
+                                                                                                   {
+                                                                                                       <a href="@{@ListEngland411[k].LinkFor}\@{@ListEngland411[k].NavId} ">@ListEngland411[k].NavTitleOne</a><span>></span>
+                                                                                                  }
+                                                                                        }
+                                                                                    }
+                                                                                </div>
+                                                                                }
+                                                                        }
+                                                                      </div>
+                                                            }
+                                                     }
+                                                </div>
+                                                <div style="float:left; width:280px; height:220px; background:url(../../image/Model/navyglx_right.png) center no-repeat;"></div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <div style="clear:both;"></div>
+                            </div>
+                        </td>
+                        <td class="td">
+                            <a class="liuxue" href="\NationalChannel\NationalChannel\4">澳洲留学</a>
+                            <div class="sMenu">
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <div class="sMenuLeft" style="width:350px; height:240px; float:left;">
+                                                <div>
+                                                    @{                                             
+                                                    List<JiaJiNewWebModel.NavInfoModel> ListAustralia1 = new JiaJiNewWebBLL.NavInfoBLL().GetNavInfo("澳洲", 0, "国家留学");
+                                                        for (int i = 0; i < ListAustralia1.Count; i++)
+                                                        {
+                                                            <div style="width:300px; height:130px; text-align:left; font-size:15px; margin:0 auto;">
+                                                                <div style="font-size:18px; height:35px; line-height:35px;" class="1-1">@ListAustralia1[i].NavTitleOne</div>
+                                                                @{ 
+                                                                    List<JiaJiNewWebModel.NavInfoModel> ListAustralia11 = new JiaJiNewWebBLL.NavInfoBLL().GetNavInfo(ListAustralia1[i].GuoJia, ListAustralia1[i].NavId, ListAustralia1[i].BuWei);
+                                                                    for (int j = 0; j < ListAustralia11.Count; j++)
+                                                                    {
+                                                                     <div style="height:26px; line-height:26px;">
+                                                                        <span class="1-1-1">@ListAustralia11[j].NavTitleOne：</span>
+                                                                         @{
+                                                                             List<JiaJiNewWebModel.NavInfoModel> ListAustralia111 = new JiaJiNewWebBLL.NavInfoBLL().GetNavInfo(ListAustralia11[j].GuoJia, ListAustralia11[j].NavId, ListAustralia11[j].BuWei);
+                                                                             for (int k = 0; k < ListAustralia111.Count; k++)
+                                                                             {
+                                                                                 if (k == (ListAustralia111.Count - 1))
+                                                                                 {
+                                                                                     <a href="@{@ListAustralia111[k].LinkFor}\@{@ListAustralia111[k].NavId}  ">@ListAustralia111[k].NavTitleOne</a>
+                                                                                 }
+                                                                                 else
+                                                                                 {
+                                                                                     <a href="@{@ListAustralia111[k].LinkFor}\@{@ListAustralia111[k].NavId}  ">@ListAustralia111[k].NavTitleOne</a><span>></span>
+                                                                                 }
+                                                                             }
+                                                                             }
+                                                                     </div>
+                                                                     }
+                                                                    }
+                                                                </div>
+                                                            }
+                                                            List<JiaJiNewWebModel.NavInfoModel> ListAustralia2 = new JiaJiNewWebBLL.NavInfoBLL().GetNavInfo("澳洲", 0, "语言培训");
+                                                            for (int i = 0; i < ListAustralia2.Count; i++)
+                                                            {
+                                                                      <div style="width:300px; height:150px; text-align:left; font-size:15px; margin:0 auto;">
+                                                                      <div style="font-size:18px; height:35px; line-height:35px;">@ListAustralia2[i].NavTitleOne</div>
+                                                                        @{ 
+                                                                            List<JiaJiNewWebModel.NavInfoModel> ListAustralia21 = new JiaJiNewWebBLL.NavInfoBLL().GetNavInfo(ListAustralia2[i].GuoJia, ListAustralia2[i].NavId, ListAustralia2[i].BuWei);
+                                                                            for (int j = 0; j < ListAustralia21.Count; j++)
+                                                                            {
+                                                                                <div style="height:26px; line-height:26px;">
+                                                                                    @{ 
+                                                                                        List<JiaJiNewWebModel.NavInfoModel> ListAustralia211 = new JiaJiNewWebBLL.NavInfoBLL().GetNavInfo(ListAustralia21[j].GuoJia, ListAustralia21[j].NavId, ListAustralia21[j].BuWei);
+                                                                                        for (int k = 0; k < ListAustralia211.Count; k++)
+                                                                                        {
+                                                                                                if (k == (ListAustralia211.Count - 1))
+                                                                                                    {
+                                                                                                     <a href="@{@ListAustralia211[k].LinkFor}\@{@ListAustralia211[k].NavId} ">@ListAustralia211[k].NavTitleOne</a>
+                                                                                                    }
+                                                                                               else
+                                                                                                   {
+                                                                                                       <a href="@{@ListAustralia211[k].LinkFor}\@{@ListAustralia211[k].NavId}  ">@ListAustralia211[k].NavTitleOne</a><span>></span>
+                                                                                                  }
+                                                                                        }
+                                                                                    }
+                                                                                </div>
+                                                                                }
+                                                                        }
+                                                                      </div>
+                                                            }
+                                                     }
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div style="background:url(../../image/Model/xian.png) center no-repeat; width:5px; height:240px; float:left"></div>
+                                        </td>
+                                        <td>
+                                            <div class="sMenuRight" style="width:740px; height:240px; float:left;">
+                                                <div class="sMenuRightLeft" style="float:left; margin-left:45px;width:320px;height:240px;">
+                                                    @{                                             
+                                                    List<JiaJiNewWebModel.NavInfoModel> ListAustralia3 = new JiaJiNewWebBLL.NavInfoBLL().GetNavInfo("澳洲", 0, "留学必备");
+                                                        for (int i = 0; i < ListAustralia3.Count; i++)
+                                                        {
+                                                    <div style="width:320px; height:130px; text-align:left; font-size:15px; margin:0 auto;">
+                                                        <div style="font-size:18px; height:35px; line-height:35px;">@ListAustralia3[i].NavTitleOne</div>
+                                                                @{ 
+                                                                    List<JiaJiNewWebModel.NavInfoModel> ListAustralia31 = new JiaJiNewWebBLL.NavInfoBLL().GetNavInfo(ListAustralia3[i].GuoJia, ListAustralia3[i].NavId, ListAustralia3[i].BuWei);
+                                                                    for (int j = 0; j < ListAustralia31.Count; j++)
+                                                                    {
+                                                                     <div style="height:26px; line-height:26px;">
+                                                                         @{
+                                                                             List<JiaJiNewWebModel.NavInfoModel> ListAustralia311 = new JiaJiNewWebBLL.NavInfoBLL().GetNavInfo(ListAustralia31[j].GuoJia, ListAustralia31[j].NavId, ListAustralia31[j].BuWei);
+                                                                             for (int k = 0; k < ListAustralia311.Count; k++)
+                                                                             {
+                                                                                 if (k == (ListAustralia311.Count - 1))
+                                                                                 {
+                                                                                     <a href="@{@ListAustralia311[k].LinkFor}\@{@ListAustralia311[k].NavId}  ">@ListAustralia311[k].NavTitleOne</a>
+                                                                                 }
+                                                                                 else
+                                                                                 {
+                                                                                     <a href="@{@ListAustralia311[k].LinkFor}\@{@ListAustralia311[k].NavId} ">@ListAustralia311[k].NavTitleOne</a><span>></span>
+                                                                                 }
+                                                                             }
+                                                                             }
+                                                                     </div>
+                                                                     }
+                                                                    }
+                                                                </div>
+                                                            }
+                                                            List<JiaJiNewWebModel.NavInfoModel> ListAustralia4 = new JiaJiNewWebBLL.NavInfoBLL().GetNavInfo("澳洲", 0, "背景提升");
+                                                            for (int i = 0; i < ListAustralia4.Count; i++)
+                                                            {
+                                                                      <div style="width:320px; height:150px; text-align:left; font-size:15px; margin:0 auto;">
+                                                                      <div style="font-size:18px; height:35px; line-height:35px;">@ListAustralia4[i].NavTitleOne</div>
+                                                                        @{ 
+                                                                            List<JiaJiNewWebModel.NavInfoModel> ListAustralia41 = new JiaJiNewWebBLL.NavInfoBLL().GetNavInfo(ListAustralia4[i].GuoJia, ListAustralia4[i].NavId, ListAustralia4[i].BuWei);
+                                                                            for (int j = 0; j < ListAustralia41.Count; j++)
+                                                                            {
+                                                                                <div style="height:26px; line-height:26px;">
+                                                                                    @{ 
+                                                                                        List<JiaJiNewWebModel.NavInfoModel> ListAustralia411 = new JiaJiNewWebBLL.NavInfoBLL().GetNavInfo(ListAustralia41[j].GuoJia, ListAustralia41[j].NavId, ListAustralia41[j].BuWei);
+                                                                                        for (int k = 0; k < ListAustralia411.Count; k++)
+                                                                                        {
+                                                                                                if (k == (ListAustralia411.Count - 1))
+                                                                                                    {
+                                                                                                     <a href="@{@ListAustralia411[k].LinkFor}\@{@ListAustralia411[k].NavId}   ">@ListAustralia411[k].NavTitleOne</a>
+                                                                                                    }
+                                                                                               else
+                                                                                                   {
+                                                                                                       <a href="@{@ListAustralia411[k].LinkFor}\@{@ListAustralia411[k].NavId}  ">@ListAustralia411[k].NavTitleOne</a><span>></span>
+                                                                                                  }
+                                                                                        }
+                                                                                    }
+                                                                                </div>
+                                                                                }
+                                                                        }
+                                                                      </div>
+                                                            }
+                                                     }
+                                                </div>
+                                                <div style="float:left; width:280px; height:220px; background:url(../../image/Model/navyglx_right.png) center no-repeat;"></div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                                <div style="clear:both;"></div>
+                            </div>
+                        </td>
+
+                        <td class="td">
+                            <a class="liuxue" href="\LanBgImm\LanBgImm\5">语言培训</a>
+
+                        </td>
+                        <td class="td"><a class="liuxue" href="\LanBgImm\LanBgImm\6">背景提升</a></td>
+                        <td class="td"><a class="liuxue" href="\LanBgImm\LanBgImm\7">移民服务</a></td>
+                    </tr>
+                </table>
+
+                <script>
+                    if (sessionStorage.navqurrentindex) {
+                        $(".navtab td").eq(sessionStorage.navqurrentindex).addClass("activenavtab");
+                    }
+                    else {
+                        $(".navtab td").eq(0).addClass("activenavtab");
+                    }
+
+                    $(".navtab td").click(function () {
+
+                        var $num = $(this).index(".navtab td");
+                        sessionStorage.navqurrentindex = $num;
+
+                    })
+
+                </script>
+
+            </div>
+        </div>
+    </div>
+    <div class="center" style="height:auto;">
+        @RenderBody()
+    </div>
+    <div class="foot" style="width:100%;height:270px;background-color:#1E4884;clear:both;min-width:1100px;">
+        <div style="width:1100px;height:210px;margin:0 auto;padding-top:30px;">
+            <div style="width:530px;height:210px;float:left;" class="footLeft">
+                <div style="width:105px;height:200px;float:left;">
+                    <ul>
+                        <li style="display:block;width:100px;height:45px;">
+                            <spen style="display:block;width:90px;font-size:20px;height:40px;line-height:40px;border-bottom:1px #FFFFFF solid;">留学服务</spen>
+                        </li>
+                        <li><a href="\NationalChannel\NationalChannel\1">美国留学</a> </li>
+                        <li><a href="\NationalChannel\NationalChannel\2">加拿大留学</a></li>
+                        <li><a href="\NationalChannel\NationalChannel\3">英国留学</a></li>
+                        <li><a href="\NationalChannel\NationalChannel\4">澳洲留学</a></li>
+
+                    </ul>
+                </div>
+                <div style="width:105px;height:200px;float:left;">
+                    <ul>
+                        <li style="display:block;width:100px;height:45px;">
+                            <spen style="display:block;width:90px;font-size:20px;height:40px;line-height:40px;border-bottom:1px #FFFFFF solid;">服务项目</spen>
+                        </li>
+                        <li><a href="\LanBgImm\LanBgImm\5">托福考试</a> </li>
+                        <li><a href="\LanBgImm\LanBgImm\5">雅思考试</a> </li>
+                        <li><a href="\Content\ImmigrantList">移民服务</a></li>
+                        <li><a href="\Content\GetProjectItemList">背景提升</a></li>
+                    </ul>
+                </div>
+                <div style="width:105px;height:200px;float:left;">
+                    <ul>
+                        <li style="display:block;width:100px;height:45px;">
+                            <spen style="display:block;width:90px;font-size:20px;height:40px;line-height:40px;border-bottom:1px #FFFFFF solid;">嘉际优势</spen>
+                        </li>
+                        <li><a href="/ConsList/ConsList">顾问团队</a> </li>
+                        <li><a href="/CaseList/CaseList">成功案例</a> </li>
+                        <li><a href="/ActivityList/ActivityList">近期活动</a></li>
+                    </ul>
+                </div>
+                <div style="width:105px;height:200px;float:left;">
+                    <ul>
+                        <li style="display:block;width:100px;height:45px;">
+                            <spen style="display:block;width:90px;font-size:20px;height:40px;line-height:40px;border-bottom:1px #FFFFFF solid;">加入我们</spen>
+                        </li>
+                        <li>嘉际招聘</li>
+                        <li>渠道合作</li>
+                        <li>联系我们</li>
+                    </ul>
+                </div>
+                <div style="width:105px;height:200px;float:left;">
+                    <ul>
+                        <li style="display:block;width:100px;height:45px;">
+                            <spen style="display:block;width:90px;font-size:20px;height:40px;line-height:40px;border-bottom:1px #FFFFFF solid;">各地嘉际</spen>
+                        </li>
+                        <li><a href="/BJBranch/BJBranch">嘉际北京</a></li>
+                        <li><a href="/XABranch/XABranch">嘉际西安</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div style="width:1px;height:210px;background-color:#ffffff;float:left;margin-left:2px;"></div>
+            <div style="width:560px;height:210px;float:right;" id="erweima">
+
+                <div style="width:135px;height:175px;float:left;margin-left:5px;">
+                    <p style="display:block;width:135px;height:40px;font-size:20px;color:#FFFFFF;margin:0px;text-align:center;line-height:40px;"> 嘉际北京微信 </p>
+                    <p style="background:url('/image/jjbjwx.png') center no-repeat;width:135px;height:125px;margin:0px;"></p>
+                </div>
+                <div style="width:135px;height:175px;float:left;margin-left:5px;">
+                    <p style="display:block;width:135px;height:40px;font-size:20px;color:#FFFFFF;margin:0px;text-align:center;line-height:40px;"> 嘉际北京微博 </p>
+                    <p style="background:url('/image/jjbjwb.png') center no-repeat;width:135px;height:125px;margin:0px;"></p>
+                </div>
+                <div style="width:135px;height:175px;float:left;margin-left:5px;">
+                    <p style="display:block;width:135px;height:40px;font-size:20px;color:#FFFFFF;margin:0px;text-align:center;line-height:40px;"> 嘉际西安微信 </p>
+                    <p style="background:url('/image/jjxawx.png') center no-repeat;width:135px;height:125px;margin:0px;"></p>
+                </div>
+                <div style="width:135px;height:175px;float:left;margin-left:5px;">
+                    <p style="display:block;width:135px;height:40px;font-size:20px;color:#FFFFFF;margin:0px;text-align:center;line-height:40px;"> 嘉际西安微博 </p>
+                    <p style="background:url('/image/jjxawb.png') center no-repeat;width:135px;height:125px;margin:0px;"></p>
+                </div>
+            </div>
+         
+        </div>
+    </div>
+</body>
+</html>
+
+<script>
+
+    function funFind() {
+        var selName = $("#sousuo").val();
+
+        if (selName == "") {
+            alert('请输入关键字');
+            return false;
+        }
+
+        location.href = "/Home/SouSuo?selName=" + selName + "";
+
+    }
+   
+</script>
+
+
+
+
+

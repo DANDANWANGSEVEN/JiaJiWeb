@@ -1,0 +1,261 @@
+﻿
+@{
+    ViewBag.Title = "MaxScoreStuList";
+}
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<link href="~/PageCSS/ListCSS.css" rel="stylesheet" />
+
+<style>
+     .successanli:hover {
+        color: dodgerblue;
+    }
+
+    .successanli {
+        text-decoration: none;
+        color: #666666;
+        line-height: 18px;
+    }
+    .tab_hd td a {
+        color: black;
+        text-decoration: none;
+    }
+
+        .tab_hd td a:hover {
+            color: #3398FF;
+        }
+
+    #HotActive a {
+        color: #666666;
+        text-decoration: none;
+    }
+
+        #HotActive a:hover {
+            color: #3398FF;
+        }
+
+    .teamname {
+        color: black;
+        text-decoration: none;
+    }
+
+        .teamname:hover {
+            color: #3398FF;
+        }
+        #con span:hover{
+            color:#3398FF;
+            border-bottom:1px solid #3398FF;
+        }
+</style>
+
+
+
+<div style="width:1100px;margin:0 auto;height:auto;">
+    <div style="width:100%;height:50px;line-height:50px;">
+        <div style="width:730px;height:50px;line-height:50px;border-bottom:3px solid #5E9FF3;">当前位置：高分学员列表></div>
+    </div>
+    <div style="width:100%;">
+        <div style="width:730px;float:left;height:auto;">
+            <div id="con" style="line-height:50px;border:1px solid #dadada;">
+            </div>
+            <div id="com">
+
+            </div>
+            <input id="LanguageID" type="hidden" />
+            <input id="index" type="hidden" value="1" />
+            <input id="all" type="hidden" />
+
+            <div class="FenYe">
+            </div>
+        </div>
+
+        <div style="width:340px;float:right;height:1000px;">
+            @{
+                foreach (var item in ViewBag.OptionImage as List<JiaJiNewWebModel.Option>)
+                {
+                    <div style="width:100%;height:200px;background:url('@item.OptionUrl') center no-repeat;background-size:100% 100%;"></div>
+                }
+            }
+            <div style="width:100%;height:240px;margin-top:20px;">
+                <div id="HotTitle">热门活动</div>
+                <div>
+                    <ul id="HotActive">
+                        @{
+                            foreach (var item in ViewBag.activelist as List<JiaJiNewWebModel.Active>)
+                            {
+                                <li style="overflow: hidden;white-space:nowrap;text-overflow:ellipsis;"><a href="/Content/Active/@item.ActiveID">· @item.ActiveTitle</a></li>
+
+                            }
+                        }
+
+                    </ul>
+                </div>
+            </div>
+            <div style="width:100%;height:240px;margin-top:20px;">
+                <div id="HotTitle">嘉际观点</div>
+                <div>
+                    <ul id="HotActive">
+                        @{
+                            foreach (var item in ViewBag.optionlist as List<JiaJiNewWebModel.Option>)
+                            {
+                                <li style="overflow: hidden;white-space:nowrap;text-overflow:ellipsis;"><a href="/Content/OptionShow/@item.OptionID">· @item.OptionTitle</a></li>
+                            }
+                        }
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        LanguageShow();
+        list(1);
+        $("#LanguageID").val('' + 1 + '');
+    })
+    function LanguageShow()
+    {
+        $.ajax({
+            type: "get",
+            url: "/LanBgImm/Language",
+            dataType: "json",
+            success: function (data) {
+                $("#con").empty();
+                var stri = "";
+                for (var i = 0; i < data.length; i++) {
+                    if (i==0) {
+                        stri += '<span id="' + data[i].LanguageID + '" style="margin-left:30px;cursor:pointer;" onclick="list(' + data[i].LanguageID + ')">' + data[i].LanguageName + '</span>';
+                    }
+                    else {
+                        stri += '<span id="' + data[i].LanguageID + '" style="margin-left:30px;cursor:pointer;" onclick="list(' + data[i].LanguageID + ')">' + data[i].LanguageName + '</span>';
+                    }
+                }
+                $("#con").append(stri);
+            }
+        })
+    }
+    var s = "";
+    function list(id) {
+        GetList(id,1);
+        rowcount(id);
+        $(".SuccessContent").each(function () {
+            var text = $(this).text().substr(0, 300);
+            this.innerHTML = text + "...";
+        });
+
+    }
+    function GetList(id,pageindex)
+    {
+        $.ajax({
+            type: "get",
+            url: "/ShareList/PageLearnShow",
+            data: {
+                "LanguageId": id,
+                "pageindex": pageindex
+            },
+            async:false,
+            dataType: "json",
+            success: function (data) {
+                $("#con span").removeClass("aa");
+                $("#" + id).addClass("aa");
+                $("#LanguageID").val('' + id + '');
+                var sc = $("#" + id).text();
+                $("#cs").text('' + sc + '');
+                $("#com").empty();
+                var str = "";
+                for (var i = 0; i < data.length; i++) {
+                    //Anli(data[i].TeamID);
+                    str = '<div style="width:100%;height:180px;margin-top:10px;border-bottom:1px solid #dadada;">' +
+                          '<a href="/ShareList/MaxScoreStuContent/' + data[i].LearnSorceID + '"><img src="' + data[i].LearnImage + '" style= "width:120px;height:165px;" /></a>' +
+                            '<div style="float:right; width:550px;height:100%;position:relative;">'+
+                        '<div style="width:100%;height:45px;line-height:45px;">' +
+                        ' <span style="font-size:20px;font-weight:600;display:block;height:100%;float:left;text-align:center"><a class="teamname"  href="/ShareList/MaxScoreStuContent/' + data[i].LearnSorceID + '">' + data[i].LearnName + '</a></span>' +
+                                '</div>'+
+                                '<div style="width:100%;height:25px;line-height:25px;color:#666666;">' +
+                                    '<span>所学语言：' + data[i].LanguageName+ '</span>' +
+                                '</div>'+
+                                '<div style="width:100%;height:25px;line-height:25px;color:#666666;">' +
+                                    '<span>分数：' + data[i].Sorce + '</span>' +
+                                '</div>'+
+                        '<div style="width:100%;height:70px;line-height:24px;overflow:hidden;text-overflow:ellipsis; display: -webkit-box;-webkit-line-clamp: 3; -webkit-box-orient: vertical;color:#666666;"  title="' + data[i].LearnerGonsis + '">' +
+                        ' 标题：' + data[i].LearnerGonsis + '' +
+                    '</div>'+
+                            '</div>'+
+                            '</div>';
+
+                    $("#com").append(str);
+                }
+                if (data.length === 0) { str += '<div style="width:100%;height:155px;margin-top:20px;"><p>暂无信息</p></div>' }
+
+            }
+        })
+    }
+
+    function rowcount(id)
+    {
+        var aid = $("#index").val();
+        $.ajax({
+            type: "get",
+            url: "/ShareList/GerRowCounts",
+            data: {
+                "id": id
+            },
+            success: function (data) {
+                $("#all").val('' + data + '');
+                $(".FenYe").empty();
+                if (data==0) {
+                    return;
+                }
+                var strin = "";
+                strin += '<span style="width:60px;" onclick="last()">上一页</span>';
+                for (var i = 1; i <= Number(data); i++) {
+                    if (i == aid) {
+                        strin += '<span style="color:red;" onclick="on(' + i + ')">' + i + '</span >';
+                    }
+                    else {
+                        strin += '<span onclick="on(' + i + ')">' + i + '</span >';
+                    }
+
+                }
+                strin += '<span style="width:60px;" onclick="next()">下一页</span>';
+                $(".FenYe").append(strin);
+            }
+        })
+    }
+    function on(id)
+    {
+        var areaid = $("#LanguageID").val();
+        GetList(id, id);
+        rowcount(id)
+    }
+    function last()
+    {
+        var areaid = $("#LanguageID").val();
+        var a = $("#index").val();
+        if (a > 1) {
+            $("#index").val(a - 1);
+            GetList(id, Number($("#index").val()))
+            rowcount(id)
+        }
+        else {
+            alert("当前已经是第一页了");
+        }
+    }
+    function next()
+    {
+        var areaid = $("#LanguageID").val();
+        var a = $("#index").val();
+        var b = Number($("#all").val());
+        if (a < b) {
+            $("#index").val(Number(a) + 1);
+            GetList(id, Number($("#index").val()))
+            rowcount(id)
+        }
+        else {
+            alert("当前已经是最后一页了");
+        }
+    }
+
+
+</script>
+

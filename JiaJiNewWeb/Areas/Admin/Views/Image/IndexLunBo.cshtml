@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewBag.Title = "IndexLunBo";
+    Layout = "../study/layout.cshtml";
+}
+
+<table id="grid" style="width: 1024px" title="用户操作" iconcls="icon-view"></table>
+
+<script type="text/javascript">
+
+
+    $(function () {
+        var columns = [{ field: 'ImageID', checkbox: true, isTableBody: 1, isFormBody: 1, type: "hidden" },   //选择
+        { title: '图片', field: 'ImageUrl', width: 600, isTableBody: 2, isFormBody: 2, type: "file", formatter: function (val) { return "<img width=\"500\" height=\"100\" src='@SiteConfig.SiteUrl" + val + "'/>"; }, Size: "1100×400" },
+        { title: '上传时间', field: 'ImageUpDate', width: 200, isTableBody: 3, isFormBody: 3, type: "date" },
+
+        { title: '图片介绍', field: 'ImageProduce', width: 300, isTableBody: 4, formatter: function (val) { if ($("<div>" + val + "</div>").text().length > 22) return $("<div>" + val + "</div>").text().substr(0, 22) + "..."; else return $("<div>" + val + "</div>").text(); }, isFormBody: 4, type: "ue",validType: ["required","length[2,200]"] },
+
+
+        ];
+        $("#grid").InitGrid("/Admin/Image/IndexLunBo", "首页轮播图管理", columns);
+    })
+
+    function ShowAddDialog() {
+        alert();
+    }
+</script>

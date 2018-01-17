@@ -1,0 +1,26 @@
+﻿
+
+@{
+    ViewBag.Title = "AreasesAdd";
+    Layout = "../study/layout.cshtml";
+}
+
+
+
+<table id="grid" style="width: 1024px" title="用户操作" iconcls="icon-view"></table>
+
+<script type="text/javascript">
+
+
+    $(function () {
+        var columns = [{ field: 'AreaID', checkbox: true, isTableBody: 1, isFormBody: 1, type: "hidden" },   //选择
+        { title: '地区名称', field: 'AreaName', width: 200, isTableBody: 2, isFormBody: 2, type: "text", validType: ["required", "length[2,20]"] },
+        ];
+        $("#grid").InitGrid("/Admin/study/AreasesAdd", "留学咨询管理", columns);
+    })
+
+    function ShowAddDialog() {
+        alert();
+    }
+</script>
+

@@ -1,0 +1,289 @@
+﻿
+@{
+    ViewBag.Title = "ConsList";
+}
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<link href="~/PageCSS/ListCSS.css" rel="stylesheet" />
+
+<style>
+    .successanli:hover{
+        color:dodgerblue;
+    }
+    .successanli{
+        text-decoration:none;color:#666666;line-height:18px;
+    }
+    .SuccessProfile{
+        color:#666666;
+        text-decoration:none;
+    }
+    .SuccessProfile:hover{
+        color:#3398FF;
+        text-decoration:underline;
+    }
+</style>
+
+<style>
+    .tab_hd td a {
+        color: black;
+        text-decoration: none;
+    }
+
+        .tab_hd td a:hover {
+            color: #3398FF;
+        }
+
+    #HotActive a {
+        color: #666666;
+        text-decoration: none;
+    }
+
+        #HotActive a:hover {
+            color: #3398FF;
+        }
+
+        .teamname{
+            color: black;
+        text-decoration: none;
+        }
+        .teamname:hover {
+            color: #3398FF;
+        }
+</style>
+
+<div style="width:1100px;margin:0 auto;height:auto;margin-top:10px;">
+    <div style="width:100%;height:50px;line-height:50px;">
+        <div style="width:730px;height:50px;line-height:50px;border-bottom:3px solid #5E9FF3;">当前位置：<a href="/Home/Index" style="text-decoration:none;color:black;">首页></a>顾问><span id="cs"></span></div>
+    </div>
+    <div style="width:100%;">
+        <div style="width:730px;float:left;height:auto;">
+            <div id="con" style="line-height:50px;border:1px solid #dadada;">
+            </div>
+            <div id="com">
+
+            </div>
+            <input id="area" type="hidden" />
+            <input id="index" type="hidden" value="1" />
+            <input id="all" type="hidden" />
+
+            <div class="FenYe" style="height:80px;">
+            </div>
+        </div>
+
+        <div style="width:340px;float:right;height:1000px;">
+            @{
+                foreach (var item in ViewBag.OptionImage as List<JiaJiNewWebModel.Option>)
+                {
+                    <div style="width:100%;height:200px;background:url('@item.OptionUrl') center no-repeat;background-size:100% 100%;"></div>
+                }
+            }
+            <div style="width:100%;height:240px;margin-top:20px;">
+                <div id="HotTitle">热门活动</div>
+                <div>
+                    <ul id="HotActive">
+                        @{
+                            foreach (var item in ViewBag.activelist as List<JiaJiNewWebModel.Active>)
+                            {
+                                <li style="overflow: hidden;white-space:nowrap;text-overflow:ellipsis;"><a href="/Content/Active/@item.ActiveID">· @item.ActiveTitle</a></li>
+
+                            }
+                        }
+
+                    </ul>
+                </div>
+            </div>
+
+            <div style="width:100%;height:240px;margin-top:20px;">
+                <div id="HotTitle">嘉际观点</div>
+                <div>
+                    <ul id="HotActive">
+
+                        @{
+                            foreach (var item in ViewBag.optionlist as List<JiaJiNewWebModel.Option>)
+                            {
+                                <li style="overflow: hidden;white-space:nowrap;text-overflow:ellipsis;"><a href="/Content/OptionShow/@item.OptionID">· @item.OptionTitle</a></li>
+                            }
+
+                        }
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        area();
+        list(1);
+        $("#area").val('' + 1 + '');
+    })
+    function area() {
+        $.ajax({
+            type: "get",
+            url: "/ConsList/GetArea",
+            dataType: "json",
+            success: function (data) {
+                $("#con").empty();
+                var stri = "";
+                for (var i = 0; i < data.length; i++) {
+                    if (i == 0) {
+                        stri += '<span class="ab" id="' + data[i].AreaID + '" style="margin-left:30px;cursor:pointer;" onclick="list(' + data[i].AreaID + ')">' + data[i].AreaName + '顾问</span>';
+                    }
+                    else {
+                        stri += '<span class="ab" id="' + data[i].AreaID + '" style="margin-left:30px;cursor:pointer;" onclick="list(' + data[i].AreaID + ')">' + data[i].AreaName + '顾问</span>';
+                    }
+                }
+                $("#con").append(stri);
+            }
+        })
+    }
+    var s = "";
+    function list(id) {
+        GetList(id, 1);
+        rowcount(id);
+        $(".SuccessContent").each(function () {
+            var text = $(this).text().substr(0, 300);
+            this.innerHTML = text + "...";
+        });
+
+    }
+    function GetList(id, pageindex) {
+        $.ajax({
+            type: "get",
+            url: "/ConsList/GetTeam",
+            data: {
+                "areaid": id,
+                "pageindex": pageindex
+            },
+            async: false,
+            dataType: "json",
+            success: function (data) {
+                $("#con span").removeClass("aa");
+                $("#" + id).addClass("aa");
+                $("#area").val('' + id + '');
+                var sc = $("#" + id).text();
+                $("#cs").text('' + sc + '');
+                $("#com").empty();
+                var str = "";
+                for (var i = 0; i < data.length; i++) {
+                    
+                    str = '<div style="width:100%;height:200px;margin-top:20px;border-bottom:1px solid #dadada;">' +
+                          '<img src="' + data[i].Image1 + '" style= "width:120px;height:170px;" />' +
+                            '<div style="float:right; width:550px;height:100%;position:relative;">' +
+                        '<div style="width:100%;height:45px;line-height:45px;">' +
+                        ' <span style="font-size:20px;font-weight:600;display:block;height:100%;float:left;text-align:center"><a class="teamname"  href="/ConsContent/ConsContent/' + data[i].TeamID + '">' + data[i].Name + '</a></span>' +
+                                    '<span style="display:block;width:2px;height:25px;float:left;background-color:#000;margin:10px 10px 0;"></span>' +
+                                    '<span style="display:block;width:200px;height:100%;float:left;">' + data[i].Position + '</span>' +
+                                '</div>' +
+                                '<div style="width:100%;height:25px;line-height:25px;color:#666666;">' +
+                                    '<span>擅长申请：' + data[i].ShenQing + '</span>' +
+                                '</div>' +
+                                '<div style="width:100%;height:25px;line-height:25px;color:#666666;">' +
+                                    '<span>从业时间：' + data[i].WorkDate + '</span>' +
+                                '</div>' +
+                        '<div style="width:100%;height:76px;line-height:24px;overflow:hidden;text-overflow:ellipsis; display: -webkit-box;-webkit-line-clamp: 3; -webkit-box-orient: vertical;color:#666666;">' +
+                        ' 成功案例：<a class="SuccessProfile" title="点击查看" href="/Content/SuccessContent/' + data[i].TeamID + '"> ' + data[i].SuccessProfile + '</a>' +
+                    '</div>' +
+                                '<div style="width:100px;height:30px;font-size:18px;background-color:#5E9FF3;position:absolute;top:0px;right:0px;">' +
+                                    '<a href="#" style="list-style:none;color:#fff;display:block;width:100px;height:30px;line-height:30px;text-align:center;text-decoration:none;">预约咨询</a>' +
+                                '</div>' +
+                            '</div>' +
+                            '</div>';
+
+                    $("#com").append(str);
+                }
+                if (data.length === 0) { str += '<div style="width:100%;height:155px;margin-top:20px;"><p>暂无信息</p></div>' }
+
+            }
+        })
+    }
+    //function Anli(id) {
+
+    //    $.ajax({
+    //        type: "get",
+    //        url: "/ConsList/GetAnLiByTeam",
+    //        data: {
+    //            "teamid": id
+    //        },
+    //        dataType: "json",
+    //        async: false,
+    //        success: function (data) {
+    //            s = "<ul style='display: inline;'>";
+    //            for (var i = 0; i < data.length; i++) {
+    //                if (i >= 2)
+    //                {
+    //                    s += "<li style='margin-left:100px;line-height:24px;list-style:none;'><a class='successanli' >...</a></li>";
+    //                    break;
+    //                } 
+    //                else
+    //                {
+    //                    s += "<li style='margin-left:100px;line-height:24px;'>" + (i + 1) + ".<a class='successanli' href='/Content/Success/" + data[i].SuccessID + "'>" + data[i].SuccessTitle + "</a></li>"; // href='/Content/Success/" + data[i].SuccessID + "'
+    //                }
+    //            }
+    //            s += "</ul>";
+    //        }
+    //    })
+    //}
+    function rowcount(id) {
+        var aid = $("#index").val();
+        $.ajax({
+            type: "get",
+            url: "/ConsList/GetRowCounts",
+            data: {
+                "areaid": id
+            },
+            success: function (data) {
+                $("#all").val('' + data + '');
+                $(".FenYe").empty();
+                if (data == 0) {
+                    return;
+                }
+                var strin = "";
+                strin += '<span style="width:60px;" onclick="last()">上一页</span>';
+                for (var i = 1; i <= Number(data) ; i++) {
+                    if (i == aid) {
+                        strin += '<span style="color:red;" onclick="on(' + i + ')">' + i + '</span >';
+                    }
+                    else {
+                        strin += '<span onclick="on(' + i + ')">' + i + '</span >';
+                    }
+
+                }
+                strin += '<span style="width:60px;" onclick="next()">下一页</span>';
+                $(".FenYe").append(strin);
+            }
+        })
+    }
+    function on(id) {
+        var areaid = $("#area").val();
+        GetList(areaid, id);
+        rowcount(areaid)
+    }
+    function last() {
+        var areaid = $("#area").val();
+        var a = $("#index").val();
+        if (a > 1) {
+            $("#index").val(a - 1);
+            GetList(areaid, Number($("#index").val()))
+            rowcount(areaid)
+        }
+        else {
+            alert("当前已经是第一页了");
+        }
+    }
+    function next() {
+        var areaid = $("#area").val();
+        var a = $("#index").val();
+        var b = Number($("#all").val());
+        if (a < b) {
+            $("#index").val(Number(a) + 1);
+            GetList(areaid, Number($("#index").val()))
+            rowcount(areaid)
+        }
+        else {
+            alert("当前已经是最后一页了");
+        }
+    }
+
+
+</script>

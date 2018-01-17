@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewBag.Title = "LanguagePeiXun";
+    Layout = "../study/layout.cshtml";
+}
+
+<table id="grid" style="width: 1024px" title="用户操作" iconcls="icon-view"></table>
+
+<script type="text/javascript">
+
+
+    $(function () {
+
+        var columns = [{ field: 'LanguagePx_ID', checkbox: true, isTableBody: 1, isFormBody: 1, type: "hidden" },   //选择
+        { title: '语言培训名称', field: 'Language_Name', width: 200, isTableBody: 2, isFormBody: 2, type: "text", validType: ["required", "length[2,6]"] },
+        { title: '语言培训内容', field: 'Language_Content', width: 200, isTableBody: 3, isFormBody: 3, type: "text", validType: ["required", "length[2,10]"] },
+
+        ];
+        $("#grid").InitGrid("/Admin/study/LanguagePeiXun", "语言培训", columns);
+    })
+
+    function ShowAddDialog() {
+        alert();
+    }
+</script>
+

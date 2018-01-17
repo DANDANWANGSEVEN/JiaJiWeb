@@ -1,0 +1,34 @@
+﻿
+@{
+    ViewBag.Title = "InsertTeam";
+    Layout = "../study/layout.cshtml";
+}
+
+<table id="grid" style="width: 1024px" title="用户操作" iconcls="icon-view"></table>
+
+<script type="text/javascript">
+
+
+    $(function () {
+        var columns = [{ field: 'AreaRelaID', checkbox: true, isTableBody: 1, isFormBody: 1, type: "hidden" },   //选择
+        { title: '团队名称', field: 'Name', width: 80, isTableBody: 2, isFormBody: 2, type: "text", validType: ["required", "length[2,20]"] },
+        { title: '职位', field: 'Position', width: 90, isTableBody: 3, isFormBody: 3, type: "text",validType: ["required","length[2,15]"] },
+        { title: '从业时长', field: 'WorkDate', width: 80, isTableBody: 4, isFormBody: 4, type: "text",validType: ["required","length[2,15]"] },
+        { title: '擅长申请', field: 'ShenQing', width: 100, isTableBody: 5, isFormBody: 5, type: "text",validType: ["required","length[2,15]"] },
+        { title: '标题照片（小）', field: 'Image1', width: 130, isTableBody: 11, isFormBody: 6, type: "file", formatter: function (val) { return "<img width=\"100\" height=\"100\" src='@SiteConfig.SiteUrl" + val + "'/>"; }, Size: "170×220" },
+        { title: '内容页照片（大）', field: 'Image2', width: 130, isTableBody: 12, isFormBody: 7, type: "file", formatter: function (val) { return "<img width=\"100\" height=\"100\" src='@SiteConfig.SiteUrl" + val + "'/>"; }, Size: "300×390" },
+        { title: '团队介绍', field: 'TeamProduce', width: 130, isTableBody: 8, formatter: function (val) { if ($("<div>" + val + "</div>").text().length > 22) return $("<div>" + val + "</div>").text().substr(0, 22) + "..."; else return $("<div>" + val + "</div>").text(); }, isFormBody: 10, type: "textarea" },
+        { title: '地区', field: 'AreaID', width: 80, isTableBody: 6, formatter: function (val) { return this.data[val]; }, isFormBody: 8, type: "select", url: "/Admin/study/Areashow", valueField: "AreaID", textField: "AreaName" },
+        { title: '成功案例个数', field: 'SuccessCount', width: 60, isTableBody: 7, isFormBody: 9, type: "text" },
+        { title: '关键字', field: 'SuccessKeyWord', width: 130, isTableBody: 9, formatter: function (val) { if ($("<div>" + val + "</div>").text().length > 22) return $("<div>" + val + "</div>").text().substr(0, 22) + "..."; else return $("<div>" + val + "</div>").text(); }, isFormBody: 11, type: "text" },
+        { title: '成功案例内容', field: 'SuccessContent', width: 150, isTableBody: 10, formatter: function (val) { if ($("<div>" + val + "</div>").text().length > 22) return $("<div>" + val + "</div>").text().substr(0, 22) + "..."; else return $("<div>" + val + "</div>").text(); }, isFormBody: 12, type: "ue" },
+        { title: '成功案例简介', field: 'SuccessProfile', width: 130, isTableBody: 13, formatter: function (val) { if ($("<div>" + val + "</div>").text().length > 22) return $("<div>" + val + "</div>").text().substr(0, 22) + "..."; else return $("<div>" + val + "</div>").text(); }, isFormBody: 13, type: "textarea" },
+
+            ];
+        $("#grid").InitGrid("/Admin/Team/InsertTeam", "精英团队管理", columns);
+    })
+
+    function ShowAddDialog() {
+        alert();
+    }
+</script>

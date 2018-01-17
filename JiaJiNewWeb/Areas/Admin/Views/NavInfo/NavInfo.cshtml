@@ -1,0 +1,145 @@
+﻿
+@{
+    ViewBag.Title = "NavInfo";
+    Layout = "../study/layout.cshtml";
+}
+<link href="~/Content/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Content/jquery-treegrid-master/css/jquery.treegrid.css" rel="stylesheet" />
+<script src="~/js/bootstrap.min.js"></script>
+<script src="~/Content/jquery-treegrid-master/js/jquery.treegrid.min.js"></script>
+<script src="~/Content/jquery-treegrid-master/js/jquery.treegrid.bootstrap3.js"></script>
+<script src="~/Content/jquery-treegrid-master/extension/jquery.treegrid.extension.js"></script>
+<style>
+    a:hover {
+        cursor: pointer;
+    }
+
+    .tr-Selected {
+        background: #f5f5f5;
+    }
+    .tab_show .top_tr td {
+        border:1px solid #808080;
+        width:250px;
+        font-size:15px;font-weight:600;
+    }
+    .tab_show td {
+    text-align:center;
+     height:35px;
+     line-height:35px;
+    }
+    .edit,.delete {
+        width:50px;
+        height:30px;
+        line-height:30px;
+        color:white;
+        border:0px;
+        margin:0px;
+        font-weight:600;
+    }
+    .delete {
+        background-color:#E68F8D;
+    }
+    .edit {
+        background-color:#95D195;
+    }
+</style>
+@*<div>
+    <div style="width: 300px; float:left;">
+        <div>国家: </div>
+        <div id="_divSeleClass">
+            <input style="width: 300px; height: 32px;" id="seleClass" class="easyui-combobox"
+                   name="country"
+                   data-options="url:'/NavInfo/CountryList',
+               method:'get',
+        valueField:'Key',
+        textField:'Value',
+        panelHeight:'auto',
+        editable:false
+        ">
+        </div>
+    </div>
+
+    <div style="width:300px;float:left;margin-left:20px;">
+        <div>类别: </div>
+        <div id="_divSeleLink">
+            <input style="width: 300px; height: 32px;" id="seleLink" class="easyui-combobox"
+                   name="type"
+                   data-options="url:'',method:'get',
+               valueField:'navid',
+               textField:'NavTitleOne',
+               panelHeight:'auto',
+               editable:false">
+        </div>
+    </div>
+    <button type="button" class="btn btn-info">搜索</button>
+    <button type="button" class="btn btn-primary">添加</button>
+    <button type="button" class="btn btn-success disabled">编辑</button>
+    <button type="button" class="btn btn-danger disabled">删除</button>
+</div>*@
+<div style="margin:10px 0px 0px 10px;width:100%;">
+    @*<table style="margin:10px 0px 0px 10px;">
+        <tr>
+            <td>
+                <a href="\NavInfo\AddNav\0" style="display:block;text-decoration:none;width:60px;height:35px;line-height:35px;background-color:#D4E7F0;color:black;text-align:center;">添加</a>
+            </td>
+        </tr>
+    </table>*@
+    <div style="margin-top:10px;">
+        <table class="tab_show">
+            <tr class="top_tr">
+                <td>类别</td>
+                <td>文章标题</td>
+                <td>链接</td>
+                <td>部位</td>
+                <td style="width:60px;">修改</td>
+                @*<td style="width:60px;">删除</td>*@
+            </tr>
+            @{ 
+                List<string> list_Country = new JiaJiBLL.NavInfoBll().GetAllCountry();
+                for (int i = 0; i < list_Country.Count; i++)
+                {
+                    <tr><td style="text-align:left;">@list_Country[i]</td><td></td><td></td><td></td><td></td><td></td></tr>
+                    List<JiaJiModels.NavInfo> listTypeByCountry = new JiaJiBLL.NavInfoBll().GetTypeByCountry(list_Country[i]);
+                    for (int j = 0; j < listTypeByCountry.Count; j++)
+                    {
+                            <tr class="first_tr">
+                                <td style="text-align:left;padding-left:10px;">@listTypeByCountry[j].NavTitleOne</td>
+                                <td>@listTypeByCountry[j].NavTitleTwo</td>
+                                <td>@listTypeByCountry[j].LinkFor</td>
+                                <td>@listTypeByCountry[j].BuWei</td>
+                                <td style="width:60px;"><a href="\Admin\NavInfo\EditNavInfo\@{@listTypeByCountry[j].NavID}" style="display:block;text-decoration:none;text-align:center;"  navid="@{@listTypeByCountry[j].NavID}" class="edit">编辑</a></td>
+                                @*<td style="width:60px;"><a href="javascript:void(0)" style="display:block;text-decoration:none;text-align:center;" navid="@{@listTypeByCountry[j].NavID}" class="delete">删除</a></td>*@
+</tr>
+    List<JiaJiModels.NavInfo> listNavInfo1 = new JiaJiBLL.NavInfoBll().GetNavInfo(list_Country[i], listTypeByCountry[j].NavID, listTypeByCountry[j].BuWei);
+    for (int k = 0; k < listNavInfo1.Count; k++)
+    {
+                            <tr class="second_tr">
+                                <td style="padding-left:30px;text-align:left;">@listNavInfo1[k].NavTitleOne</td>
+                                <td>@listNavInfo1[k].NavTitleTwo</td>
+                                <td>@listNavInfo1[k].LinkFor</td>
+                                <td>@listNavInfo1[k].BuWei</td>
+                                <td style="width:60px;"><a href="\Admin\NavInfo\EditNavInfo\@{@listNavInfo1[k].NavID} " style="display:block;text-decoration:none;text-align:center;" navid="@{@listNavInfo1[k].NavID}" class="edit">编辑</a></td>
+                                @*<td style="width:60px;"><a href="javascript:void(0)" style="display:block;text-decoration:none;text-align:center;" navid="@{@listNavInfo1[k].NavID}" class="delete">删除</a></td>*@
+</tr>
+    List<JiaJiModels.NavInfo> listNavInfo2 = new JiaJiBLL.NavInfoBll().GetNavInfo(list_Country[i], listNavInfo1[k].NavID, listNavInfo1[k].BuWei);
+    for (int m = 0; m < listNavInfo2.Count; m++)
+    {
+                                <tr class="three_tr">
+                                    <td style="padding-left:50px;text-align:left;">@listNavInfo2[m].NavTitleOne</td>
+                                    <td>@listNavInfo2[m].NavTitleTwo</td>
+                                    <td>@listNavInfo2[m].LinkFor</td>
+                                    <td>@listNavInfo2[m].BuWei</td>
+                                    <td style="width:60px;"><a href="\Admin\NavInfo\EditNavInfo\@{@listNavInfo2[m].NavID} " style="display:block;text-decoration:none;text-align:center;" navid="@{@listNavInfo2[m].NavID}" class="edit">编辑</a></td>
+                                    @*<td style="width:60px;"><a href="javascript:void(0)" style="display:block;text-decoration:none;text-align:center;" navid="@{@listNavInfo2[m].NavID}" class="delete">删除</a></td>*@
+</tr>
+                            }
+                        }
+                    }
+                }
+            }
+        </table>
+    </div>
+</div>
+
+
+

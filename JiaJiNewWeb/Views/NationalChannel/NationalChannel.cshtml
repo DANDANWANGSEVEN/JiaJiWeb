@@ -1,0 +1,1724 @@
+﻿
+@{
+    ViewBag.Title = "NationalChannel";
+}
+
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+
+
+@{
+    string topImg = "400px";
+    string AllWidth = "1100px";
+    string lxzxHeight = "250px";
+    string lxzxLeftHeight = "230px";
+    string lxzxLeftWidth = "700px";
+    string lxzxImgWidth = "275px";
+    string lxzxImgHwidth = "180px";
+    string lxzxNewWidth = "420px";
+    string zxhdRightWidth = "400px";
+    string zxhdNRWidth = "380px";
+    int ids = ViewBag.id;
+
+    <style>
+                    .lxzxUL {
+                border: 0px;
+                margin: 0px;
+                padding: 0px;
+                    padding-left: 10px;
+                    font-size: 15px;
+                }
+
+            .lxzxUL li {
+                    list-style-type: none;
+                height: 30px;
+                    line-height: 30px;
+                }
+
+                .lxzxUL li a {
+                    text-decoration: none;
+                color: #000;
+                }
+
+                    .lxzxUL li a:hover {
+                color: #3297FF;
+                    }
+
+        .lxzxRight ul {
+                border: 0px;
+                margin: 0px;
+                padding: 0px;
+                width: 350px;
+                    padding-left: 10px;
+                    font-size: 15px;
+                }
+
+            .lxzxRight ul li {
+                    list-style-type: none;
+                display: block;
+                width: 300px;
+                height: 20px;
+                    font-size: 18px;
+                    line-height: 20px;
+                background: url(../../image/index/lxzx_xmfh.png) left no-repeat;
+                    padding-left: 20px;
+                }
+             .lxzxRight ul li a{
+                color:black;
+            }
+            .lxzxRight ul li a:hover{
+                color:#3297FF;
+                cursor:pointer;
+            }
+            .lxzxRight ul p {
+                    font-size: 14px;
+                }
+
+
+                * {
+                margin: 0;
+                padding: 0;
+                }
+
+                ul, ol {
+                    list-style: none;
+                }
+                /*消除图片底部3像素距离*/
+                img {
+                    vertical-align: top;
+                }
+
+        .scroll {
+                width: 1100px;
+                height: 380px;
+                margin: 0 auto;
+                padding: 7px;
+                position: relative;
+                }
+
+        .box {
+                width: 1100px;
+                height: 380px;
+                overflow: hidden;
+                position: relative;
+                    margin-left: 2px;
+                }
+
+            .box ul {
+                width: 1000%;
+                position: absolute;
+                left: 0;
+                top: 0;
+                }
+
+                .box ul li {
+                    float: left;
+                }
+
+        .scroll ol {
+                position: absolute;
+                right: 10px;
+                bottom: 10px;
+                }
+
+        .Ascroll {
+                width: 720px;
+                height: 250px;
+                margin: 0 auto;
+                padding: 7px;
+                position: relative;
+                }
+
+        .Abox {
+                width: 720px;
+                height: 250px;
+                overflow: hidden;
+                position: relative;
+                    margin-left: 2px;
+                }
+
+        .Lunbolift {
+                height: 350px;
+                width: 50px;
+                    background-color: #808080;
+            float: right;
+                position: absolute;
+                left: 0px;
+                opacity: 0.1;
+                }
+
+        .Lunboright {
+                height: 350px;
+                width: 50px;
+                    background-color: #808080;
+            float: right;
+                    margin-left: 650px;
+                position: absolute;
+                opacity: 0.1;
+                }
+
+        /*.BorderDiv{
+                border: 1px solid #3398FF;
+                margin: 0 auto;
+                    line-height: 40px;
+                    text-align: center;
+                color: #FFF;
+                font-size:16px;
+        }
+        .BorderDiv:hover{
+            font-size:18px;
+            cursor:pointer;
+        }*/
+
+        .BorderDiv {
+            /*border: 1px solid #3398FF;*/
+            margin: 0 auto;
+            position: relative;
+            bottom: 5px;
+            left: 5px;
+            line-height: 40px;
+            text-align: center;
+            color: #FFF;
+        }
+        .BorderDiv span{
+            line-height: 48px;
+            text-align: center;
+            color: #FFF;
+            font-size:16px;
+        }
+         .BorderDiv span:hover{
+            line-height: 40px;
+            text-align: center;
+            color: #FFF;
+            font-size:18px;
+            line-height:50px;
+        }
+
+
+
+
+#more {
+                float: right;
+                border-radius: 35px;
+            width: 60px;
+            height: 20px;
+            border: 1px solid gray;
+            margin: 8px 0px;
+            }
+
+#more a {
+            padding: 5px 10px;
+                text-decoration: none;
+                font-size: 14px;
+                color: gray;
+            }
+
+#more:hover {
+        border: 1px solid #3398FF;
+            }
+
+#more:hover a {
+    color: #3398FF;
+                }
+
+        /*.time_plan {
+            width: 660px;
+            height: 229px;
+            position: relative;
+        }*/
+
+            .time_plan h6 {
+        //position: absolute;
+        /*width: 211px;
+        height: 66px;*/
+        //margin-left: -10px;
+        line-height: 120px;
+        text-align: center;
+        font-size: 24px;
+        font-weight: normal;
+        color: #FFF;
+            }
+            .time_plan td{
+
+    }
+
+
+            .time_plan dl {
+        /*//position: absolute;*/
+        width: 211px;
+        height: 66px;
+        overflow: hidden;
+    }
+
+                .time_plan dl dt {
+                    float: left;
+                    /*width: 65px;*/
+                    text-align: center;
+                    color: #FFF;
+                    line-height: 66px;
+                    font-size: 14px;
+                }
+
+                .time_plan dl dd {
+                    float: left;
+                    /*width: 98px;
+                    height: 58px;*/
+                    text-align: center;
+                    line-height: 24px;
+                    font-size: 14px;
+                    color: #FFF;
+                    padding: 8px 14px 0px;
+                }
+
+                .select a:hover{
+                    border-bottom:2px solid white;
+                    cursor:pointer;
+                }
+                 .select1 a:hover{
+                    border-bottom:2px solid white;
+                    cursor:pointer;
+                }
+        /*#time1 {
+            left: 240px;
+            top: 28px;
+        }
+
+        #time2 {
+            right: -20px;
+            top: 28px;
+        }
+
+        #time3 {
+            right: -20px;
+            top: 110px;
+        }
+
+        #time4 {
+            right: -20px;
+            bottom: -30px;
+        }
+
+            #time4 dd {
+                line-height: 16px;
+            }
+
+        #time5 {
+            left: 240px;
+            bottom: -25px;
+        }
+
+            #time5 dt {
+                text-align: left;
+                line-height: 24px;
+                padding-top: 12px;
+                height: 54px;
+            }
+
+        #time6 {
+            left: 20px;
+            bottom: -25px;
+        }
+
+            #time6 dt {
+                text-align: left;
+                line-height: 24px;
+                padding-top: 12px;
+                height: 54px;
+            }
+
+        #time7 {
+            left: 20px;
+            top: 110px;
+        }
+
+            #time7 dt {
+                text-align: left;
+                line-height: 24px;
+                padding-top: 12px;
+                height: 54px;
+            }
+
+            #time7 dd {
+                line-height: 40px;
+            }*/
+
+         .CollageImage{
+   border:1px solid #dadada;
+}
+.CollageImage:hover{
+    border:1px solid #3398FF;
+    cursor:pointer;
+}
+#HoverSuccess a{
+    color:#3398FF;
+    text-decoration:none;
+}
+#HoverSuccess a:hover{
+    border-bottom:1px solid #3398FF;
+}
+
+.chakanquanwen{
+    color:black;font-size:14px;text-decoration:none;
+}
+.chakanquanwen:hover{
+    color:#3398FF;
+    cursor:pointer;
+}
+
+
+    </style>
+    <style>
+        /*遮罩层效果*/
+        .zhezhao {
+            float: left;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+            .zhezhao .txt {
+                width: inherit;
+                height: 45px;
+                background: url(../../image/1px.png) repeat;
+                position: absolute;
+                left: 0;
+                bottom: 0;
+                color: #fff;
+                font-family: "微软雅黑";
+            }
+
+                .zhezhao .txt h3 {
+        font-size: 20px;
+        font-weight: 100;
+        height: 45px;
+        text-align: center;
+        line-height: 45px;
+    }
+
+                .zhezhao .txt p {
+        font-size: 14px;
+        text-align: center;
+    }
+    </style>
+
+    <style>
+
+.honor_banner UL LI IMG {
+        WIDTH: 720px; DISPLAY: block; HEIGHT: auto
+    }
+       .honor_banner UL LI {
+           display:block;
+           width:700px;
+           height:350px;
+           position:absolute;
+           left:0px;
+           top:0px;
+       }
+#honor FONT {
+	Z-INDEX: 10; POSITION: absolute; FILTER: alpha(opacity:60); MARGIN-TOP: -60px; WIDTH: 72px; HEIGHT: 120px; TOP: 50%; CURSOR: pointer; opacity: 0.6
+}
+#honor .prev {
+	BACKGROUND: url(~/image/next.png) no-repeat; LEFT: 0px; background-size:100% 100%;
+}
+#honor .prev:hover {
+	FILTER: alpha(opacity:100); opacity: 1
+}
+#honor .next {
+	BACKGROUND: url(~/image/prev.png) no-repeat; RIGHT: 0px; background-size:100% 100%;
+}
+#honor .next:hover {
+	FILTER: alpha(opacity:100); opacity: 1
+}
+   </style>
+
+   <script>
+
+       $(function () {
+
+           var ali1 = $('.yjs .honor_banner li');
+           var aPage1 = $('.yjs .honor_banner li');
+           //var aslide_img = $('.lunhuancenter b');
+           var iNow1 = 0;
+ 
+           function slide(index) {
+               iNow1 = index;
+               ali1.eq(index).addClass('lunboone').siblings().removeClass();
+               aPage1.eq(index).siblings().stop().animate({ opacity: 0 }, 1000);
+               aPage1.eq(index).stop().animate({ opacity: 1 }, 1000);
+               //aslide_img.eq(index).stop().animate({ opacity: 1, top: -10 }, 600).siblings('b').stop().animate({ opacity: 0, top: -40 }, 600);
+           }
+
+           function autoRun1() {
+               iNow1++;
+               if (iNow1 == ali1.length) {
+                   iNow1 = 0;
+               }
+               slide(iNow1);
+           }
+           var timer1 = setInterval(autoRun1, 6000);
+
+           ali1.hover(function () {
+               clearInterval(timer1);
+           }, function () {
+               timer1 = setInterval(autoRun1, 6000);
+           });
+           $(".yjs .prev,.yjs .next").hover(function () {
+               clearInterval(timer1);
+           }, function () {
+               timer1 = setInterval(autoRun1, 6000);
+           })
+           $(".yjs .prev").click(function () {
+               iNow1--;
+               if (iNow1 < 0) {
+                   iNow1 = ali1.length - 1;
+               }
+               clearInterval(timer1);
+               slide(iNow1);
+           })
+           $(".yjs .next").click(function () {
+               iNow1++;
+               if (iNow1 == ali1.length) {
+                   iNow1 = 0;
+               }
+               clearInterval(timer1);
+               slide(iNow1);
+           })
+			
+           var ali2 = $('.bk .honor_banner li');
+           var aPage2 = $('.bk .honor_banner li');
+           //var aslide_img = $('.lunhuancenter b');
+           var iNow2 = 0;
+ 
+           function slide2(index) {
+               iNow2 = index;
+               ali2.eq(index).addClass('lunboone').siblings().removeClass();
+               aPage2.eq(index).siblings().stop().animate({ opacity: 0 }, 1000);
+               aPage2.eq(index).stop().animate({ opacity: 1 }, 1000);
+               //aslide2_img.eq(index).stop().animate({ opacity: 1, top: -10 }, 600).siblings('b').stop().animate({ opacity: 0, top: -40 }, 600);
+           }
+
+           function autoRun2() {
+               iNow2++;
+               if (iNow2 == ali2.length) {
+                   iNow2 = 0;
+               }
+               slide2(iNow2);
+           }
+           var timer2 = setInterval(autoRun2, 7000);
+
+           ali2.hover(function () {
+               clearInterval(timer2);
+           }, function () {
+               timer2 = setInterval(autoRun2, 7000);
+           });
+           $(".bk .prev,.bk .next").hover(function () {
+               clearInterval(timer2);
+           }, function () {
+               timer2 = setInterval(autoRun2, 7000);
+           })
+           $(".bk .prev").click(function () {
+               iNow2--;
+               if (iNow2 < 0) {
+                   iNow2 = ali2.length - 1;
+               }
+               clearInterval(timer2);
+               slide2(iNow2);
+           })
+           $(".bk .next").click(function () {
+               iNow2++;
+               if (iNow2 == ali2.length) {
+                   iNow2 = 0;
+               }
+               clearInterval(timer2);
+               slide2(iNow2);
+           })
+			
+           var ali3 = $('.gz .honor_banner li');
+           var aPage3 = $('.gz .honor_banner li');
+           //var aslide_img = $('.lunhuancenter b');
+           var iNow3 = 0;
+ 
+           function slide3(index) {
+               iNow3 = index;
+               ali3.eq(index).addClass('lunboone').siblings().removeClass();
+               aPage3.eq(index).siblings().stop().animate({ opacity: 0 }, 1000);
+               aPage3.eq(index).stop().animate({ opacity: 1 }, 1000);
+               //aslide3_img.eq(index).stop().animate({ opacity: 1, top: -10 }, 600).siblings('b').stop().animate({ opacity: 0, top: -40 }, 600);
+           }
+
+           function autoRun3() {
+               iNow3++;
+               if (iNow3 == ali3.length) {
+                   iNow3 = 0;
+               }
+               slide3(iNow3);
+           }
+           var timer3 = setInterval(autoRun3, 6000);
+
+           ali3.hover(function () {
+               clearInterval(timer3);
+           }, function () {
+               timer3 = setInterval(autoRun3, 6000);
+           });
+           $(".gz .prev,.gz .next").hover(function () {
+               clearInterval(timer3);
+           }, function () {
+               timer3 = setInterval(autoRun3, 6000);
+           })
+           $(".gz .prev").click(function () {
+               iNow3--;
+               if (iNow3 < 0) {
+                   iNow3 = ali3.length - 1;
+               }
+               clearInterval(timer3);
+               slide3(iNow3);
+           })
+           $(".gz .next").click(function () {
+               iNow3++;
+               if (iNow3 == ali3.length) {
+                   iNow3 = 0;
+               }
+               clearInterval(timer3);
+               slide3(iNow3);
+           })
+
+           $(".gw").each(function () {
+               //$(this).attr("displayLength", "");
+               //默认值150个字节  
+               var displayLength = 100;
+
+               //判断是否有设置长度
+               //displayLength = this.attr("displayLength") || displayLength;
+
+               //获取html文本如果为空这返回""  
+               var text = $(this).html();
+               if (!text) return "";
+
+               var result = "";
+               var count = 0;
+               var x = 0;
+               for (var i = 0; i < displayLength; i++) {
+                   var _char = text.charAt(i);
+                   if (count >= displayLength) break;
+                   if (/[^x00-xff]/.test(_char)) count++;  //双字节字符，//[u4e00-u9fa5]中文  
+
+                   result += _char;
+                   count++;
+                   x++;
+               }
+               if (result.length < text.length) {
+                   result += "...";
+               }
+               $(this).html(result);
+
+               var text_hide = "";
+               for (; x < text.length; x++) {
+                   var _char = text.charAt(x);
+                   text_hide += _char;
+               }
+               //var a = $("<div></div>").attr("class", "hide_div_text");
+               //a.html(text_hide).hide();
+               // a.appendTo(this);
+           })
+
+
+           $(".zhezhao").on({
+        mouseover: function () {
+                   $(this).find(".txt").stop().animate({ height: $(this)[0].clientHeight }, 200);
+                var paddtop = $(this).attr("top") ? $(this).attr("top") : "60px";
+                   $(this).find(".txt h3").stop().animate({ paddingTop: paddtop }, 200);
+            },
+               mouseout: function () {
+                   $(this).find(".txt").stop().animate({ height: "45px" }, 200);
+                   $(this).find(".txt h3").stop().animate({ paddingTop: "0px" }, 200);
+            }
+        })
+       })
+
+       //留学规划
+      
+       $(function(){
+           $('.select').click(function() {
+               var i = $(this).index();
+
+               $('[class^=show]',$(this).parent().parent().parent().next()).hide();
+               $('.show'+i,$(this).parent().parent().parent().next()).show();
+           }).eq(0).click();
+           $('.select1').click(function() {
+               var i = $(this).index();
+
+               $('[class^=sshow]',$(this).parent().parent().parent().next()).hide();
+               $('.sshow'+i,$(this).parent().parent().parent().next()).show();
+           }).eq(0).click();
+       })
+
+
+        var StriinnerHtml = "";
+        $(function () {
+        NumLoadStudentInfo()
+        })
+
+
+        ///轮播加载
+        function NumLoadStudentInfo() {
+
+        var id = @ViewBag.id;
+
+        var inedx = 0;
+        var goIndex = 2;
+        var innerHtml_ul = "";
+        var countinfo = 0;
+            $.ajax({
+        url: "/Home/Counts",
+                type: "GET",
+                async: false,
+                success: function (count) {
+                countinfo = count;
+            }
+        })
+            var countStudentnum = parseInt((countinfo / 4) * 1.0);
+        var Loud = parseInt(countStudentnum * 4);
+
+        if (countStudentnum / 4 > 0) {
+
+            for (var j = 0; j < countStudentnum; j++) {
+
+                // if (j < countStudentnum) {
+                innerHtml_ul += "<li>";
+
+                LoadStudent(id,inedx, 4)
+                    inedx = inedx + 4;
+
+                innerHtml_ul += StriinnerHtml;
+                innerHtml_ul += "</li>";
+
+                // }
+
+            }
+
+        }
+
+            $("#ul").html(innerHtml_ul);
+
+    }
+    ///加载学生列表
+    function LoadStudent(id,page, goPage) {
+            $.ajax({
+        url: "/NationalChannel/StudentList?id="+id+" &index=" + page + "&goIndex=" + goPage,
+                type: "GET",
+                async: false,
+
+                success: function (JsonStr) {
+
+                var Json = eval("(" + JsonStr + ")");
+
+                for (var i = 0; i < Json.length; i++) {
+
+                    StriinnerHtml += "<div id='HoverSuccess'  style='width:214px; height:280px;padding:20px;margin:5px 24px 0 2px;box-shadow:0px 2px 2px 2px lightgray; float:left;line-height:34px;'> <div class='CollageImage' onclick='GoContent(" + Json[i].SRelationID + ")' style=\"width:100%;height:160px; background-image:url('" + Json[i].CollegeImg + "');background-size:100% 100%;\"></div>    <div style='font-size:18px; font-weight:600;color:#3298FD; height:40px;'><a href='/Content/Success/" + Json[i].SRelationID + "' style='text-decoration:none;' >" + Json[i].StudentName + "</a></div><div style='height: 30px; '><span style='font-weight :600;'>就读学院：</span>" + Json[i].JiuDuXueyuan + "</div><div style='height: 30px; '><span style='font-weight:600;'>院校成绩：</span>" + Json[i].Score + "</div><div style='height: 30px; '><span style='font-weight:600;'>录取院校：</span>" + Json[i].CollegeName + "</div></div>"
+                    }
+            }
+        })
+        }
+
+    </script>
+
+    <script>
+
+    //var Lubnumbre = 0;
+    //var strArry = "";
+    //var urlArray = {};
+    //var urlArray1 = {};
+    //var urlArray2 = {};
+    //urlArray[0] = "/image/NationalChannel/gjpdgz_left.png";
+    //urlArray[1] = "/image/NationalChannel/gjpdbk_left.png";
+    //urlArray[2] = "/image/NationalChannel/gjpdbk_left.png";
+    //$(function () {
+        //var t="../image/NationalChannel/gjpdbk_right_top.png,../image/NationalChannel/gjpdgz_right_bottom.png,../image/NationalChannel/gjpdgz_left.png";
+        @*var t="@ViewBag.image";
+        urlArray = t.split(',');
+        var t1 = "@ViewBag.image1";
+        urlArray1 = t1.split(',');
+        var t2 = "@ViewBag.image2";
+        urlArray2 = t2.split(',');
+        Url_Info();
+        Lunbo=setInterval(Url_Info, 5000);
+
+    })*@
+    ////向左
+    //function GoLast() {
+    //    Lubnumbre-=2;
+    //    clearInterval(Lunbo);
+
+    //    if (Lubnumbre < 0)
+    //        Lubnumbre = 2;
+    //    Url_Info();
+    //    Lunbo=setInterval(Url_Info, 5000);
+
+    //}
+
+    ////向右
+    //function GoNext() {
+    //    clearInterval(Lunbo);
+
+
+    //    if (Lubnumbre >= 3)
+    //        Lubnumbre = 0;
+    //    Url_Info();
+    //    Lunbo=setInterval(Url_Info, 5000);
+    //}
+    //function Url_Info() {
+
+    //    if (Lubnumbre == 3) {
+    //        Lubnumbre = 0;
+    //    }
+
+    //    console.log(Lubnumbre);
+    //    GuojiaLoad_Lunbo(urlArray[Lubnumbre]);
+    //    GuojiaLoad_Lunbo1(urlArray1[Lubnumbre]);
+    //    GuojiaLoad_Lunbo2(urlArray2[Lubnumbre]);
+    //    Lubnumbre++;
+    //}
+
+    //function GuojiaLoad_Lunbo(Url) {
+
+    //    $("#ImgLunbo").attr("src", Url);
+        
+    //}
+    //function GuojiaLoad_Lunbo1(Url) {
+
+    //    $("#ImgLunbo1").attr("src", Url);
+
+    //}
+    //function GuojiaLoad_Lunbo2(Url) {
+
+    //    $("#ImgLunbo2").attr("src", Url);
+
+    //}
+    </script>
+
+}
+<div style="width:100%;margin:0 auto;">
+    
+    @*办理优势*@
+    <div style="width:1100px;height:350px;margin:10px auto;">
+        @foreach (var item in ViewBag.countryyoushilist as List<JiaJiNewWebModel.Country>)
+        {
+            <div style="width:700px;height:100%;background:url(@item.CountryImg2) center no-repeat;float:left;background-size: cover;"></div>
+        }
+
+        <div style="width:348px;height:348px;float:right;border:1px solid #f8f8f8;">
+            @foreach (var item in ViewBag.countryyoushilist)
+            {
+                <div style="width:100%;height:60px;text-align:center;line-height:60px;background-color:#3298FD;font-size:20px;color:#FFFFFF;">嘉际 @item.CountryName 办理优势</div>
+
+                <div style="width:330px;height:70px;text-align:center;line-height:25px;margin-top:10px;padding:10px;">@Html.Raw(item.CountryYouShi)</div>
+
+            }
+            @foreach (var item in ViewBag.dominant as List<JiaJiNewWebModel.CountryDominant>)
+            {
+                <div style="width:100%;height:60px;text-align:center;line-height:60px;margin-top:3px;background-color:#ebf4fc;">@item.DominantName</div>
+            }
+        </div>
+    </div>
+
+    @*留学资讯*@
+    <div style="margin-top:10px;background-color:#f8f8f8;width:100%;">
+        <table style="width:1100px;margin:0 auto;">
+            <tr>
+                <td>
+                    <div style="width:@lxzxLeftWidth; height:@lxzxLeftHeight; float:left;">
+                        <div style="width:700px; height:45px;">
+                            <span style="display:block;margin:0px;width:400px; height:30px; border-left:#3398FF 3px solid; padding-left:15px; margin-top:10px; line-height:30px; font-size:22px; float:left;">留学资讯</span>
+                            <div id="more" style="margin-right:0px;"><a href="\InfoList\InfoList">更多></a></div>
+                        </div>
+                        <div>
+                            @foreach (var item in ViewBag.countryzixun)
+                            {
+
+                                <div class='zhezhao' style='width:255px;height:180px;'>
+                                    <img style='width:255px;height:180px;' src='@item.InformationImgUrl'>
+                                    <div class='txt'>
+                                        <h3 style='height:45px;'><a style='text-decoration:none;color:white;' href="\Content\Content\@item.InformationID">@item.Title</a></h3>
+
+                                    </div>
+                                </div>
+                            }
+                            <div style="width:440px; height:@lxzxImgHwidth; float:left;">
+                                <ul class="lxzxUL">
+                                    @foreach (var item in ViewBag.zixun as List<JiaJiNewWebModel.Information>)
+                                    {
+                                        <li><a href="\Content\Content\@item.InformationID"><span>@item.Title</span><span style="float:right;">@item.InfoDate </span></a></li>
+                                    }
+                                </ul>
+                            </div>
+                            <div style="clear:both;"></div>
+                        </div>
+                    </div>
+                </td>
+                <td style="width:3%;"></td>
+                <td>
+                    <div style="width:360px;height:@lxzxLeftHeight;float:right;">
+                        <div style="width:100%; height:45px;">
+                            <div style="float:left;margin-left:15px;"><span style="display:block;margin:0px; width:250px; height:30px; border-left:#3398FF 3px solid; padding-left:15px; margin-top:10px; line-height:30px; font-size:22px; float:left;">最新活动</span></div>
+                            <div id="more" style="margin-right:0px;"><a href="\ActivityList\ActivityList">更多></a></div>
+                        </div>
+                        <div style="overflow-y:auto;overflow-x:no-display;height:@lxzxImgHwidth;width:@zxhdNRWidth;">
+                            <div class="lxzxRight">
+                                <ul>
+                                    @foreach (var item in ViewBag.huodong as List<JiaJiNewWebModel.Active>)
+                                    {
+                                        <li><a style="text-decoration:none;" href="/Content/Active/@item.ActiveID">@item.ActiveTitle</a></li>
+                                        <div style="margin-left:8px;height:70px;width:330px;border-left:2px #5EACFE dashed;">
+                                            <p style="padding-left:15px;margin:0px;display:block;width:310px;height:40px;line-height:40px;">时间：@item.ActiveDate</p>
+                                            <p style="padding-left:15px;margin:0px;display:block;width:310px;height:20px;line-height:20px;">地点：@item.AreaName</p>
+                                        </div>
+                                    }
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+    </div>
+
+    @*研究生*@
+    <div class="yjs">
+        <table style="width:1100px;margin:0 auto;">
+            <tr>
+                <td colspan="3">
+                    <div>
+                        <div style="width:100%; height:45px;">
+                            @foreach (var item in ViewBag.countryyoushilist as List<JiaJiNewWebModel.Country>)
+                            {
+                                <span style="display:block;margin:0px;width:400px; height:30px; border-left:#3398FF 3px solid; padding-left:15px; margin-top:10px; line-height:30px; font-size:22px; float:left;">@(item.CountryName)研究生</span>
+                            }
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div style="width:700px;height:350px;float:left;position: relative;" class="LbImg">
+                      
+                        <div id="honor" style="width:700px;height:350px;position:relative;">
+                            <font class="prev" style="background:url(../../image/prev.png) center no-repeat;position:absolute;left:0px;top:195px;z-index:9999;width:40px;height:80px;"></font>
+                            <font class="next"  style="background:url(../../image/next.png) center no-repeat;position:absolute;right:0px;top:195px;z-index:9999;width:40px;height:80px;"></font>
+                            <div class="honor_banner" style="width:100%;height:350px;">
+                                <ul>
+                                     @{
+                                         List<JiaJiNewWebModel.LunBoImageModel> lunboimage = JiaJiNewWeb.Controllers.NationalChannelController.LunBoImgShow(ids, 1);
+                                         if (lunboimage.Count != 0)
+                                         {
+                                             for (int i = 0; i < lunboimage.Count; i++)
+                                             {
+                                                <li><img alt="轮播图片" src="@{@lunboimage[i].ImageUrl}" style="width:100%;height:350px;"> </li>
+        }
+
+    }
+    else
+    {
+                                            <li><img alt="轮播图片" src="~/image/频道页_21.png" style="width:100%;height:350px;"> </li>
+    }
+                                    }
+
+
+                                </ul>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </td>
+                <td style="width:8%;"></td>
+                <td>
+                    <div style="width:352px;height:auto;float:right;">
+                        @{
+                            List<JiaJiNewWebModel.LunBoImageModel> NoLunBoYanJiu = ViewBag.NoLunBoYanJiu;
+
+                            foreach (var item in NoLunBoYanJiu)
+                            {
+                                if (item.LunBoImageID == NoLunBoYanJiu[0].LunBoImageID)
+                                {
+                                    <div style="height:165px;margin-bottom:10px;background:url(@item.ImageUrl) center no-repeat;background-size:100% 100%;"></div>
+                                }
+                                else
+                                {
+                                    <div style="height:165px;margin-bottom:0px;background:url(@item.ImageUrl) center no-repeat;background-size:100% 100%;"></div>
+                                }
+                            }
+                        }
+ 
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span style="display:block;margin:0px; height:30px; border-left:#3398FF 3px solid; padding-left:15px; margin-top:10px; line-height:30px; font-size:22px;float:left;">留学规划</span>
+                    <div style="display:inline;" id="more"><a href="/Content/StudentProgramList">更多></a></div>
+                </td>
+                <td></td>
+                <td>
+                    <span style="display:block;margin:0px; height:30px; border-left:#3398FF 3px solid; padding-left:15px; margin-top:10px; line-height:30px; font-size:22px;">申请条件</span>
+
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <table>
+                        <tr>
+                            <td>
+                                <div>
+                                    <div style="width:150px;height:280px;margin-top:10px;">
+                                        @foreach (var item in ViewBag.TypeShow as List<JiaJiNewWebModel.StudentProgramType>)
+                                        {
+                                            <div class="select1" style="width:100%;height:55px;line-height:55px;text-align:center;border-bottom:1px #ffffff solid;background-color:#58AAFC;">
+                                                <a style="text-decoration:none;color:#ffffff;">@item.TypeName</a>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div style="width:530px;height:258px; float:left;margin-top:10px;border:1px solid #ebeef5;padding:10px;position:relative;">
+                                    @{
+                                        var j = 0;
+                                        var id = 0;
+                                        foreach (var item in (ViewBag.list1 as List<JiaJiNewWebModel.StudentProgram>).OrderBy(a => a.TypeID))
+                                        {
+                                            if (item.StudentProgramID != 0)
+                                            {
+                                                if (id == 0) { id = item.TypeID; }
+                                                <div class="sshow@(item.TypeID - 1)" style="width:530px;height:120px;margin-top:10px;@(j==0?"border-bottom:1px dashed #ebeef5;":"")">
+                                                    <div style="width:100%;height:120px;">
+                                                        <div style="height:100px;width:150px;float:left;background:url('@item.Imageurl') center no-repeat;background-size: 100% 100%;"></div>
+                                                        <div style="width:330px;height:120px;float:left;margin-left:20px;">
+                                                            <div style="height:30px;font-size:16px;font-weight:600;line-height:30px;overflow: hidden; text-overflow:ellipsis;white-space:nowrap;">@item.StudentProgramTitle</div>
+                                                            <div style="word-wrap:break-word;width:330px;height:45px;line-height:40px;overflow:hidden;overflow: hidden;text-overflow:ellipsis;white-space:nowrap;">@item.StudentProfile</div>
+                                                            <div style="float:right;width:100px;height:20px;"><a class="chakanquanwen" href="~/Content/StudentProgram/@item.StudentProgramID" style="color:black;font-size:14px;text-decoration:none;">查看全文 > ></a></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                j++;
+                                                if (j == 2 && id == item.TypeID) { j = 0; id = 0; }
+                                                if (id != item.TypeID) { id = item.TypeID; }
+                                            }
+                                        }
+                                    }
+                                </div>
+
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td></td>
+                <td>
+                    <div style="height:280px; margin-top:10px;">
+                        @foreach (var item in ViewBag.ApplyYanjiu as List<JiaJiNewWebModel.ApplyContentInfo>)
+                        {
+                            <div style="width:350px;height:68px;border:1px solid #ebeef5;">
+                                <div style="width:65px;background-color:#58aafe;float:left;color:white;padding:23px;">@item.ApplyTitle</div>
+                                <div style="width:210px;float:right;padding:24px 6px;"><p style="font-size:12px;">@Html.Raw(item.ApplyContent)</p></div>
+                            </div>
+                        }
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+    </div>
+    @*时间规划*@
+    <div>
+        <table style="width:1100px;margin:0 auto;">
+            <tr>
+                <td>
+                    <div style="width:100%; height:45px;margin-left:5px;">
+                        @foreach (var item in ViewBag.countryyoushilist as List<JiaJiNewWebModel.Country>)
+                        {
+                            <span style="display:block;margin:0px;width:400px; height:30px; border-left:#3398FF 3px solid; padding-left:15px; margin-top:10px; line-height:30px; font-size:22px;">@(item.CountryName)研究生申请时间规划</span>
+
+                        }
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td style="width:1100px;margin:0px;padding:0px;">
+                    <div style="width:1100px;margin-left:5px;">
+                        @{
+                            List<JiaJiNewWebModel.ArrangeTime> list = ViewBag.ArrangeYanJiu;
+                            foreach (var item in list)
+                            {
+                                if (item.ArrangeID == list[0].ArrangeID)
+                                {
+                            <div style="width:150px;height:180px;float:left;background-color:#58AAFC;color:#ffffff;">
+                                <div style="margin:0 auto;width:100px;height:50px;border-bottom:1px #ffffff solid;line-height:50px;text-align:center;margin-top:10px;">@item.ArrangeMonth</div>
+                                <div style="width:100px;margin:0 auto;text-align:center;height:60px;line-height:25px;margin-top:20px;">@Html.Raw(item.ArrangeContent)</div>
+                            </div>
+                                }
+                                else
+                                {
+                            <div style="width:150px;height:180px;float:left;background-color:#58AAFC;color:#ffffff;margin-left:7px;">
+                                <div style="margin:0 auto;width:100px;height:50px;border-bottom:1px #ffffff solid;line-height:50px;text-align:center;margin-top:10px;">@item.ArrangeMonth</div>
+                                <div style="width:100px;margin:0 auto;text-align:center;height:60px;line-height:25px;margin-top:20px;">@Html.Raw(item.ArrangeContent)</div>
+                            </div>
+                                    }
+                                }
+                            }
+                        <div style="clear:both;"></div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+    </div>
+    @*本科*@
+    <div style="margin-top:10px;background-color:#f8f8f8;" class="bk">
+        <table style="width:1100px;margin:0 auto;">
+            <tr>
+                <td colspan="3">
+                    <div>
+                        <div style="width:100%; height:45px;">
+                            @foreach (var item in ViewBag.countryyoushilist as List<JiaJiNewWebModel.Country>)
+                            {
+                                <span style="display:block;margin:0px;width:400px; height:30px; border-left:#3398FF 3px solid; padding-left:15px; margin-top:10px; line-height:30px; font-size:22px; float:left;">@(item.CountryName)本科</span>
+                            }
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div style="width:700px;height:350px;float:left;position: relative;" class="LbImg">
+
+                        <div id="honor" style="width:700px;height:350px;position:relative;">
+                            <font class="prev" style="background:url(../../image/prev.png) center no-repeat;position:absolute;left:0px;top:195px;z-index:9999;width:40px;height:80px;"></font>
+                            <font class="next" style="background:url(../../image/next.png) center no-repeat;position:absolute;right:0px;top:195px;z-index:9999;width:40px;height:80px;"></font>
+                            <div class="honor_banner" style="width:100%;height:350px;">
+                                <ul>
+
+                                    @{
+
+                                        List<JiaJiNewWebModel.LunBoImageModel> lunboimageBenke = JiaJiNewWeb.Controllers.NationalChannelController.LunBoImgShow(ids, 2);
+                                        if (lunboimageBenke.Count != 0)
+                                        {
+                                            for (int i = 0; i < lunboimageBenke.Count; i++)
+                                            {
+                                                <li><img alt="轮播图片" src="@{@lunboimageBenke[i].ImageUrl}" style="width:100%;height:350px;"></li>
+        }
+
+    }
+    else
+    {
+                    <li><img alt="轮播图片" src="~/image/频道页_21.png" style="width:100%;height:350px;"> </li>
+    }
+                                    }
+
+
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                </td>
+                <td style="width:8%;"></td>
+                <td>
+                    <div style="width:352px;height:auto;float:right;">
+
+
+                        @{
+                            List<JiaJiNewWebModel.LunBoImageModel> NoLunBoBenKe = ViewBag.NoLunBoBenKe;
+
+                            foreach (var item in NoLunBoBenKe)
+                            {
+                                if (item.LunBoImageID == NoLunBoBenKe[0].LunBoImageID)
+                                {
+                                    <div style="height:165px;margin-bottom:10px;background:url(@item.ImageUrl) center no-repeat;background-size:100% 100%;"></div>
+                                }
+                                else
+                                {
+                                    <div style="height:165px;margin-bottom:0px;background:url(@item.ImageUrl) center no-repeat;background-size:100% 100%;"></div>
+                                }
+                            }
+                        }
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span style="display:block;margin:0px; height:30px; border-left:#3398FF 3px solid; padding-left:15px; margin-top:10px; line-height:30px; font-size:22px;float:left;">留学规划</span>
+                    <div style="display:inline;" id="more"><a href="/Content/StudentProgramList">更多></a></div>
+                </td>
+                <td></td>
+                <td>
+                    <span style="display:block;margin:0px; height:30px; border-left:#3398FF 3px solid; padding-left:15px; margin-top:10px; line-height:30px; font-size:22px;">申请条件</span>
+
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <table>
+                        <tr>
+                            <td>
+                                <div>
+                                    <div style="width:150px;height:280px;margin-top:10px;">
+                                        @foreach (var item in ViewBag.TypeShow as List<JiaJiNewWebModel.StudentProgramType>)
+                                        {
+                                            <div class="select" style="width:100%;height:55px;line-height:55px;text-align:center;border-bottom:1px #ffffff solid;background-color:#58AAFC;">
+                                                <a style="text-decoration:none;color:#ffffff;">@item.TypeName</a>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div style="width:530px;height:258px;margin-top:10px;border:1px solid #ebeef5;padding:10px;">
+                                    @{
+                                        var j1 = 0;
+                                        var id1 = 0;
+                                        foreach (var item in (ViewBag.list2 as List<JiaJiNewWebModel.StudentProgram>).OrderBy(a => a.TypeID))
+                                        {
+                                            if (id1 == 0) { id1 = item.TypeID; }
+                                            if (item.StudentProgramID != 0)
+                                            {
+                                                <div class="show@(item.TypeID - 1)" style="width:530px;height:120px;margin-top:10px;@(j1 == 0 ?"border-bottom:1px dashed #ebeef5;" : "")">
+                                                    <div style="width:100%;height:120px;">
+                                                        <div style="height:100px;width:150px;float:left;background:url('@item.Imageurl') center no-repeat;background-size: 100% 100%;"></div>
+                                                        <div style="width:330px;height:120px;float:left;margin-left:20px;">
+                                                            <div style="height:30px;font-size:16px;font-weight:600;line-height:30px;overflow:hidden; text-overflow:ellipsis;white-space:nowrap;">@item.StudentProgramTitle</div>
+                                                            <div style="word-wrap:break-word;width:330px;height:45px;line-height:40px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">@item.StudentProfile</div>
+                                                            <div style="float:right;width:100px;height:20px;">
+                                                                <a class="chakanquanwen" href="~/Content/StudentProgram/@item.StudentProgramID">查看全文 > ></a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                j1++;
+                                                if (j1 == 2 && id1 == item.TypeID) { j1 = 0; id1 = 0; }
+                                                if (id1 != item.TypeID) { id1 = item.TypeID; }
+
+                                            }
+                                        }
+                                    }
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td></td>
+                <td>
+                    <div style="height:280px; margin-top:10px;">
+                        @foreach (var item in ViewBag.ApplyBenKe as List<JiaJiNewWebModel.ApplyContentInfo>)
+                        {
+                            <div style="width:350px;height:68px;border:1px solid #ebeef5;">
+                                <div style="width:65px;background-color:#58aafe;float:left;color:white;padding:23px;">@item.ApplyTitle</div>
+                                <div style="width:210px;float:right;padding:24px 6px;"><p style="font-size:12px;">@Html.Raw(item.ApplyContent)</p></div>
+                            </div>
+                        }
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+        <table style="width:1100px;margin:0 auto;">
+            <tr>
+                <td>
+                    <div style="width:100%; height:45px;margin-left:5px;">
+                        @foreach (var item in ViewBag.countryyoushilist as List<JiaJiNewWebModel.Country>)
+                        {
+                            <span style=" display:block;margin:0px;width:400px; height:30px; border-left:#3398FF 3px solid; padding-left:15px; margin-top:10px; line-height:30px; font-size:22px; float:left;">@(item.CountryName)本科申请时间规划</span>
+                        }
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div style="display:flex;-webkit-box-pack:justify;margin-left:5px;">
+                        @{
+                            List<JiaJiNewWebModel.ArrangeTime> ArrangeBenKe = ViewBag.ArrangeBenKe;
+                            foreach (var item in ArrangeBenKe)
+                            {
+                                if (item.ArrangeID == ArrangeBenKe[0].ArrangeID)
+                                {
+                                    <div style="width:150px;height:180px;float:left;background-color:#58AAFC;color:#ffffff;">
+                                        <div style="margin:0 auto;width:100px;height:50px;border-bottom:1px #ffffff solid;line-height:50px;text-align:center;margin-top:10px;">@item.ArrangeMonth</div>
+                                        <div style="width:100px;margin:0 auto;text-align:center;height:60px;line-height:25px;margin-top:20px;">@Html.Raw(item.ArrangeContent)</div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div style="width:150px;height:180px;float:left;background-color:#58AAFC;color:#ffffff;margin-left:7px;">
+                                        <div style="margin:0 auto;width:100px;height:50px;border-bottom:1px #ffffff solid;line-height:50px;text-align:center;margin-top:10px;">@item.ArrangeMonth</div>
+                                        <div style="width:100px;margin:0 auto;text-align:center;height:60px;line-height:25px;margin-top:20px;">@Html.Raw(item.ArrangeContent)</div>
+                                    </div>
+                                }
+                            }
+                        }
+                        <div style="clear:both;"></div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+    @*高中*@
+    <div class="gz">
+        <table style="width:1100px;margin:0 auto;">
+            <tr>
+                <td colspan="3">
+                    <div>
+                        <div style="width:100%; height:45px;">
+                            @foreach (var item in ViewBag.countryyoushilist as List<JiaJiNewWebModel.Country>)
+                            {
+                                <span style="display:block;margin:0px;width:400px; height:30px; border-left:#3398FF 3px solid; padding-left:15px; margin-top:10px; line-height:30px; font-size:22px; float:left;">@(item.CountryName)高中</span>
+                            }
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div style="width:700px;height:350px;position: relative;" class="LbImg">
+
+                        <div id="honor" style="width:700px;height:350px;position:relative;">
+                            <font class="prev" style="background:url(../../image/prev.png) center no-repeat;position:absolute;left:0px;top:195px;z-index:9999;width:40px;height:80px;"></font>
+                            <font class="next" style="background:url(../../image/next.png) center no-repeat;position:absolute;right:0px;top:195px;z-index:9999;width:40px;height:80px;"></font>
+                            <div class="honor_banner" style="width:100%;height:350px;">
+                                <ul>
+
+                                    @{
+
+                                        List<JiaJiNewWebModel.LunBoImageModel> lunboimageGaoZhong = JiaJiNewWeb.Controllers.NationalChannelController.LunBoImgShow(ids, 3);
+                                        if (lunboimageGaoZhong.Count != 0)
+                                        {
+                                            for (int i = 0; i < lunboimageGaoZhong.Count; i++)
+                                            {
+                                                <li><img alt="轮播图片" src="@{@lunboimageGaoZhong[i].ImageUrl}" style="width:100%;height:350px;"> </li>
+        }
+
+    }
+    else
+    {
+                    <li><img alt="轮播图片" src="~/image/频道页_21.png" style="width:100%;height:350px;"> </li>
+    }
+                                    }
+
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td style="width:8%;"></td>
+                <td>
+                    <div style="width:352px;height:auto;float:right;">
+
+                        @{
+                            List<JiaJiNewWebModel.LunBoImageModel> NoLunBoGaoZhong = ViewBag.NoLunBoGaoZhong;
+
+                            foreach (var item in NoLunBoGaoZhong)
+                            {
+                                if (item.LunBoImageID == NoLunBoGaoZhong[0].LunBoImageID)
+                                {
+                                    <div style="height:165px;margin-bottom:10px;background:url(@item.ImageUrl) center no-repeat;background-size:100% 100%;"></div>
+                                }
+                                else
+                                {
+                                    <div style="height:165px;margin-bottom:0px;background:url(@item.ImageUrl) center no-repeat;background-size:100% 100%;"></div>
+                                }
+                            }
+                        }
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span style="display:block;margin:0px; height:30px; border-left:#3398FF 3px solid; padding-left:15px; margin-top:10px; line-height:30px; font-size:22px;">留学规划</span>
+                </td>
+                <td></td>
+                <td>
+                    <span style="display:block;margin:0px; height:30px; border-left:#3398FF 3px solid; padding-left:15px; margin-top:10px; line-height:30px; font-size:22px;">申请条件</span>
+
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <table class="time_plan" align="center" style="font-size:13px;width:660px;height:240px;color: #FFF;background:url(../../image/NationalChannel/国家留学规划.png) left no-repeat;">
+                        
+                        <tr>
+                            <td align="center" style="width:220px;height:80px;">
+                                <span style="text-align: center;font-size: 26px;font-weight: normal;color: #FFF;">时间规划</span>
+                            </td>
+                            <td align="center" style="width:220px;height:80px;">
+                                <table align="center"  >
+                                    <tr align="center">
+                                        <td align="center" style="width:80px;">1月-4月</td>
+                                        <td align="center" style="width:110px;">咨询嘉际留学进行语言准备</td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td align="center" style="width:220px;height:80px;">
+                                <table align="center" style="width:200px;height:80px;" >
+                                    <tr align="center">
+                                        <td align="center" style="width:100px;">5月-8月</td>
+                                        <td align="center" style="width:110px;">制定申请规划进行语言考试</td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" style="width:220px;height:80px;">
+                                <table align="center"  >
+                                    <tr>
+                                        <td align="left" style="width:90px;">次年8月-9月</td>
+                                        @foreach (var item in ViewBag.countryyoushilist as List<JiaJiNewWebModel.Country>)
+                                        {
+                                            <td align="center" style="width:107px;">前往@(item.CountryName)留学</td>
+                                        }
+                                    </tr>
+                                </table>
+
+                            </td>
+
+                            <td align="center" style="width:220px;height:80px;"></td>
+                            <td align="center" style="width:220px;height:80px;">
+                                <table align="center"  >
+                                    <tr align="center">
+                                        <td align="center" style="width:90px;">8月-9月</td>
+                                        <td align="center" style="width:110px;padding-left:3px;">项目背景提升参加暑期活动</td>
+                                    </tr>
+                                </table>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" style="width:220px;height:80px;">
+                                <table align="center" >
+                                    <tr>
+                                        <td style="width:80px;" align="left">次年5月-7月</td>
+                                        <td align="center" style="width:110px;">进行留学签证获取录取offer</td>
+                                    </tr>
+                                </table>
+                            </td>
+
+                            <td align="center" style="width:220px;height:80px;">
+                                <table align="center">
+                                    <tr align="center">
+                                        <td align="center" style="width:80px;">12月-次年5月</td>
+                                        <td align="center" style="width:110px;">项目背景提升参加暑期活动</td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td>
+                                <table align="center" style="width:220px;height:70px;">
+                                    <tr>
+                                        <td align="center" style="width:80px;margin:0 auto;padding-left:15px;">9月-12月</td>
+                                        
+                                        <td align="center" style="width:110px;padding-top:4px;padding-left:5px;">找好申请院校制定申请文书提交申请材料</td>
+                                    </tr>
+                                </table>
+
+                            </td>
+                        </tr>
+                    </table>
+
+
+                </td>
+                <td></td>
+                <td>
+                    <div style="width:350px;height:280px; margin-top:10px;">
+                        @foreach (var item in ViewBag.ApplyGaoZhong as List<JiaJiNewWebModel.ApplyContentInfo>)
+            {
+                            <div style="width:350px;height:68px;border:1px solid #ebeef5;">
+                                <div style="width:65px;background-color:#58aafe;float:left;color:white;padding:23px;">@item.ApplyTitle</div>
+                                <div style="width:210px;float:right;padding:24px 6px;"><p style="font-size:12px;">@Html.Raw(item.ApplyContent)</p></div>
+                            </div>
+            }
+                    </div>
+                </td>
+            </tr>
+    </table>
+
+</div>
+
+    @*团队*@
+    <div style="height:500px;width:100%;background-color:#f8f8f8;position:absolute;left:0px;right:0px" id="absolute">
+        <table style="width:1100px; margin:0 auto;">
+            <tr>
+                <td colspan="4">
+                    <div>
+                        <div style="width:100%; height:45px;">
+                            <span style="display:block;margin:0px;width:400px; height:30px; border-left:#3398FF 3px solid; padding-left:15px; margin-top:10px; line-height:30px; font-size:22px; float:left;">精英团队&专家团队</span>
+                            <div id="more"><a href="\ConsList\ConsList">更多></a></div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr style="height:260px;">
+                    @{
+                        foreach (var i in ViewBag.teamList)
+                        {
+                            <td>
+                                <div style="width:250px;height:260px;float:left;margin:0px;">
+                                    <div style="margin-left:10px;width:240px;background-color:#f8f8f8;border:1px solid #f8f8f8;height:240px;background:url(@i.Image1) center no-repeat;float:left;">
+                                        <div style="width:240px;height:40px;border:#000 solid 0px;margin-top:200px;margin-bottom:0px;background-color:#3398FF;opacity:0.9;">
+
+                                            <div class="BorderDiv">
+                                                <div style="margin:0 auto;height:40px;text-align:center; color:#FFF;">
+                                                    <a href="/ConsContent/ConsContent/@i.TeamID" style="text-decoration:none;"> <span>@i.Name（@i.Position)</span></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div style="width: 240px; height:160px; float: right; font-size:14px;background-image: url('../../image/NationalChannel/精英团队背景.png');">
+                                        <div style="line-height:32px;padding:2px 8px;"><span style="font-weight:600;">擅长申请：</span>@i.ShenQing</div>
+                                        <div style="line-height:32px;padding:2px 8px;"><span style="font-weight:600;">从业时间：</span>@i.WorkDate</div>
+                                        <div style="word-wrap:break-word;padding:2px 8px;line-height:32px;" class='gw' title="@i.Content"><span style="font-weight:600;">顾问介绍：</span>@i.Content</div>
+                                    </div>
+                                </div>
+                            </td>
+                        }
+
+                    }
+
+            </tr>
+        </table>
+    </div>
+    <div id="placeholder" style="height:500px">
+    </div>
+    @*成功*@
+    <div style="height:400px;">
+        <table style="width:1100px;margin:0 auto;">
+            <tr>
+                <td colspan="4">
+                    <div>
+                        <div style="width:1100px; height:45px;margin-left:10px;">
+                            <span style="display:block;margin:0px;width:400px; height:30px; border-left:#3398FF 3px solid; padding-left:15px; margin-top:10px; line-height:30px; font-size:22px; float:left;">成功案例</span>
+                            <div id="more"><a href="\CaseList\CaseList">更多></a></div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="MyJalB">
+
+                        <div id="scroll" class="scroll">
+                            <div id="box" class="box">
+                                <ul id="ul"></ul>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        
+        
+    </div>
+
+    @*媒体*@
+    <div style="height:180px;width:1100px;margin:0 auto;">
+        <div>
+            <div style="width:100%; height:45px;">
+                <span style="display:block;margin:0px;width:400px; height:30px; border-left:#3398FF 3px solid; padding-left:15px; margin-top:10px; line-height:30px;font-size:22px;">媒体合作</span>
+            </div>
+        </div>
+        <table style="width:100%;" align="center">
+            <tr>
+                @{
+                    List<JiaJiNewWebModel.Medium> medium = JiaJiNewWeb.Controllers.HomeController.Mediu();
+
+                    <td style="height:120px;width:380px;float:left;padding:0 0.2%;" align="left">
+
+                        <div style="width:120px;height:100px;float:left;margin-top:10px;"><a href="@{ @medium[0].MediumUrl}"><img src='@{@medium[0].MediumImg} ' /></a></div>
+                        <a style="display:block;float:left;width:180px;height:120px;color:black;" href="@{ @medium[0].MediumUrl}">
+                            <div style="width:180px;height:120px;float:right;font-size:16px;margin-top:25px;">
+                                <div style="line-height:35px;">@{ @medium[0].MediumName}</div>
+                                <div style="line-height:35px;">@{ @medium[0].MediumTitle}</div>
+                            </div>
+                        </a>
+                    </td>
+
+                        <td style="height:120px;width:420px;float:left;padding:0 0.2%;" align="left">
+
+                            <div style="width:120px;height:100px;float:left;margin-top:10px;"><a href="@{ @medium[1].MediumUrl}"><img src='@{@medium[1].MediumImg} ' /></a></div>
+                            <a style="display:block;float:left;width:180px;height:120px;color:black;" href="@{ @medium[1].MediumUrl}">
+                                <div style="width:180px;height:120px;float:left;font-size:16px;margin-top:25px;">
+                                    <div style="height:35px;line-height:35px;">@{ @medium[1].MediumName}</div>
+                                    <div style="height:35px;line-height:35px;">@{ @medium[1].MediumTitle}</div>
+                                </div>
+                            </a>
+                        </td>
+
+                            <td style="height:120px;width:280px;float:left;padding:0 0.2%;" align="center">
+                                <div style="width:110px;height:100px;float:left;margin-top:10px;"><a href="@{ @medium[2].MediumUrl}"><img src='@{@medium[2].MediumImg} ' /></a></div>
+                                <a style="display:block;float:left;width:150px;height:120px;color:black;" href="@{ @medium[2].MediumUrl}">
+                                    <div style="width:160px;height:120px;float:left;font-size:16px;margin-top:25px;">
+                                        <div style="height:35px;line-height:35px;">@{ @medium[2].MediumName}</div>
+                                        <div style="height:35px;line-height:35px;">@{ @medium[2].MediumTitle}</div>
+                                    </div>
+                                </a>
+                            </td>
+                }
+            </tr>
+        </table>
+
+    </div>
+</div>
+
+
+<script>
+    window.onload = function () {
+
+        // 动画函数 第一个参数，代表谁动  第二个参数 动多少
+        // 让图片做匀速运动，匀速动画的原理是 当前的位置 + 速度  即 offsetLeft + speed
+
+        function animate(obj, target) {
+            // 首先清除掉定时器
+            clearInterval(obj.timer);
+            // 用来判断 是+ 还是 -  即说明向左走还是向右走
+            var speed = obj.offsetLeft < target ? 15 : -15;
+            obj.timer = setInterval(function () {
+                var result = target - obj.offsetLeft;//它们的差值不会超过speed
+                obj.style.left = obj.offsetLeft + speed + "px";
+                // 有可能有小数的存在，所以在这里要做个判断
+                if (Math.abs(result) <= Math.abs(speed)) {
+                    clearInterval(obj.timer);
+                    obj.style.left = target + "px";
+                }
+            }, 10);
+        }
+
+
+        //获得元素
+        var scroll = document.getElementById("scroll"); // 获得大盒子
+        var ul = document.getElementById("ul"); // 获得ul
+        var ulLis = ul.children;// 获得ul的盒子 以此来生成ol中li的个数
+        var liWidth = ul.children[0].offsetWidth;// 获得每个li的宽度
+
+        // 操作元素
+        // 因为要做无缝滚动，所以要克隆第一张，放到最后一张后面
+        // 1. 克隆元素
+        ul.appendChild(ul.children[0].cloneNode(true));
+
+        // 2.创建ol 和li
+        var ol = document.createElement("ol");//创建ol元素
+        scroll.appendChild(ol);// 把ol放到scroll盒子里面去
+        for (var i = 0; i < ulLis.length - 1; i++) {
+            var li = document.createElement("li");// 创建li元素
+            //li.innerHTML = i + 1;// 给li里面添加文字  1 2 3 4 5
+            ol.appendChild(li);// 将li元素添加到ol里面
+        }
+        ol.children[0].className = "current";// ol中的第一个li背景色为purple
+
+
+        // 3. 动画开始  (鼠标经过第几个小圆点，就要展示第几张图片，并且小圆点的颜色也发生变化)
+        var olLis = ol.children;
+        for (var i = 0; i < olLis.length; i++) {
+            // 给ol中的每个li添加一个属性 index  用来获得当前第几个li的索引号
+            olLis[i].index = i;
+            olLis[i].onmouseover = function () {
+                for (var j = 0; j < olLis.length; j++) {
+                    // 清空所有的 类名
+                    olLis[j].className = "";
+                }
+                // 给当前的li添加一个类名
+                this.className = "current";
+
+                // 接着调用动画函数 ，根据第几个li 展示第几张图片 第一个参数谁做动画  第二个参数 走多少
+                animate(ul, -this.index * liWidth);
+                // 接着让小圆点和 key 等于当前的索引号
+                circle = key = this.index;
+            }
+        }
+
+        // 4. 添加定时器  让图片自动轮播
+        var timer = null; // 轮播图的定时器
+        var key = 0;// 控制播放的张数
+        var circle = 0;// 控制小圆点
+
+        timer = setInterval(autoplay, 5000);// 自动轮播
+        function autoplay() {
+            /*自动轮播时,要对播放的张数key进行一个判断,如果播放的张数超过ulLis.length-1,
+            就要重头开始播放.  因为我们克隆了第一张并将其放在最后面,所以我们要从第二张图片开始播放*/
+            key++; // 先++
+            if (key > ulLis.length - 1) {// 后判断
+
+                ul.style.left = 0; // 迅速调回
+                key = 1; // 因为第6张是第一张，所以播放的时候是从第2张开始播放
+            }
+            // 动画部分
+            animate(ul, -key * liWidth);
+            // 小圆点circle   当显示第几张图片是，对应的小圆点的颜色也发生变化
+
+            /*同理,对小圆点也要有一个判断*/
+            circle++;
+            if (circle > olLis.length - 1) {
+                circle = 0;
+            }
+            // 小圆点颜色发生变化
+            for (var i = 0; i < olLis.length; i++) {
+                // 先清除掉所用的小圆点类名
+                olLis[i].className = "";
+            }
+            // 给当前的小圆点 添加一个类名
+            olLis[circle].className = "current";
+
+        }
+
+        // 最后，鼠标经过大盒子停止定时器
+        scroll.onmouseover = function () {
+            clearInterval(timer);
+        }
+        // 鼠标离开大盒子时 开启定时器
+        scroll.onmouseout = function () {
+            timer = setInterval(autoplay, 5000);
+        }
+    }
+</script>
+<script>
+    window._console = window.console;//将原始console对象缓存
+window.console = (function (orgConsole) {
+    return {//构造的新console对象
+        log: getConsoleFn("log"),
+        debug: getConsoleFn("debug"),
+        info: getConsoleFn("info"),
+        warn: getConsoleFn("warn"),
+        exception: getConsoleFn("exception"),
+        assert: getConsoleFn("assert"),
+        dir: getConsoleFn("dir"),
+        dirxml: getConsoleFn("dirxml"),
+        trace: getConsoleFn("trace"),
+        group: getConsoleFn("group"),
+        groupCollapsed: getConsoleFn("groupCollapsed"),
+        groupEnd: getConsoleFn("groupEnd"),
+        profile: getConsoleFn("profile"),
+        profileEnd: getConsoleFn("profileEnd"),
+        count: getConsoleFn("count"),
+        clear: getConsoleFn("clear"),
+        time: getConsoleFn("time"),
+        timeEnd: getConsoleFn("timeEnd"),
+        timeStamp: getConsoleFn("timeStamp"),
+        table: getConsoleFn("table"),
+        error: getConsoleFn("error"),
+        memory: getConsoleFn("memory"),
+        markTimeline: getConsoleFn("markTimeline"),
+        timeline: getConsoleFn("timeline"),
+        timelineEnd: getConsoleFn("timelineEnd")
+    };
+    function getConsoleFn(name) {
+        return function actionConsole() {
+            if (typeof (orgConsole) !== "object") return;
+            if (typeof (orgConsole[name]) !== "function") return;//判断原始console对象中是否含有此方法，若没有则直接返回
+            return orgConsole[name].apply(orgConsole, Array.prototype.slice.call(arguments));//调用原始函数
+        };
+    }
+}(window._console));
+</script>`
+
+
+
+
+
+
+

@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "../study/layout.cshtml";
+}
+
+<table id="grid" style="width: 1024px" title="用户操作" iconcls="icon-view"></table>
+
+<script type="text/javascript">
+
+
+    $(function () {
+        var columns = [{ field: 'ShareID', checkbox: true, isTableBody: 1, isFormBody: 1, type: "hidden" },   //选择
+        { title: '分享标题', field: 'ShareTitle', width: 100, isTableBody: 2, isFormBody: 2, type: "text", validType: ["required", "length[2,20]"] },
+        { title: '分享人', field: 'LearnerID', width: 100, isTableBody: 3, formatter: function (val) { return this.data[val]; }, isFormBody: 3, type: "select", url: "/StudyNew/LearnerShow", valueField: "LearnerID", textField: "LearnName" },
+        { title: '分享日期', field: 'ShareDate', width: 100, isTableBody: 4, isFormBody: 4, type: "datetime" },
+        { title: '文章简介', field: 'ShareProfile', width: 100, isTableBody: 5, isFormBody: 5, type: "textarea" },
+        { title: '关键字', field: 'ShareKeyword', width: 100, isTableBody: 6, isFormBody: 6, type: "text" },
+        { title: '阅读量', field: 'ShareReadCount', width: 100, isTableBody: 7, type: "text" },
+        { title: '项目名称', field: 'Pro_ID', width: 100, isTableBody: 8, formatter: function (val) { return this.data[val]; }, isFormBody: 7, type: "select", url: "/Admin/study/projectitemshow", valueField: "Pro_ID", textField: "Pro_Name" },
+        {title: '分享图片', field: 'ShareImg', width: 200, isTableBody: 9, isFormBody: 8, type: "file" , formatter: function (val) { return "<img width=\"150\" height=\"150\" src='@SiteConfig.SiteUrl" + val + "'/>"; }, Size: "140×100" },
+       { title: '分享内容', field: 'ShareContent', width: 300, isTableBody: 10, formatter: function (val) { if ($("<div>" + val + "</div>").text().length > 100 ) return $("<div>" + val + "</div>").text().substr(0, 22) + "..."; else return $("<div>" + val + "</div>").text(); }, isFormBody: 9, type: "ue" }
+    ];
+        $("#grid").InitGrid("/Admin/StudyNew/Index", "学员分享", columns);
+    })
+
+</script>

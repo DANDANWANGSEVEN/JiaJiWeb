@@ -1,0 +1,214 @@
+﻿
+
+@{
+    ViewBag.Title = "NavLinks";
+}
+
+<!DOCTYPE html>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<link href="~/PageCSS/ContentCss.css" rel="stylesheet" />
+<style>
+    #HotActive a {
+        color: #666666;
+        text-decoration: none;
+    }
+
+        #HotActive a:hover {
+            color: #3398FF;
+        }
+
+    .Prve {
+        color: black;
+    }
+
+    .Next {
+        color: black;
+    }
+
+    #HotActive {
+        width: 300px;
+        margin: 0px;
+        padding: 0px;
+        line-height: 30px;
+        margin-top: 10px;
+        margin-left: 15px;
+    }
+
+    #List {
+        width: 80px;
+        height: 35px;
+        border: 1px solid #609ef3;
+        border-radius: 5px;
+        padding: 5px 40px;
+        margin: 0 auto;
+        color: #609ef3;
+        text-decoration: none;
+    }
+      #liuxueKeyWord a{
+            text-decoration:none;
+            color:#666666;
+            padding:0 10px;border:1px solid #666666;padding:5px;border-radius:5px;margin:8px;
+        }
+            #liuxueKeyWord a:hover {
+                color:#3398FF;
+                border:1px solid #3398FF;
+            }
+</style>
+<div style="width:1100px;margin:0 auto;height:auto;margin-top:10px;">
+    <div style="width:100%;height:50px;line-height:50px;">
+        <div style="width:730px;height:50px;line-height:50px;border-bottom:3px solid #5E9FF3;">当前位置：<span id="navurl"></span></div>
+    </div>
+    <div style="width:100%;">
+        <div style="width:730px;float:left;height:auto;">
+            <div style="width:730px;height:auto;margin-top:10px;">
+                <div style="width:730px;height:auto;overflow:hidden;" id="frameContent">
+                    <h3 id="title"></h3>
+                    <label id="Author"></label>&nbsp;&nbsp;&nbsp;<label id="date"></label>&nbsp;&nbsp;&nbsp;<label id="ReadCount"></label></p>
+
+                    <div id="Content" style="border-top:1px dashed #dadada;padding-top:20px;line-height:32px;">
+
+                    </div>
+                    <div id="keyword">
+                        <span>关键字：</span>
+                    </div>
+                </div>
+            </div>
+            <div style="width:100%;height:auto;line-height:40px;margin:0 auto;margin-top:30px;border-top:1px solid #dadada;">
+                <table class="prvenext" style="width:100%;margin:0 auto;" align="center">
+                    <tr>
+                        <td align="center" style="width:50%;"><div class="Prve"></div></td>
+                        <td align="center" style="width:50%;"><div class="Next"></div></td>
+                    </tr>
+                </table>
+
+
+            </div>
+            <div id="pages"></div>
+
+        </div>
+        <div style="width:340px;float:right;height:auto;">
+            <div style="width:100%;height:200px;background:url(../../image/ConsList/gwlist.png) center no-repeat;background-size:100% 100%;"></div>
+            <div style="width:100%;height:240px;margin-top:20px;">
+                <div style="font-size:20px;width:200px;height:30px;border-left:4px solid #5E9FF3;line-height:30px;padding-left:10px;font-weight:600;">热门活动</div>
+                <div>
+                    <ul class="HotActive">
+                        @{
+                            foreach (var item in ViewBag.activelist as List<JiaJiNewWebModel.Active>)
+                            {
+                                <li style="overflow: hidden;white-space:nowrap;text-overflow:ellipsis;"><a href="/Content/Active/@item.ActiveID">·  @item.ActiveTitle</a></li>
+
+                            }
+                        }
+
+                    </ul>
+                </div>
+            </div>
+
+            <div style="width:100%;height:240px;margin-top:20px;">
+                <div style="font-size:20px;width:200px;height:30px;border-left:4px solid #5E9FF3;line-height:30px;padding-left:10px;font-weight:600;">嘉际观点</div>
+                <div>
+                    <ul class="HotActive">
+                        @{
+                            foreach (var item in ViewBag.optionlist as List<JiaJiNewWebModel.Option>)
+                            {
+                                <li style="overflow: hidden;white-space:nowrap;text-overflow:ellipsis;"><a href="/Content/OptionShow/@item.OptionID">·  @item.OptionTitle</a></li>
+                            }
+
+                        }
+                    </ul>
+                </div>
+            </div>
+
+            <div style="width:100%;height:240px;margin-top:30px;" id="hotkeyword">
+                <div style="font-size:20px;width:200px;height:30px;border-left:4px solid #5E9FF3;line-height:30px;padding-left:10px;font-weight:600;">留学关键词</div>
+                <div id="liuxueKeyWord" style="margin-top:20px;"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    $(function () {
+        var index = location.href.lastIndexOf('/') + 1;
+        var href = location.href;
+            $.ajax({
+                type: "post",
+                url: "/NavLinks/NavInfoShow",
+                data: { Id: href.substr(index) },
+                async: false,
+                dataType: "json",
+                success: function (data) {
+
+                    $("#navurl").text(data.NavTitleOne);
+                    $("#title").text(data.NavTitleTwo);
+                    $("#Author").text("作者：" + data.NavCreateBy + "");
+                    $("#date").text("日期：" + data.NavDate + "");
+                    $("#ReadCount").text("阅读量：" + data.NavHeat + "");
+                    $("#Content").html(data.NavContentTwo);
+
+                    if (data.KeyWord.length == 0) {
+                        $("#keyword").css("display", "none");
+                        $("#hotkeyword").css("display", "none");
+                    }
+                    if (data.KeyWord.length > 1) {
+                        var KeyWord = data.KeyWord.split('/');
+                        for (var i = 0; i < KeyWord.length; i++) {
+                            $("#keyword").append("<a href='/Home/SouSuo?selName=" + KeyWord[i] + "' style='padding:0 10px;'>" + KeyWord[i] + "</a>");
+                            $("#liuxueKeyWord").append("<a href='/Home/SouSuo?selName=" + KeyWord[i] + "' '>" + KeyWord[i] + "</a>");
+                        }
+                    }
+                    else {
+                        $("#keyword").append("<a href='/Home/SouSuo?selName=" + data.KeyWord + "' style='padding:0 10px;'>" + data.KeyWord + "</a>");
+                        $("#liuxueKeyWord").append("<a href='/Home/SouSuo?selName=" + data.KeyWord + "' '>" + data.KeyWord + "</a>");
+                    }
+
+
+                }
+            })
+            Prve();
+    })
+
+    function Prve() {
+        $.ajax({
+            type: "post",
+            url: "/NavLinks/NavInfoPrve",
+            async: false,
+            dataType: "json",
+            success: function (data) {
+                $(".Prve").empty();
+                if (data.NavTitleTwo == "已是第一章了") {
+
+                    $(".Prve").append("<span style='width: 300px;display: block;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;'>上一章：<a style='overflow: hidden; text-overflow:ellipsis;white-space:nowrap;' title='" + data.NavTitleTwo + "'  href='javascript:void(0);'>" + data.NavTitleTwo + "</a></span>");
+                } else {
+                    $(".Prve").append("<span style='width: 300px;display: block;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;'>上一章：<a style='overflow: hidden; text-overflow:ellipsis;white-space:nowrap;'  href='/NavLinks/NavLinks/" + data.NavId + "' title='" + data.NavTitleTwo + "'>" + data.NavTitleTwo + "</a></span>");
+                }
+                Next();
+            }
+        })
+
+    };
+    function Next() {
+        $.ajax({
+            type: "post",
+            url: "/NavLinks/NavInfoNext",
+            dataType: "json",
+            async: false,
+            success: function (data) {
+                $(".Next").empty();
+                if (data.NavTitleTwo == "已经是最后一章了") {
+                    $(".Next").append("<p><span style='width: 300px;display: block;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;'>下一章：<a href='javascript:void(0);' title='" + data.ActiveTitle + "'>" + data.NavTitleTwo + "</a></span></p>");
+                } else {
+                    $(".Next").append("<p><span style='width: 300px;display: block;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;'>下一章：<a title='" + data.NavTitleTwo + "' href='/NavLinks/NavLinks/" + data.NavId + "'>" + data.NavTitleTwo + "</a></span></p>");
+                }
+            }
+        })
+    }
+
+
+
+</script>
+
+
+
+

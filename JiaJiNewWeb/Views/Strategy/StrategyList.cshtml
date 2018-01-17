@@ -1,0 +1,174 @@
+﻿
+
+@model List<JiaJiNewWebModel.Strategy>
+@{
+    ViewBag.Title = "StrategyList";
+}
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<link href="~/PageCSS/ListCSS.css" rel="stylesheet" />
+<style>
+    .tab_hd td a {
+        color: black;
+        text-decoration: none;
+    }
+
+        .tab_hd td a:hover {
+            color: #3398FF;
+        }
+
+    #HotActive a {
+        color: #666666;
+    }
+
+        #HotActive a:hover {
+            color: #3398FF;
+        }
+</style>
+<div style="width:1100px;margin:0 auto;height:1050px;">
+    <div style="width:100%;height:50px;line-height:50px;">
+        <div style="width:730px;height:50px;line-height:50px;border-bottom:3px solid #5E9FF3;">当前位置：申请攻略</div>
+    </div>
+    <div style="width:100%;">
+        <div style="width:730px;float:left;height:1000px;">
+            <div id="con">
+
+            </div>
+            <div class="FenYe">
+
+            </div>
+        </div>
+        <div style="width:340px;float:right;height:1000px;">
+            <div style="width:100%;height:200px;background:url(../../image/ConsList/gwlist.png) center no-repeat;"></div>
+            <div style="width:100%;height:240px;margin-top:20px;">
+                <div id="HotTitle">热门活动</div>
+                <div>
+                    <ul id="HotActive">
+                        @{
+                            foreach (var item in ViewBag.activelist as List<JiaJiNewWebModel.Active>)
+                            {
+                                <li style="overflow: hidden;white-space:nowrap;text-overflow:ellipsis;">
+                                    <a href="/Content/Active/@item.ActiveID">@item.ActiveTitle</a>
+                                </li>
+
+                            }
+                        }
+                    </ul>
+                </div>
+            </div>
+
+            <div style="width:100%;height:240px;margin-top:20px;">
+                <div id="HotTitle">嘉际观点</div>
+                <div>
+                    <ul id="HotActive">
+
+                        @{
+                            foreach (var item in ViewBag.optionlist as List<JiaJiNewWebModel.Option>)
+                            {
+                                <li style="overflow: hidden;white-space:nowrap;text-overflow:ellipsis;">
+                                    <a style="text-decoration:none;" href="/Content/OptionShow/@item.OptionID">@item.OptionTitle</a>
+                                </li>
+                            }
+
+                        }
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+</div>
+<script>
+    var pageindex = 1;
+    var allrowcount = "";
+    $(function () {
+        GetInformationList(1);
+        Rowcount();
+    })
+    function GetInformationList(id)
+    {
+        $.ajax({
+            type: "get",
+            url: "/ShareList/GetAllShareList",
+            data: {
+                "pageindex": id
+            },
+            dataType: "json",
+            async: false,
+            success: function (data) {
+                $("#con").empty();
+                for (var i = 0; i < data.length; i++) {
+                    $("#con").append('<div style="width:100%;height:100px;margin-top:10px;">' +
+                        '<div style="width:680px;height:100px;">' +
+                        '<table style="width:100%;" class="tab_hd">' +
+                        '<tr>' +
+                        '<td style="color:#000000;font-size:20px;font-weight:600;height:40px;line-height:40px;"><a  href="/Content/ShareShow/' + data[i].ShareID + '">' + data[i].ShareTitle + '</a></td>' +
+                        '</tr>' +
+                        '<tr>' +
+                        '<td style="overflow:hidden;text-overflow:ellipsis;display: -webkit-box;-webkit-line-clamp: 1; -webkit-box-orient: vertical;height:25px;">详情描述：' + data[i].ShareContent + ' ...</td>' +
+                        '</tr>' +
+                        '<tr>' +
+                        '<td><span>' + data[i].ShareDate + '</span></td>' +
+                        '</tr>' +
+                        '</table>' +
+                        '</div>' +
+                        '</div>');
+                }
+            }
+        })
+    }
+    function Rowcount() {
+        $.ajax({
+            type: "get",
+            url: "/ShareList/GetShareRowCounts",
+            async:false,
+            success: function (data) {
+                allrowcount = data;
+                var strin = "";
+                $(".FenYe").empty();
+                if (data == 0) {
+                    return;
+                }
+
+                strin += '<span style="width:60px;" onclick="last()">上一页</span>';
+                for (var i = 1; i <= Number(data); i++) {
+                    if (pageindex == i) {
+                        strin += '<span style="color:red;" onclick="on(' + i + ')">' + i + '</span >';
+                    }
+                    else {
+                        strin += '<span onclick="on(' + i + ')">' + i + '</span >';
+                    }
+                }
+                strin += '<span style="width:60px;" onclick="next()">下一页</span>';
+                $(".FenYe").append(strin);
+            }
+        })
+    }
+    function on(id) {
+        GetInformationList(id);
+        Rowcount();
+    }
+    function last() {
+        if (Number(pageindex) > 1) {
+            pageindex = Number(pageindex) - 1;
+            GetInformationList(pageindex);
+            Rowcount();
+        }
+        else {
+            alert("当前已经是第一页了");
+        }
+    }
+    function next() {
+        if (Number(pageindex) < Number(allrowcount)) {
+            pageindex = Number(pageindex) + 1;
+            GetInformationList(Number(pageindex))
+            Rowcount();
+        }
+        else {
+            alert("当前已经是最后一页了");
+        }
+    }
+</script>
+
+

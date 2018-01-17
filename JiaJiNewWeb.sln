@@ -1,0 +1,110 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JiaJiNewWeb.Web", "JiaJiNewWeb\JiaJiNewWeb.Web.csproj", "{588E91F7-4E4B-4079-B182-23094BD6FAB9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JiaJiNewWeb.DAL", "JiaJiNewWebDAL\JiaJiNewWeb.DAL.csproj", "{1E5FEC8F-5D47-47D6-85C5-C7A7B5A9A037}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JiaJiNewWeb.BLL", "JiaJiNewWebBLL\JiaJiNewWeb.BLL.csproj", "{D470B4B0-56A7-48B2-9D6A-CB1B4BF204CA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JiaJiNewWeb.IDAL", "JiaJiNewWebIDAL\JiaJiNewWeb.IDAL.csproj", "{FD682D22-D1F3-4C6E-997D-E09B618D9C6F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JiaJiNewWeb.Model", "JiaJiNewWebModel\JiaJiNewWeb.Model.csproj", "{F4BF4CE1-A6E6-476D-922A-6ED236D1CEEA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JiaJiNewWeb.Common", "JiaJiNewWeb.Common\JiaJiNewWeb.Common.csproj", "{242FA62F-6F69-4ABF-AE93-3319219755DA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JiaJiNewWeb.DALFactory", "JiaJiNewWeb.DALFactory\JiaJiNewWeb.DALFactory.csproj", "{347654C4-F69B-4B25-804A-B7592131CE11}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JiaJiBLL", "BLL\JiaJiBLL.csproj", "{1B1FD052-3293-406D-BE4E-6982F5209FB4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JiaJiDAL", "DAL\JiaJiDAL.csproj", "{78427E20-AAC8-4E12-9687-EB12912BCF7D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JiaJiModels", "Models\JiaJiModels.csproj", "{DA71A952-4C6C-4E52-BA13-61D22C864CC5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{588E91F7-4E4B-4079-B182-23094BD6FAB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{588E91F7-4E4B-4079-B182-23094BD6FAB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{588E91F7-4E4B-4079-B182-23094BD6FAB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{588E91F7-4E4B-4079-B182-23094BD6FAB9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E5FEC8F-5D47-47D6-85C5-C7A7B5A9A037}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E5FEC8F-5D47-47D6-85C5-C7A7B5A9A037}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E5FEC8F-5D47-47D6-85C5-C7A7B5A9A037}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E5FEC8F-5D47-47D6-85C5-C7A7B5A9A037}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D470B4B0-56A7-48B2-9D6A-CB1B4BF204CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D470B4B0-56A7-48B2-9D6A-CB1B4BF204CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D470B4B0-56A7-48B2-9D6A-CB1B4BF204CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D470B4B0-56A7-48B2-9D6A-CB1B4BF204CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD682D22-D1F3-4C6E-997D-E09B618D9C6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD682D22-D1F3-4C6E-997D-E09B618D9C6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD682D22-D1F3-4C6E-997D-E09B618D9C6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD682D22-D1F3-4C6E-997D-E09B618D9C6F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F4BF4CE1-A6E6-476D-922A-6ED236D1CEEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4BF4CE1-A6E6-476D-922A-6ED236D1CEEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F4BF4CE1-A6E6-476D-922A-6ED236D1CEEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F4BF4CE1-A6E6-476D-922A-6ED236D1CEEA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{242FA62F-6F69-4ABF-AE93-3319219755DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{242FA62F-6F69-4ABF-AE93-3319219755DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{242FA62F-6F69-4ABF-AE93-3319219755DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{242FA62F-6F69-4ABF-AE93-3319219755DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{347654C4-F69B-4B25-804A-B7592131CE11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{347654C4-F69B-4B25-804A-B7592131CE11}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{347654C4-F69B-4B25-804A-B7592131CE11}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{347654C4-F69B-4B25-804A-B7592131CE11}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B1FD052-3293-406D-BE4E-6982F5209FB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B1FD052-3293-406D-BE4E-6982F5209FB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B1FD052-3293-406D-BE4E-6982F5209FB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B1FD052-3293-406D-BE4E-6982F5209FB4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{78427E20-AAC8-4E12-9687-EB12912BCF7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78427E20-AAC8-4E12-9687-EB12912BCF7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78427E20-AAC8-4E12-9687-EB12912BCF7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78427E20-AAC8-4E12-9687-EB12912BCF7D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA71A952-4C6C-4E52-BA13-61D22C864CC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA71A952-4C6C-4E52-BA13-61D22C864CC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA71A952-4C6C-4E52-BA13-61D22C864CC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA71A952-4C6C-4E52-BA13-61D22C864CC5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(SourceCodeControl) = preSolution
+		SccNumberOfProjects = 11
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = JiaJiNewWeb.Common\\JiaJiNewWeb.Common.csproj
+		SccLocalPath1 = .
+		SccProjectFilePathRelativizedFromConnection1 = JiaJiNewWeb.Common\\
+		SccProjectUniqueName2 = JiaJiNewWeb.DALFactory\\JiaJiNewWeb.DALFactory.csproj
+		SccLocalPath2 = .
+		SccProjectFilePathRelativizedFromConnection2 = JiaJiNewWeb.DALFactory\\
+		SccProjectUniqueName3 = JiaJiNewWeb\\JiaJiNewWeb.Web.csproj
+		SccLocalPath3 = .
+		SccProjectFilePathRelativizedFromConnection3 = JiaJiNewWeb\\
+		SccProjectUniqueName4 = JiaJiNewWebBLL\\JiaJiNewWeb.BLL.csproj
+		SccLocalPath4 = .
+		SccProjectFilePathRelativizedFromConnection4 = JiaJiNewWebBLL\\
+		SccProjectUniqueName5 = JiaJiNewWebDAL\\JiaJiNewWeb.DAL.csproj
+		SccLocalPath5 = .
+		SccProjectFilePathRelativizedFromConnection5 = JiaJiNewWebDAL\\
+		SccProjectUniqueName6 = JiaJiNewWebIDAL\\JiaJiNewWeb.IDAL.csproj
+		SccLocalPath6 = .
+		SccProjectFilePathRelativizedFromConnection6 = JiaJiNewWebIDAL\\
+		SccProjectUniqueName7 = JiaJiNewWebModel\\JiaJiNewWeb.Model.csproj
+		SccLocalPath7 = .
+		SccProjectFilePathRelativizedFromConnection7 = JiaJiNewWebModel\\
+		SccProjectUniqueName8 = BLL\\JiaJiBLL.csproj
+		SccProjectName8 = \u0022$/JiaJiManagement20171120/study_abroad.root/study_abroad/BLL\u0022,\u0020YBCCAAAA
+		SccLocalPath8 = BLL
+		SccProjectUniqueName9 = DAL\\JiaJiDAL.csproj
+		SccProjectName9 = \u0022$/JiaJiManagement20171120/study_abroad.root/study_abroad/DAL\u0022,\u0020YCCCAAAA
+		SccLocalPath9 = DAL
+		SccProjectUniqueName10 = Models\\JiaJiModels.csproj
+		SccProjectName10 = \u0022$/JiaJiManagement20171120/study_abroad.root/study_abroad/Models\u0022,\u0020ZDCCAAAA
+		SccLocalPath10 = Models
+	EndGlobalSection
+EndGlobal

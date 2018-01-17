@@ -1,0 +1,196 @@
+﻿
+@{
+    ViewBag.Title = "InfoList";
+}
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<link href="~/PageCSS/ListCSS.css" rel="stylesheet" />
+<style>
+    .FenYe span {
+        display: block;
+        width: 40px;
+        height: 40px;
+        float: left;
+        text-align: center;
+        cursor: pointer;
+        color: #666666;
+    }
+
+    .tab_hd tr td {
+        height: 25px;
+        line-height: 25px;
+        font-size: 16px;
+        color: #666666;
+    }
+</style>
+<style>
+    .tab_hd td a {
+        color: black;
+        text-decoration: none;
+    }
+
+        .tab_hd td a:hover {
+            color: #3398FF;
+        }
+
+    #HotActive a {
+        color: #666666;
+        text-decoration:none;
+    }
+
+        #HotActive a:hover {
+            color: #3398FF;
+        }
+</style>
+
+<div style="width:1100px;margin:0 auto;height:auto;">
+    <div style="width:100%;height:50px;line-height:50px;">
+        <div style="width:730px;height:50px;line-height:50px;border-bottom:3px solid #5E9FF3;">当前位置：<a href="/Home/Index" style="text-decoration:none;color:black;">首页</a>>资讯列表</div>
+    </div>
+    <div style="width:100%;">
+        <div style="width:730px;float:left;height:auto;">
+            <div id="con">
+
+            </div>
+            <div class="FenYe" style="height:80px;">
+                @*style="width:520px;height:auto;line-height:40px;margin:0 auto;margin-top:30px;text-align:center;"*@
+            </div>
+        </div>
+        <div style="width:340px;float:right;height:900px;">
+            @{
+                foreach (var item in ViewBag.OptionImage as List<JiaJiNewWebModel.Option>)
+                {
+                    <div style="width:100%;height:200px;background:url('@item.OptionUrl') center no-repeat;background-size:100% 100%;"></div>
+                }
+            }
+            <div style="width:100%;height:240px;margin-top:20px;">
+                <div id="HotTitle">热门活动</div>
+                <div>
+                    <ul id="HotActive">
+                        @{
+                            foreach (var item in ViewBag.activelist as List<JiaJiNewWebModel.Active>)
+                            {
+                                <li style="overflow: hidden;white-space:nowrap;text-overflow:ellipsis;">
+                                    <a href="/Content/Active/@item.ActiveID">·  @item.ActiveTitle</a>
+</li>
+
+                            }
+                        }
+
+                    </ul>
+                </div>
+            </div>
+
+            <div style="width:100%;height:240px;margin-top:20px;">
+                <div id="HotTitle">嘉际观点</div>
+                <div>
+                    <ul id="HotActive">
+                        @{
+                            foreach (var item in ViewBag.optionlist as List<JiaJiNewWebModel.Option>)
+                            {
+                                <li style="overflow: hidden;white-space:nowrap;text-overflow:ellipsis;">
+                                    <a href="/Content/OptionShow/@item.OptionID">·  @item.OptionTitle</a>
+</li>
+                            }
+
+                        }
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    var pageindex = 1;
+    var allrowcount = "";
+    $(function () {
+        GetInfoList(1);
+        Rowcount();
+    })
+    function GetInfoList(id)
+    {
+        $.ajax({
+            type: "get",
+            url: "/InfoList/GetInformationList",
+            data: {
+                "pageindex": id
+            },
+            dataType: "json",
+            async: false,
+            success: function (data) {
+                $("#con").empty();
+                for (var i = 0; i < data.length; i++) {
+                    $("#con").append('<div style="width:100%;height:150px;margin-top:10px;border-bottom:1px dashed #dadada;padding-bottom:8px;">' +
+                        '<div style="width:100%;height:100px;">' +
+                        '<table style="width:100%;" class="tab_hd">' +
+                        '<tr>' +
+                        '<td style="color:#000000;font-size:20px;font-weight:600;height:40px;line-height:40px;"><a href="/Content/Content/' + data[i].InformationID + '">' + data[i].Title + '</a></td>' +
+                        '</tr>' +
+                         '<tr>' +
+                        '<td><span>阅读量：' + data[i].ReadCount + '</span><span style="margin-left:20px;">发表时间：' + data[i].InfoDate + '</span></td>' +
+                        '</tr>' +
+                        '<tr>' +
+                        '<td style="height:60px; overflow:hidden;text-overflow:ellipsis;display: -webkit-box;-webkit-line-clamp: 2; -webkit-box-orient: vertical;height:60px;line-height:30px">详情描述：' + data[i].InformationProfile + '</td>' +
+                        '</tr>' +
+                        '</table>' +
+                        '</div>' +
+                        '</div>');
+                }
+            }
+        })
+    }
+    function Rowcount() {
+        $.ajax({
+            type: "get",
+            url: "/InfoList/GetRowCounts",
+            async:false,
+            success: function (data) {
+                allrowcount = data;
+                var strin = "";
+                $(".FenYe").empty();
+                if (data == 0) {
+                    return;
+                }
+
+                strin += '<span style="width:60px;" onclick="last()">上一页</span>';
+                for (var i = 1; i <= Number(data); i++) {
+                    if (pageindex == i) {
+                        strin += '<span style="color:red;" onclick="on(' + i + ')">' + i + '</span >';
+                    }
+                    else {
+                        strin += '<span onclick="on(' + i + ')">' + i + '</span >';
+                    }
+                }
+                strin += '<span style="width:60px;" onclick="next()">下一页</span>';
+                $(".FenYe").append(strin);
+            }
+        })
+    }
+    function on(id) {
+        GetInfoList(id);
+        Rowcount();
+    }
+    function last() {
+        if (Number(pageindex) > 1) {
+            pageindex = Number(pageindex) - 1;
+            GetInfoList(pageindex);
+            Rowcount();
+        }
+        else {
+            alert("当前已经是第一页了");
+        }
+    }
+    function next() {
+        if (Number(pageindex) < Number(allrowcount)) {
+            pageindex = Number(pageindex) + 1;
+            GetInfoList(Number(pageindex))
+            Rowcount();
+        }
+        else {
+            alert("当前已经是最后一页了");
+        }
+    }
+</script>

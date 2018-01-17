@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{D470B4B0-56A7-48B2-9D6A-CB1B4BF204CA}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>JiaJiNewWebBLL</RootNamespace>
+    <AssemblyName>JiaJiNewWebBLL</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ActiveBLL.cs" />
+    <Compile Include="ApplyBLL.cs" />
+    <Compile Include="CountryBLL.cs" />
+    <Compile Include="DominantBLL.cs" />
+    <Compile Include="FilialeBll.cs" />
+    <Compile Include="ImageBLL.cs" />
+    <Compile Include="InformationBLL.cs" />
+    <Compile Include="LanguageBLL.cs" />
+    <Compile Include="LunBoImageBLL.cs" />
+    <Compile Include="MediumBLL.cs" />
+    <Compile Include="NavInfoBLL.cs" />
+    <Compile Include="OptionBLL.cs" />
+    <Compile Include="ProjectBLL.cs" />
+    <Compile Include="ProjectItemBLL.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SolutionBLL.cs" />
+    <Compile Include="SPRelationBLL.cs" />
+    <Compile Include="StrategyBLL.cs" />
+    <Compile Include="StudentBLL.cs" />
+    <Compile Include="StudentProgramBLL.cs" />
+    <Compile Include="SuccessFulBLL.cs" />
+    <Compile Include="SuccessFulRelationBLL.cs" />
+    <Compile Include="TeamBLL.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\JiaJiNewWeb.DALFactory\JiaJiNewWeb.DALFactory.csproj">
+      <Project>{347654c4-f69b-4b25-804a-b7592131ce11}</Project>
+      <Name>JiaJiNewWeb.DALFactory</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\JiaJiNewWebDAL\JiaJiNewWeb.DAL.csproj">
+      <Project>{1e5fec8f-5d47-47d6-85c5-c7a7b5a9a037}</Project>
+      <Name>JiaJiNewWeb.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\JiaJiNewWebIDAL\JiaJiNewWeb.IDAL.csproj">
+      <Project>{fd682d22-d1f3-4c6e-997d-e09b618d9c6f}</Project>
+      <Name>JiaJiNewWeb.IDAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\JiaJiNewWebModel\JiaJiNewWeb.Model.csproj">
+      <Project>{f4bf4ce1-a6e6-476d-922a-6ed236d1ceea}</Project>
+      <Name>JiaJiNewWeb.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

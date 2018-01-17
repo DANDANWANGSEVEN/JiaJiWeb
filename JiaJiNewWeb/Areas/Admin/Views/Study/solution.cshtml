@@ -1,0 +1,26 @@
+﻿
+
+@{
+    ViewBag.Title = "solution";
+    Layout = "../study/layout.cshtml";
+}
+<table id="grid" style="width: 1024px" title="用户操作" iconcls="icon-view"></table>
+
+<script type="text/javascript">
+
+
+    $(function () {
+
+        var columns = [{ field: 'SolutionID', checkbox: true, isTableBody: 1 , isFormBody: 1, type: "hidden"},   //选择
+        
+        { title: '解决方案标题', field: 'SolutionTitle', width: 400, isTableBody: 2, isFormBody: 2, type: "text", validType: ["required", "length[2,30]"] },
+      
+        ];
+        $("#grid").InitGrid("/Admin/study/solution", "解决方案管理", columns);
+    })
+
+    function ShowAddDialog() {
+        alert();
+    }
+</script>
+

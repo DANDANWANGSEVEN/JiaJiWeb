@@ -1,0 +1,37 @@
+﻿
+@{
+    ViewBag.Title = "projectitem";
+    Layout = "../study/layout.cshtml";
+}
+
+<table id="grid" style="width: 1024px" title="用户操作" iconcls="icon-view"></table>
+
+<script type="text/javascript">
+
+
+    $(function () {
+
+        var columns = [{ field: 'Pro_ID', checkbox: true, isTableBody: 1, isFormBody: 1, type: "hidden" },   //选择
+        { title: '背景项目名称', field: 'Pro_Name', width: 80, isTableBody: 2, isFormBody: 2, type: "text", validType: ["required", "length[1,20]"] },
+        { title: '背景项目简介', field: 'Pro_Profile', width: 100, isTableBody: 3, isFormBody: 3, type: "textarea", validType: ["required", "length[1,100]"] },
+        { title: '项目关键字', field: 'Pro_KeyWord', width: 100, isTableBody: 4, isFormBody: 4, type: "text", validType: ["required", "length[1,20]"] },
+         { title: '作者', field: 'Pro_Author', width: 80, isTableBody: 5, isFormBody: 5, type: "text", validType: ["required", "length[1,10]"] },
+        { title: '阅读量', field: 'Pro_ReadCount', width: 80, isTableBody: 6, type: "text" },
+        { title: '来源', field: 'Pro_Source', width: 120, isTableBody: 7, isFormBody: 6, type: "text" },
+        { title: '发表日期', field: 'Pro_Date', width: 120, isTableBody: 8, isFormBody: 7, type: "datetime" },
+       { title: '背景内容', field: 'Pro_Content', width: 200, isTableBody: 9, formatter: function (val) { if ($("<div>" + val + "</div>").text().length > 22) return $("<div>" + val + "</div>").text().substr(0, 22) + "..."; else return $("<div>" + val + "</div>").text(); }, isFormBody: 8, type: "ue"},
+
+       { title: '图片', field: 'Pro_Img', width: 120, isTableBody: 10, isFormBody: 9, type: "file", formatter: function (val) { return "<img width=\"150\" height=\"100\" src='@SiteConfig.SiteUrl" + val + "'/>"; } },
+
+        { title: '分公司页面项目活动图片（上）', field: 'ProactiveImg1', width: 150, isTableBody: 11, isFormBody: 10, type: "file", formatter: function (val) { return "<img width=\"150\" height=\"100\" src='@SiteConfig.SiteUrl" + val + "'/>"; }, Size: "350×140" },
+
+       { title: '分公司页面项目活动图片（下）', field: 'ProactiveImg2', width: 150, isTableBody: 12, isFormBody: 11, type: "file", formatter: function (val) { return "<img width=\"150\" height=\"100\" src='@SiteConfig.SiteUrl" + val + "'/>"; }, Size: "350×140" }
+
+
+        ];
+        $("#grid").InitGrid("/Admin/study/projectitem", "背景提升项目", columns);
+    })
+
+
+</script>
+

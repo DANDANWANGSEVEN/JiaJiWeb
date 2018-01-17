@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewBag.Title = "Filiale";
+    Layout = "../study/layout.cshtml";
+}
+
+<table id="grid" style="width: 1024px" title="用户操作" iconcls="icon-view"></table>
+
+<script type="text/javascript">
+
+
+    $(function () {
+
+        var columns = [{ field: 'FilialeId', checkbox: true, isTableBody: 1, isFormBody: 1, type: "hidden" },   //选择
+        { title: '分公司名称', field: 'FilialeName', width: 100, isTableBody: 2, isFormBody: 2,validType: ["required","length[2,10]"] },
+
+        ];
+        $("#grid").InitGrid("/Admin/study/Filiale", "分公司管理", columns);
+    })
+
+    function ShowAddDialog() {
+        alert();
+    }
+</script>
+
+

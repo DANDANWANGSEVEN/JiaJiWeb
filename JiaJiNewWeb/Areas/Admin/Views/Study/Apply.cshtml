@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewBag.Title = "Apply";
+    Layout = "../study/layout.cshtml";
+}
+
+<p style="color:red;">该页面不能进行添加修改操作</p>
+<table id="grid" style="width: 1024px" title="用户操作" iconcls="icon-view"></table>
+
+<script type="text/javascript">
+
+
+    $(function () {
+        var columns = [{ field: 'ApplyID', checkbox: true, isTableBody: 1, isFormBody: 1, type: "hidden" },   //选择
+        { title: '学生姓名', field: 'UserName', width: 200, isTableBody: 2, isFormBody: 2, type: "text" },
+        { title: '意向国家', field: 'CountryName', width: 100, isTableBody: 3, isFormBody: 3, type: "text" },
+        { title: '出国时间', field: 'GoTime', width: 300, isTableBody: 4, isFormBody: 4, type: "date" },
+        { title: '联系方式', field: 'Phone', width: 100, isTableBody: 5, isFormBody: 5, type: "text" },
+
+        ];
+        $("#grid").InitGrid("/Admin/study/Apply", "学生信息列表", columns);
+    })
+
+    function ShowAddDialog() {
+        alert();
+    }
+</script>
+

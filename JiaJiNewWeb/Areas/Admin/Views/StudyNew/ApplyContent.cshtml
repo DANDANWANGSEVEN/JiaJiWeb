@@ -1,0 +1,30 @@
+﻿
+@{
+    ViewBag.Title = "ApplyContent";
+    Layout = "../study/layout.cshtml";
+}
+
+
+<table id="grid" style="width: 1024px" title="用户操作" iconcls="icon-view"></table>
+
+<script type="text/javascript">
+
+
+    $(function () {
+
+        var columns = [{ field: 'ApplyContentID', checkbox: true, isTableBody: 1, isFormBody: 1, type: "hidden" },   //选择
+        { title: '申请标题', field: 'ApplyConditionID', width: 100, isTableBody: 2, formatter: function (val) { return this.data[val]; }, isFormBody: 2, type: "select", url: "/StudyNew/applyconditionshow", valueField: "ApplyID", textField: "ApplyTitle" },
+        { title: '所属国家', field: 'CountryID', width: 100, isTableBody: 3, formatter: function (val) { return this.data[val]; }, isFormBody: 3, type: "select", url: "/Admin/study/Countryshow", valueField: "CountryID", textField: "CountryName" },
+        { title: '学生学历', field: 'EducationID', width: 100, isTableBody: 4, formatter: function (val) { return this.data[val]; }, isFormBody: 4, type: "select", url: "/Admin/study/Edushow", valueField: "EducationID", textField: "EducationName" },
+        { title: '申请内容', field: 'ApplyContent', width: 300, isTableBody: 5, isFormBody: 5, type: "text",validType: ["required","length[2,15]"] }
+
+
+        ];
+        $("#grid").InitGrid("/Admin/StudyNew/ApplyContent", "申请内容管理", columns);
+    })
+
+    function ShowAddDialog() {
+        alert();
+    }
+</script>
+

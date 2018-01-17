@@ -1,0 +1,30 @@
+﻿
+@{
+    ViewBag.Title = "Student";
+    Layout = "../study/layout.cshtml";
+}
+
+<table id="grid" style="width: 1024px" title="用户操作" iconcls="icon-view"></table>
+
+<script type="text/javascript">
+
+
+    $(function () {
+
+        var columns = [{ field: 'StudentID', checkbox: true, isTableBody: 1, isFormBody: 1, type: "hidden" },   //选择
+        { title: '学生姓名', field: 'StudentName', width: 200, isTableBody: 2, isFormBody: 2, type: "text", validType: ["required", "length[2,12]"] },
+        { title: '成绩', field: 'Score', width: 150, isTableBody: 3, isFormBody: 3, type: "text", validType: ["required", "length[2,16]"] },
+        { title: '录取学院', field: 'CollegeID', width: 150, isTableBody: 4, formatter: function (val) { return this.data[val]; }, isFormBody: 4, type: "select", url: "/SuccessInfo/Collegeshow", valueField: "CollegeID", textField: "CollegeName" },
+        { title: '国家', field: 'CountryID', width: 100, isTableBody: 5, formatter: function (val) { return this.data[val]; }, isFormBody: 5, type: "select", url: "/Admin/study/Countryshow", valueField: "CountryID", textField: "CountryName" },
+        { title: '学生学历', field: 'EducationID', width: 100, isTableBody: 6, formatter: function (val) { return this.data[val]; }, isFormBody: 6, type: "select", url: "/Admin/study/Edushow", valueField: "EducationID", textField: "EducationName" },
+        { title: '就读学院', field: 'JiuDuXueyuan', width: 100, isTableBody: 7, isFormBody: 7, type: "text", validType: ["required", "length[2,15]"] },
+
+
+        ];
+        $("#grid").InitGrid("/Admin/SuccessInfo/Student", "学生信息管理", columns);
+    })
+
+    function ShowAddDialog() {
+        alert();
+    }
+</script>

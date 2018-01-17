@@ -1,0 +1,64 @@
+﻿body {
+}
+
+ label {
+        font-size: 14px;
+    }
+
+    
+    .tab_hd tr td {
+        height: 25px;
+        line-height: 25px;
+        font-size: 16px;
+        color: #666666;
+    }
+        .ab{
+        color:black;
+    }
+    .aa {
+        color: #5E9FF3;
+    }
+
+
+    .HotActive{
+        width:300px;margin:0px;padding:0px;line-height:30px;margin-top:10px;
+    }
+     .HotActive a {
+        color: #666666;
+        text-decoration:none;
+    }
+
+        .HotActive a:hover {
+            color: #3398FF;
+        }
+    #List{width:80px;height:35px;border:1px solid #609ef3;border-radius:5px; padding:5px 40px;margin:0 auto;color:#609ef3;text-decoration:none;}
+    .Prev span{
+        color:dimgray;
+    }
+    .Next,.Prve{
+            color:black;
+        }
+   .Next span:hover{
+        color: #60B6F7;
+    }
+         .Next span a, .Prve span a{
+            color:black;
+            text-decoration:none;
+        }
+       .Next span a:hover,.Prve span a:hover{
+            color:#60B6F7;
+            text-decoration:underline;
+        }
+       .Prve:hover {
+            color: #60B6F7;
+        }
+        #keyword a{
+            text-decoration:none;
+            color: #3398FF;
+        }
+         #keyword a:hover{
+            text-decoration:underline;
+        }
+    
+ 
+

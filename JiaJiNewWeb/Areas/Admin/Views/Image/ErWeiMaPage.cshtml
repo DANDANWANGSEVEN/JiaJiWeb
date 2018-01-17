@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewBag.Title = "ErWeiMaPage";
+    Layout = "../study/layout.cshtml";
+}
+
+<table id="grid" style="width: 1024px" title="用户操作" iconcls="icon-view"></table>
+
+<script type="text/javascript">
+
+
+    $(function () {
+        var columns = [{ field: 'EWMID', checkbox: true, isTableBody: 1, isFormBody: 1, type: "hidden" },   //选择
+        { title: '二维码标题', field: 'EWMTitle', width: 200, isTableBody: 2, isFormBody: 2, type: "text",validType: ["required","length[2,10]"] },
+        { title: '上传时间', field: 'EWMUpdate', width: 100, isTableBody: 3, isFormBody: 3, type: "date" },
+        {
+            title: '图片', field: 'EWMUrl', width: 400, isTableBody: 4, isFormBody: 4, type: "file", formatter: function (val) {
+                return "<img width=\"100\" height=\"100\" src='@SiteConfig.SiteUrl" + val + "'/>"; Size: "135×125"
+
+            }
+        }];
+        $("#grid").InitGrid("/Admin/Image/ErWeiMaPage", "二维码管理", columns);
+    })
+
+    function ShowAddDialog() {
+        alert();
+    }
+</script>

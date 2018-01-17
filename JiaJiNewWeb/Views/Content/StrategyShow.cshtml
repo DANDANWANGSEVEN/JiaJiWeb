@@ -1,0 +1,198 @@
+﻿
+@{
+    ViewBag.Title = "Content";
+}
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<link href="~/PageCSS/ContentCss.css" rel="stylesheet" />
+<style>
+    #HotActive a {
+        color: #666666;
+        text-decoration: none;
+    }
+
+        #HotActive a:hover {
+            color: #3398FF;
+        }
+        #keyword a{
+            text-decoration:none;
+            color: #3398FF;
+        }
+         #keyword a:hover{
+            text-decoration:underline;
+        }
+         #liuxueKeyWord a{
+            text-decoration:none;
+            color:#666666;
+            padding:0 10px;border:1px solid #666666;padding:5px;border-radius:5px;margin:8px;
+        }
+            #liuxueKeyWord a:hover {
+                color:#3398FF;
+                border:1px solid #3398FF;
+            }
+</style>
+
+<div style="width:1100px;margin:0 auto;height:auto;margin-top:10px;">
+    <div style="width:100%;height:50px;line-height:50px;">
+        <div style="width:730px;height:50px;line-height:50px;border-bottom:3px solid #5E9FF3;">当前位置：<a style="text-decoration:none;color:black;" href="/Home/Index">首页</a>><a  style="text-decoration:none;color:black;" href="/HaiWaiLiuXue/HaiWaiLiuXueList">攻略</a> >攻略详情</div>
+    </div>
+    <div style="width:100%;">
+        <div style="width:730px;float:left;height:auto;">
+            <div style="width:100%;height:auto;margin-top:10px;">
+                <div style="width:730px;height:auto;overflow:hidden;" id="frameContent">
+                    <div style="float:left;width:100%;height:auto;">
+                        <h3 id="title"></h3>
+                        <p><label id="Date"></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label id="StrategyReadCount"></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label id="StrategyAuthor"></label>
+                    </div>
+                    <div id="Content" style="border-top:1px dashed #dadada;margin-top:100px;line-height:32px;">
+                        @*<div id="img" style="width:200px;height:240px;float:left;margin-top:10px;"></div>*@
+                    </div>
+                    <div id="keyword" style="margin-top:10px;">
+                        <span>关键字：</span>
+                    </div>
+                </div>
+            </div>
+
+            <div style="width:100%;height:auto;line-height:40px;margin:0 auto;margin-top:30px;border-top:1px solid #dadada;">
+                <table class="prvenext" style="width:100%;margin:0 auto;" align="center">
+                    <tr>
+                        <td align="center" style="width:50%;"><div class="Prve"></div></td>
+                        <td align="center" style="width:50%;"><div class="Next"></div></td>
+                    </tr>
+                    <tr>
+                        <td align="center" colspan="2"><a id="List" href="/HaiWaiLiuXue/HaiWaiLiuXueList">查看列表页</a></td>
+                    </tr>
+                </table>
+            </div>
+
+            <div id="pages"></div>
+
+        </div>
+        <div style="width:340px;float:right;height:900px;">
+            <div id="hotimage" style="width:100%;height:200px;background-size:100% 100%;"></div>    
+            <div style="width:100%;height:240px;margin-top:20px;">
+                <div style="font-size:20px;width:200px;height:30px;border-left:4px solid #5E9FF3;line-height:30px;padding-left:10px;font-weight:600;">热门活动</div>
+                <div>
+                    <ul class="HotActive">
+                        @{
+                            foreach (var item in ViewBag.activelist as List<JiaJiNewWebModel.Active>)
+                            {
+                                <li style="overflow: hidden;white-space:nowrap;text-overflow:ellipsis;"><a  href="/Content/Active/@item.ActiveID">·  @item.ActiveTitle</a></li>
+
+                            }
+                        }
+                     
+                    </ul>
+                </div>
+            </div>
+
+            <div style="width:100%;height:240px;margin-top:20px;" >
+                <div style="font-size:20px;width:200px;height:30px;border-left:4px solid #5E9FF3;line-height:30px;padding-left:10px;font-weight:600;">嘉际观点</div>
+                <div>
+                    <ul class="HotActive">
+                        @{
+                            foreach (var item in ViewBag.optionlist as List<JiaJiNewWebModel.Option>)
+                            {
+                                <li style="overflow: hidden;white-space:nowrap;text-overflow:ellipsis;"><a  href="/Content/OptionShow/@item.OptionID">·  @item.OptionTitle</a></li>
+                            }
+
+                        }
+                    </ul>
+                </div>
+            </div>
+
+            <div style="width:100%;height:240px;margin-top:30px;" id="hotkeyword">
+                <div style="font-size:20px;width:200px;height:30px;border-left:4px solid #5E9FF3;line-height:30px;padding-left:10px;font-weight:600;">留学关键词</div>
+                <div id="liuxueKeyWord" style="margin-top:20px;"></div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(function () {
+        var index = location.href.lastIndexOf('/') + 1;
+        var href = location.href;
+
+        var url = "";
+        $.ajax({
+            type: "POST",
+            url: "/Content/Strategy",
+            dataType: "JSON",
+            data: { Id: href.substr(index) },
+            async: false,
+            success: function (data) {
+
+                url =data.Img;
+                $("#title").html(data.StrategyTitle);
+                $("#Date").html("发表时间：" + data.StrategyDate + ""); 
+                $("#StrategyReadCount").html("阅读量：" + data.StrategyReadCount + ""); 
+                $("#StrategyAuthor").html("作者：" + data.StrategyAuthor + "");
+                $("#hotimage").css("background-image", "url('" + data.Img + "')");
+                if (data.StrategyKeyWord.length == 0) {
+                    $("#keyword").css("display", "none");
+                }
+
+                if (data.StrategyKeyWord.length > 1) {
+                    var StrategyKeyWord = data.StrategyKeyWord.split('/');
+                    for (var i = 0; i < StrategyKeyWord.length; i++) {
+                        $("#keyword").append("<a href='/Home/SouSuo?selName=" + StrategyKeyWord[i] + "' style='padding:0 10px;'>" + StrategyKeyWord[i] + "</a>");
+                        $("#liuxueKeyWord").append("<a href='/Home/SouSuo?selName=" + StrategyKeyWord[i] + "' '>" + StrategyKeyWord[i] + "</a>");
+
+                    }
+                }
+                else {
+                    $("#keyword").append("<a href='/Home/SouSuo?selName=" + data.StrategyKeyWord + "' style='padding:0 10px;'>" + data.StrategyKeyWord + "</a>");
+                    $("#liuxueKeyWord").append("<a href='/Home/SouSuo?selName=" + data.StrategyKeyWord + "' style='padding:0 10px;'>" + data.StrategyKeyWord + "</a>");
+                }
+                $("#Content").append(data.StrategyContent);
+                
+                $("#img").empty();
+            }
+        })
+        Prve();
+    })
+
+    function Prve() {
+        $.ajax({
+            type: "post",
+            url: "/Content/StrategyPrve",
+            async: false,
+            dataType: "json",
+            success: function (data) {
+                $(".Prve").empty();
+                if (data.StrategyTitle == "已是第一章了") {
+
+                    $(".Prve").append("<p><span style='width: 300px;display: block;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;'>上一章：<a title='" + data.StrategyTitle + "'  href='javascript:void(0);'>" + data.StrategyTitle + "</a></span></p>");
+                } else {
+                    $(".Prve").append("<p><span style='width: 300px;display: block;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;'>上一章：<a title='" + data.StrategyTitle + "' href='/Content/StrategyShow/" + data.StrategyID + "'>" + data.StrategyTitle + "</a></span></p>");
+                }
+                Next();
+            }
+        })
+
+    };
+    function Next() {
+       
+        $.ajax({
+            type: "post",
+            url: "/Content/StrategyNext",
+            dataType: "json",
+            async: false,
+            success: function (data) {
+                $(".Next").empty();
+                if (data.StrategyTitle == "已经是最后一章了") {
+                    $(".Next").append("<p><span style='width: 300px;display: block;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;'>下一章：<a title='" + data.StrategyTitle + "' href='javascript:void(0);'>" + data.StrategyTitle + "</a></span></p>");
+                }
+                else {
+                    $(".Next").append("<p><span style='width: 300px;display: block;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;'>下一章：<a title='" + data.StrategyTitle + "' href='/Content/StrategyShow/" + data.StrategyID + "'>" + data.StrategyTitle + "</a></span></p>");
+                }
+            }
+        })
+
+
+    }
+
+</script>
+

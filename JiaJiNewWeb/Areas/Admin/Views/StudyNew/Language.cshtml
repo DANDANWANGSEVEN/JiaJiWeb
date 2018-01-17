@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewBag.Title = "Language";
+    Layout = "~/Views/Admin/study/layout.cshtml";
+}
+
+<table id="grid" style="width: 1024px" title="用户操作" iconcls="icon-view"></table>
+
+<script type="text/javascript">
+
+
+    $(function () {
+
+        var columns = [{ field: 'LanguageID', checkbox: true, isTableBody: 1, isFormBody: 1, type: "hidden" },   //选择
+        { title: '语言名称', field: 'LanguageName', width: 200, isTableBody: 2, isFormBody: 2, type: "text",validType: ["required","length[2,10]"] },
+        { title: '语言标题', field: 'LanguageTitle', width: 300, isTableBody: 3, isFormBody: 3, type: "text",validType: ["required","length[2,30]"] },
+        { title: '语言介绍', field: 'LanguageContent', width: 300, isTableBody: 4, formatter: function (val) { if ($("<div>" + val + "</div>").text().length > 22) return $("<div>" + val + "</div>").text().substr(0, 22) + "..."; else return $("<div>" + val + "</div>").text(); }, isFormBody: 4, type: "ue",validType: ["required","length[5,30]"] },
+
+
+        ];
+        $("#grid").InitGrid("/Admin/studyNew/Language", "语言管理", columns);
+    })
+
+    function ShowAddDialog() {
+        alert();
+    }
+</script>

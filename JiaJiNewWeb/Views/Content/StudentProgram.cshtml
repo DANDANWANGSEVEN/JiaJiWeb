@@ -1,0 +1,196 @@
+﻿
+@{
+    ViewBag.Title = "Content";
+}
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<link href="~/PageCSS/ContentCss.css" rel="stylesheet" />
+<style>
+    .HotActive a {
+        color: #666666;
+        text-decoration: none;
+    }
+
+        .HotActive a:hover {
+            color: #3398FF;
+        }
+
+         #liuxueKeyWord a{
+            text-decoration:none;
+            color:#666666;
+            padding:0 10px;border:1px solid #666666;padding:5px;border-radius:5px;margin:8px;
+        }
+            #liuxueKeyWord a:hover {
+                color:#3398FF;
+                border:1px solid #3398FF;
+            }
+</style>
+
+<div style="width:1100px;margin:0 auto;height:auto;margin-top:10px;">
+    <div style="width:100%;height:50px;line-height:50px;">
+        <div style="width:730px;height:50px;line-height:50px;border-bottom:3px solid #5E9FF3;">当前位置：<a style="color:black;text-decoration:none;" href="/Home/Index">首页</a>>留学资讯</div>
+    </div>
+    <div style="width:100%;">
+        <div style="width:730px;float:left;height:auto;">
+            <div style="width:730px;height:auto;margin-top:10px;">
+                <div style="width:730px;height:auto;overflow:hidden;" id="frameContent">
+                    <div style="width:100%;height:auto; float:left;">
+                        <h3 id="title"></h3>
+                        @*<p id="term"></p>*@
+                        <p><label id="Date"></label><label id="Author"></label>&nbsp;&nbsp;&nbsp;<label id="Source"></label>&nbsp;&nbsp;&nbsp;<label id="ReadCount"></label></p>
+                    </div>
+                  
+                    <div id="Content" style="border-top:1px dashed #dadada;padding-top:20px;margin-top:100px;line-height:32px;">
+
+                    </div>
+
+                    <div id="keyword" style="margin-top:15px;">
+                        <span>关键字：</span>
+                    </div>
+
+
+                </div>
+            </div>
+
+            <div style="width:730px;height:auto;line-height:40px;margin:0 auto;border-top:1px solid #dadada;">
+                <table class="prvenext" style="width:100%;margin:0 auto;" align="center">
+                    <tr>
+                        <td align="center" style="width:50%;"><div class="Prve"></div></td>
+                        <td align="center" style="width:50%;"><div class="Next"></div></td>
+                    </tr>
+                    <tr>
+                        <td align="center" colspan="2"><a id="List" href="/Content/StudentProgramList">查看列表页</a></td>
+                    </tr>
+                </table>
+            </div>
+
+            <div id="pages"></div>
+
+        </div>
+        <div style="width:340px;float:right;height:auto;">
+            <div id="hotimage" style="width:100%;height:200px;background-size:100% 100%;"></div>
+            <div style="width:100%;height:240px;margin-top:20px;">
+                <div style="font-size:20px;width:200px;height:30px;border-left:4px solid #5E9FF3;line-height:30px;padding-left:10px;font-weight:600;">热门活动</div>
+                <div>
+                    <ul class="HotActive" >
+                        @{
+                            foreach (var item in ViewBag.activelist as List<JiaJiNewWebModel.Active>)
+                            {
+                                <li style="overflow: hidden;white-space:nowrap;text-overflow:ellipsis;"><a  href="/Content/Active/@item.ActiveID">·  @item.ActiveTitle</a></li>
+
+                            }
+                        }
+                    </ul>
+                </div>
+            </div>
+
+            <div style="width:100%;height:240px;margin-top:20px;">
+                <div style="font-size:20px;width:200px;height:30px;border-left:4px solid #5E9FF3;line-height:30px;padding-left:10px;font-weight:600;">嘉际观点</div>
+                <div>
+                    <ul class="HotActive">
+                        @{
+                            foreach (var item in ViewBag.optionlist as List<JiaJiNewWebModel.Option>)
+                            {
+                                <li style="overflow: hidden;white-space:nowrap;text-overflow:ellipsis;"><a  href="/Content/OptionShow/@item.OptionID">·  @item.OptionTitle</a></li>
+                            }
+
+                        }
+                    </ul>
+                </div>
+            </div>
+
+            <div style="width:100%;height:240px;margin-top:30px;" id="hotkeyword">
+                <div style="font-size:20px;width:200px;height:30px;border-left:4px solid #5E9FF3;line-height:30px;padding-left:10px;font-weight:600;">留学关键词</div>
+                <div id="liuxueKeyWord" style="margin-top:20px;"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    $(function () {
+
+        var index = location.href.lastIndexOf('/') + 1;
+        var href = location.href;
+
+        $.ajax({
+            type: "post",
+            url: "/Content/StudentShow",
+            data: { Id: href.substr(index) },
+            dataType: "Json",
+            async: false,
+            success: function (data) {
+
+                $("#title").text(data.StudentProgramTitle);
+                //$("#term").text("国家:" + data.CountryName + "   学历：" + data.EducationName);
+                $("#Date").text(data.SuccessDate);
+                $("#Author").text("作者：" + data.Author + "");
+                $("#Source").text("来源：" + data.Source+"");
+                $("#ReadCount").text("阅读量：" + data.ReadCount);
+                
+                $("#hotimage").css("background-image", "url('" + data.Imageurl + "')");
+
+
+                if (data.StudentKeyWord.length == 0) {
+                    $("#keyword").css("display", "none");
+                    $("#hotkeyword").css("display", "none");
+                }
+
+                if (data.StudentKeyWord.length > 1) {
+                    var StudentKeyWord = data.StudentKeyWord.split('/');
+                    for (var i = 0; i < StudentKeyWord.length; i++) {
+                        $("#keyword").append("<a href='/Home/SouSuo?selName=" + StudentKeyWord[i] + "' style='padding:0 10px;'>" + StudentKeyWord[i] + "</a>");
+                        $("#liuxueKeyWord").append("<a href='/Home/SouSuo?selName=" + StudentKeyWord[i] + "' '>" + StudentKeyWord[i] + "</a>");
+                    }
+                }
+                else {
+                    $("#keyword").append("<a href='/Home/SouSuo?selName=" + data.StudentKeyWord + "' style='padding:0 10px;'>" + data.StudentKeyWord + "</a>");
+                    $("#liuxueKeyWord").append("<a href='/Home/SouSuo?selName=" + data.StudentKeyWord + "' '>" + data.StudentKeyWord + "</a>");
+                }
+
+
+                $("#Content").html(data.StudentProgramContent);
+            }
+        })
+        Prve();
+    })
+    function Prve() {
+        $.ajax({
+            type: "post",
+            url: "/Content/StudentPrve",
+            async:false,
+            dataType: "json",
+            success: function (data) {
+                $(".Prve").empty();
+                if (data.StudentProgramTitle == "已是第一章了") {
+                    $(".Prve").append("<p><span style='width: 300px;display: block;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;'>上一章：<a title='" + data.StudentProgramTitle + "' href='javascript:void(0);'>" + data.StudentProgramTitle + "</a></span></p>");
+                } else {
+                    $(".Prve").append("<p><span style='width: 300px;display: block;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;'><a title='" + data.StudentProgramTitle + "' href='/Content/StudentProgram/" + data.StudentProgramID + "'>上一章：" + data.StudentProgramTitle + "</a></span></p>");
+                }
+                Next();
+            }
+        })
+
+    };
+    function Next()
+    { 
+        $.ajax({
+            type: "post",
+            url: "/Content/StudentNext",
+            dataType: "json",
+            async: false,
+            success: function (data) {
+                $(".Next").empty();
+                if (data.StudentProgramTitle == "已经是最后一章了") {
+                    $(".Next").append("<p><span style='width: 300px;display: block;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;'>下一章：<a title='" + data.StudentProgramTitle + "' href='javascript:void(0);'>" + data.StudentProgramTitle + "</a></span></p>");
+                } else {
+                    $(".Next").append("<p><span style='width: 300px;display: block;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;'>下一章：<a title='" + data.StudentProgramTitle + "' href='/Content/StudentProgram/" + data.StudentProgramID + "'>" + data.StudentProgramTitle + "</a></span></p>");
+                }
+            }
+        })
+    }
+
+
+
+</script>

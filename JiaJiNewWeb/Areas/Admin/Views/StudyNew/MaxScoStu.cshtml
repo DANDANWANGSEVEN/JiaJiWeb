@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewBag.Title = "MaxScoStu";
+    Layout = "../study/layout.cshtml";
+}
+
+<table id="grid" style="width: 1024px" title="用户操作" iconcls="icon-view"></table>
+
+<script type="text/javascript">
+
+
+    $(function () {
+        var columns = [{ field: 'LearnSorceID', checkbox: true, isTableBody: 1, isFormBody: 1, type: "hidden" },   //选择
+         { title: '学员姓名', field: 'LearnerID', width: 100, isTableBody: 2, formatter: function (val) { return this.data[val]; }, isFormBody: 2, type: "select", url: "/StudyNew/LearnerShow", valueField: "LearnerID", textField: "LearnName" },
+         { title: '所学语言', field: 'LanguageID', width: 100, isTableBody: 3, formatter: function (val) { return this.data[val]; }, isFormBody: 3, type: "select", url: "/StudyNew/Languageshow", valueField: "LanguageID", textField: "LanguageName" },
+         { title: '学生成绩', field: 'Sorce', width: 100, isTableBody: 4, isFormBody: 4, type: "text", validType: ["required", "length[2,15]"] },
+         { title: '学员感悟', field: 'LearnerGonsis', width: 200, isTableBody: 5, formatter: function (val) { if ($("<div>" + val + "</div>").text().length > 22) return $("<div>" + val + "</div>").text().substr(0, 22) + "..."; else return $("<div>" + val + "</div>").text(); }, isFormBody: 5, type: "text", validType: ["required", "length[5,50]"] },
+         { title: '感悟内容', field: 'LearnerContent', width: 700, isTableBody: 6, formatter: function (val) { if ($("<div>" + val + "</div>").text().length > 22) return $("<div>" + val + "</div>").text().substr(0, 50) + "..."; else return $("<div>" + val + "</div>").text(); }, isFormBody: 6, type: "ue" },
+         { title: '热度', field: 'HeatHot', width: 80, isTableBody: 7, type: "text" },
+        ];
+        $("#grid").InitGrid("/Admin/studyNew/MaxScoStu", "高分学员", columns);
+    })
+
+    function ShowAddDialog() {
+        alert();
+    }
+</script>
+

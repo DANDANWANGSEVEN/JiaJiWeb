@@ -1,0 +1,78 @@
+﻿body {
+}
+
+        .nav {
+            width: 100%;
+            background-color: #3398FF;
+        }
+        .navtab {
+            width: 1100px;
+            margin: 0 auto;
+            position: relative;
+        }
+        .nav table {
+            width: 1100px;
+        }
+        .nav>.navtab>table>tbody>tr>.td {
+                width: 135px;
+                height: 72px;
+                /*text-align: center;*/
+                color: #FFF;
+                font-size: 20px;
+                /*background-color:black;
+                border:1px solid white;*/
+            }
+        .liuxue {
+                    list-style: none;
+                    display: block;
+                    height: 72px;
+                    color: #FFF;
+                    line-height: 70px;
+                    text-decoration: none;
+                    text-align:center;
+                }
+        .nav .current{
+            background-color:blue;
+        }
+        .nav table td .sMenu {
+                    display: none;
+                    width: 1100px;
+                    height: 240px;
+                    background-color: #58AAFE;
+                }
+        .nav table td:hover .sMenu {
+                    display: block;
+                    z-index: 5000;
+                    position: absolute;
+                    left: 0px;
+                    top: 72px;
+                    width: 1100px;
+                    height: 240px;
+                    background-color: #58AAFE;
+                }
+        .navssWZ a {
+            text-decoration: none;
+            color: #000;
+        }
+        .navssWZ a:hover {
+                text-decoration: none;
+                color: #58AAFE;
+            }
+
+        .footLeft ul {
+            border:0px;
+            margin:0px;
+            padding:0px;
+        }
+            .footLeft ul li {
+                list-style-type:none;
+                color:#FFFFFF;
+                height:35px;
+                line-height:35px;
+                font-size:17px;
+            }
+            .footLeft ul li a{
+                text-decoration:none;
+                color:white;
+            }
+

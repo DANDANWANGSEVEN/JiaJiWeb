@@ -1,0 +1,32 @@
+﻿@{
+    ViewBag.Title = "information";
+    Layout = "../study/layout.cshtml";
+}
+
+      <table id="grid" style="width: 1024px" ></table>
+      <script type="text/javascript">
+
+            $(function () {
+                var columns = [{ field: 'InformationID', checkbox: true, isTableBody: 1, isFormBody: 1, type: "hidden" },   //选择
+                { title: '标题', field: 'Title', width: 100, isTableBody: 2, isFormBody: 2, type: "text", validType: ["field", "length[1,20]"]},
+                { title: '内容', field: 'Content', width: 200, isTableBody: 3, formatter: function (val) { if ($("<div>" + val + "</div>").text().length > 22) return $("<div>" + val + "</div>").text().substr(0, 22) + "..."; else return $("<div>" + val + "</div>").text(); }, isFormBody: 10, type: "ue" },
+                { title: '时间', field: 'InfoDate', width: 150, isTableBody: 4, isFormBody: 4, type: "date" },
+                { title: '来源', field: 'Source', width: 120, isTableBody: 5, isFormBody: 5, type: "text", validType: ["required", "length[2,20]"] },
+                { title: '作者', field: 'Author', width: 120, isTableBody: 6, isFormBody: 6, type: "text", validType: ["required", "length[1,20]"] },
+                { title: '阅读量', field: 'ReadCount', width: 50, isTableBody: 7 },
+                { title: '关键字', field: 'InfoKeyWord', width: 100, isTableBody: 8, isFormBody: 7, type: "text", validType: ["required", "length[2,20]"] ,Prompt:"关键字之间用/分隔"},
+                { title: '国家', field: 'CountryID', width: 80, isTableBody: 9, formatter: function (val) { return this.data[val]; }, isFormBody: 8, type: "select", url: "/Admin/study/Countryshow", valueField: "CountryID", textField: "CountryName" },
+                { title: '地区', field: 'Site', width: 80, isTableBody: 10, formatter: function (val) { return this.data[val]; }, isFormBody: 9, type: "select", url: "/Admin/study/Areashow", valueField: "AreaID", textField: "AreaName" },
+                { title: '图片', field: 'InformationImgUrl', width: 130, isTableBody: 11, isFormBody: 3, type: "file", formatter: function (val) { return "<img width=\"100\" height=\"100\" src='@SiteConfig.SiteUrl" + val + "'/>"; }, Size: "255×180" },
+                { title: '简介', field: 'InformationProfile', width: 150, isTableBody: 12, formatter: function (val) { if ($("<div>" + val + "</div>").text().length > 22) return $("<div>" + val + "</div>").text().substr(0, 22) + "..."; else return $("<div>" + val + "</div>").text(); }, isFormBody: 12, type: "textarea" },
+
+                ];
+
+                $("#grid").InitGrid("/Admin/study/information", "留学咨询管理", columns);
+            })
+
+
+
+        </script>
+
+
